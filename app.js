@@ -42,7 +42,20 @@ document.getElementById('videoForm').addEventListener('submit', async (e) => {
 });
 
 function extractVideoId(url) {
-    const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
+    const patterns = [
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([^&]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([^&]+)/,
+        /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([^&]+)/,
+    ];
+    
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) {
+            return match[1]; // The video ID
+        }
+    }
+
+    return null; // If no match is found
 }
+
