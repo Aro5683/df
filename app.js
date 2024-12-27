@@ -4,42 +4,14 @@ document.getElementById('videoForm').addEventListener('submit', async (e) => {
     const videoUrl = document.getElementById('videoUrl').value;
     const videoId = extractVideoId(videoUrl);
 
-   if (!videoId) {
-    alert("Please enter a valid YouTube URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID)");
-    return;
-}
-
-
-    try {
-        const response = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
-        if (!response.ok) throw new Error("Unable to fetch video details");
-
-        const data = await response.json();
-
-        document.getElementById('thumbnail').src = data.thumbnail_url;
-        document.getElementById('title').textContent = data.title;
-        document.getElementById('videoDetails').style.display = 'block';
-        
-        // Simulated formats (YouTube restricts direct links)
-        const formats = [
-            { type: "MP4", quality: "720p", link: `https://www.youtube.com/watch?v=${videoId}` },
-            { type: "MP4", quality: "480p", link: `https://www.youtube.com/watch?v=${videoId}` },
-            { type: "MP3", quality: "Audio", link: `https://www.youtube.com/watch?v=${videoId}` }
-        ];
-
-        const formatsDiv = document.getElementById('formats');
-        formatsDiv.innerHTML = '';
-        formats.forEach(format => {
-            const a = document.createElement('a');
-            a.href = format.link;
-            a.target = "_blank";
-            a.textContent = `${format.type} - ${format.quality}`;
-            formatsDiv.appendChild(a);
-        });
-    } catch (error) {
-        alert("Failed to fetch video details");
-        console.error(error);
+    if (!videoId) {
+        alert("Please enter a valid YouTube URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID)");
+        return;
     }
+
+    // Redirect to a third-party downloader (e.g., y2mate, savefrom)
+    const downloaderUrl = `https://y2mate.is/download-youtube/${videoId}`;
+    window.open(downloaderUrl, '_blank');
 });
 
 function extractVideoId(url) {
@@ -59,4 +31,3 @@ function extractVideoId(url) {
 
     return null; // If no match is found
 }
-
