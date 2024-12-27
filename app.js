@@ -4,10 +4,11 @@ document.getElementById('videoForm').addEventListener('submit', async (e) => {
     const videoUrl = document.getElementById('videoUrl').value;
     const videoId = extractVideoId(videoUrl);
 
-    if (!videoId) {
-        alert("Invalid YouTube URL");
-        return;
-    }
+   if (!videoId) {
+    alert("Please enter a valid YouTube URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID)");
+    return;
+}
+
 
     try {
         const response = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
