@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet" />
-  <title>Video Stream or Download</title>
+ 
   <style>
     body {
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
@@ -229,6 +229,38 @@
   <input type="text" id="searchBox" placeholder="Search for a movie..." />
   <div id="spinner" style="display: none; color: white;">Loading...</div>
   <div id="results"></div>
+  <!-- Button HTML -->
+<button id="tamilDubbedBtn">🎥 All Tamil Dubbed Movies</button>
+
+<!-- JavaScript -->
+<script>
+  document.getElementById('tamilDubbedBtn').addEventListener('click', function () {
+    window.location.href = 'https://moviesarodub.netlify.app/';
+  });
+</script>
+
+<!-- CSS Styling -->
+<style>
+  #tamilDubbedBtn {
+    background-color: #00c6ff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 198, 255, 0.3); /* Reduced glow */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    margin-top: 20px;
+  }
+
+  #tamilDubbedBtn:hover {
+    background-color: #009ecb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4); /* Soft hover glow */
+  }
+</style>
   <div id="videoPlayer"></div>
 
   <div id="popup">
@@ -327,5 +359,284 @@
       };
     }
   </script>
+
+   <br/><br/>
+<div id="popup" style="
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  color: #333;
+  padding: 25px 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: none;
+  text-align: center;
+  z-index: 9999;
+  animation: popupFadeIn 0.4s ease-out;
+">
+  <strong style="display:block; font-size: 1.5rem; margin-bottom: 8px; color: #007BFF;">Thanks for downloading</strong>
+  <span style="font-size: 1rem;">Please wait...</span>
+</div>
+
+
+<script>
+    // Disable right-click
+document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+});
+
+// Disable keyboard shortcuts for DevTools
+document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey && (e.key === "u" || e.key === "U" || e.key === "s" || e.key === "S" || e.key === "i" || e.key === "I" || e.key === "j" || e.key === "J" || e.key === "c" || e.key === "C")) {
+        e.preventDefault();
+    }
+});
+
+// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J
+document.onkeydown = function (e) {
+    if (e.keyCode == 123) { return false; } // F12
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) { return false; } // Ctrl+Shift+I/J
+};
+  
+  </script>
+<script>
+    const blockScreen = document.getElementById('blockScreen');
+
+    function detectDevTools() {
+      const widthDiff = window.outerWidth - window.innerWidth;
+      const heightDiff = window.outerHeight - window.innerHeight;
+      const threshold = 120;
+
+      // True if dimensions indicate DevTools or if debugger gets trapped
+      let devtoolsOpen = widthDiff > threshold || heightDiff > threshold;
+
+      // Mobile-specific trap
+      const trap = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (trap) {
+        const start = new Date();
+        debugger;
+        const end = new Date();
+        if (end - start > 100) devtoolsOpen = true;
+      }
+
+      if (devtoolsOpen) {
+       window.location.href = "https://c.tenor.com/x4V9PRp9R-0AAAAC/tenor.gif"; // Replace with your redirect URL
+
+      } else {
+        blockScreen.style.display = 'none';
+        document.body.style.pointerEvents = 'auto';
+      }
+    }
+
+    setInterval(detectDevTools, 600);
+
+    // Block right-click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Block common dev hotkeys
+    document.addEventListener('keydown', function (event) {
+      if (
+        event.key === 'F12' ||
+        (event.ctrlKey && event.shiftKey && ['I', 'J', 'C'].includes(event.key.toUpperCase())) ||
+        (event.ctrlKey && event.key.toLowerCase() === 'u')
+      ) {
+        event.preventDefault();
+      }
+    });
+  </script>
+ 
+  <br/>
+  <br/>
+   <br/>
+  <br/>
+  <br/>
+   <div class="telegram-center-wrapper">
+    <a href="https://telegram.me/+V8nUElyN93U1ZTBl" 
+       class="telegram-glow-btn" 
+       target="_self" 
+       rel="noopener noreferrer" 
+       title="Join our Telegram group">
+      <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 240 240" fill="currentColor">
+        <circle cx="120" cy="120" r="120" fill="#0088cc"/>
+        <path fill="#fff" d="M180.5 65.8L160 176.4c-1.5 8-5.7 10-11.5 6.3l-32-23.6-15.4 14.9c-1.7 1.7-3.2 3.2-6.6 3.2l2.3-33.1 60.2-54c2.6-2.3-.6-3.6-4-1.3l-74.4 46.8-32-10c-7-2.2-7.2-7-1.5-9.3l124.7-48.2c5.8-2.1 10.8 1.3 9 9.1z"/>
+      </path></circle></svg>
+    </a>
+  </div>
+ <br/>
+  <br/>
+  <br/>
+   <br/>
+  <br/>
+  <br/>
+ 
+  <footer1 style="text-align: center; padding: 20px; font-size: 14px; color: #888;">
+ <p>
+    We love cinema. We don’t support piracy.
+    But when theatres price water, popcorn, parking, and basic comforts higher than the experience itself — this is not theft, it's a protest.<br>
+    Fix the system, and we’ll pay happily to watch cinema in theatre.
+  </p>
+</footer1>
+
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #1c1c1c;
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 700px;
+  color: #eee;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #aaa;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+ .footer-links {
+  display: contents;
+  justify-content: center; /* center horizontally */
+  gap: 10px;               /* space between buttons */
+  padding: 10px;           /* optional padding */
+}
+
+.footer-links button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+  
+.footer-links button {
+font-weight:600;
+  background: none;
+  border: none;
+  color: #00c6ff;
+  margin: 0 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-links button:hover {
+  color: #ffffff;
+}
+</style>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+<footer>
+  <div class="footer-links">
+    <button onclick="openModal('home')">Home</button>
+    <button onclick="openModal('disclaimer')">Disclaimer</button>
+    <button onclick="openModal('dmca')">DMCA</button>
+    <button onclick="openModal('privacy')">Privacy Policy</button>
+  </div>
+ 
+</footer>
+
+<script>
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modal-body');
+
+function openModal(type) {
+  let content = '';
+
+  switch (type) {
+    case 'home':
+      content = `
+        <h2>Welcome to Movies Aro</h2>
+        <p>Movies Aro is your go-to destination for discovering and downloading your favorite movies. Our platform indexes publicly available download links from around the web to make it easier for users to find and access content.</p>
+        <p>We do not host or upload any files on our servers. All content is sourced from third-party websites freely available on the internet.</p>
+        <p>Use the search bar above to find the movie you're looking for. If you can't find it, feel free to submit a request.</p>`;
+      break;
+
+    case 'disclaimer':
+      content = `
+        <h2>Disclaimer</h2>
+        <p>All content on Movies Aro is provided for informational purposes only. We do not host any files on our server. The content displayed on this website is indexed from publicly accessible internet sources.</p>
+        <p>Movies Aro does not promote or support piracy. Any content you choose to download must be done at your own discretion and responsibility. We highly encourage users to purchase or stream content legally to support the creators.</p>
+        <p>If you believe any content on this site infringes upon your copyrights, please contact us. We act promptly upon receiving valid requests.</p>`;
+      break;
+
+    case 'dmca':
+      content = `
+        <h2>DMCA Policy</h2>
+        <p>Movies Aro respects the rights of content owners and complies with the provisions of the Digital Millennium Copyright Act (DMCA).</p>
+        <p>If you are a copyright owner or an agent thereof, and you believe that content hosted or linked on our website infringes your copyright, please submit a takedown notice including the following:</p>
+        <ul>
+          <li>Your name, company, and contact information.</li>
+          <li>The URL(s) of the infringing content.</li>
+          <li>Proof of ownership or authorized representation.</li>
+          <li>A statement that the information in your notice is accurate, and that you are the copyright owner or authorized to act on behalf of the owner.</li>
+        </ul>
+        <p>Email your notice to: <strong>dmca@moviehub.com</strong><br>
+        We aim to respond within 48 hours of receiving a valid notice.</p>`;
+      break;
+
+    case 'privacy':
+      content = `
+        <h2>Privacy Policy</h2>
+        <p>At Movies Aro, your privacy is important to us. This policy outlines how we collect, use, and protect your information:</p>
+        <h3>What We Collect</h3>
+        <ul>
+          <li>Anonymous usage data (via analytics tools)</li>
+          <li>Search queries (used to improve search results)</li>
+          <li>Optional data (such as movie requests, if submitted)</li>
+        </ul>
+        <h3>Cookies</h3>
+        <p>We may use cookies to enhance your user experience. These cookies do not collect personal information and can be disabled through your browser settings.</p>
+        <h3>Third-Party Links</h3>
+        <p>This website may contain links to third-party sites. We are not responsible for their privacy practices or content.</p>
+        <h3>Policy Updates</h3>
+        <p>We reserve the right to modify this privacy policy at any time. Updates will be posted on this page.</p>`;
+      break;
+  }
+
+  modalBody.innerHTML = content;
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) closeModal();
+};
+</script>
 </body>
 </html>
