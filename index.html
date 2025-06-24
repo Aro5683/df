@@ -303,13 +303,14 @@
 </style>
   <div id="videoPlayer"></div>
 
-  <div id="popup">
-    <div>
-      <p>What do you want to do?</p>
-      <button id="streamBtn">Stream</button>
-      <button id="downloadBtn">Download</button>
-    </div>
-  </div>
+ <div id="popup" style="display: none;">
+  <button id="closePopupBtn" style="position: absolute; top: 10px; right: 10px;">✖</button>
+   <p>What do you want to do</p>
+  <!-- Your popup content goes here -->
+  <button id="streamBtn">Stream</button>
+  <button id="downloadBtn">Download</button>
+</div>
+
 
   <script>
     const searchBox = document.getElementById("searchBox");
@@ -375,34 +376,40 @@
       }
     }
 
-    function showPopup(fid) {
-      const popup = document.getElementById("popup");
-      popup.style.display = "flex";
+   function showPopup(fid) {
+  const popup = document.getElementById("popup");
+  popup.style.display = "flex";
 
-      const streamBtn = document.getElementById("streamBtn");
-      const downloadBtn = document.getElementById("downloadBtn");
+  const streamBtn = document.getElementById("streamBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const closeBtn = document.getElementById("closePopupBtn");
 
-      streamBtn.onclick = () => {
-        popup.style.display = "none";
-        const videoPlayer = document.getElementById("videoPlayer");
-        videoPlayer.innerHTML = `
-          <div class="video-container">
-            <video class="video" controls autoplay>
-              <source src="${downloadPrefix + fid}" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>`;
-        window.scrollTo({ top: videoPlayer.offsetTop, behavior: "smooth" });
-      };
+  streamBtn.onclick = () => {
+    popup.style.display = "none";
+    const videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer.innerHTML = `
+      <div class="video-container">
+        <video class="video" controls autoplay>
+          <source src="${downloadPrefix + fid}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>`;
+    window.scrollTo({ top: videoPlayer.offsetTop, behavior: "smooth" });
+  };
 
-   
-downloadBtn.onclick = () => {
-        const popup1 = document.getElementById("popup1");
-          popup1.style.display = "block";
-          setTimeout(() => { popup1.style.display = "none"; }, 10000);
-          setTimeout(() => { window.open(downloadPrefix + fid, "_self"); }, 500);
-        };
-    }
+  downloadBtn.onclick = () => {
+    const popup1 = document.getElementById("popup1");
+    popup1.style.display = "block";
+    setTimeout(() => { popup1.style.display = "none"; }, 10000);
+    setTimeout(() => { window.open(downloadPrefix + fid, "_self"); }, 500);
+  };
+
+  // Close button handler
+  closeBtn.onclick = () => {
+    popup.style.display = "none";
+  };
+}
+
   </script>
 
     <style>
