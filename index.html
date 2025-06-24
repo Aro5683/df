@@ -54,7 +54,7 @@
   #searchBox {
     padding: 0.7rem;
     font-size: 1rem;
-    width: 100%;
+    width: 80%;
     max-width: 600px;
     margin-top: 20px;
     border-radius: 8px;
@@ -217,12 +217,11 @@
   background-color: #000; /* Optional: helps show the bounds */
 }
 
-    .video {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,198,255,0.3);
-    }
+  .video-container video {
+  height: 500px;
+  max-width: 100%;
+  object-fit: contain; /* Keeps aspect ratio inside container */
+}
 
     #popup {
       position: fixed;
