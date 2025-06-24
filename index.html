@@ -702,5 +702,51 @@ window.onclick = function(event) {
   if (event.target == modal) closeModal();
 };
 </script>
+
+   <script type="module">
+  // Import Firebase core + database
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js";
+  import { getDatabase, ref, set, onDisconnect, onValue } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
+
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCnFzRuiePFLp7rHV9ITXFl7XSPb-PAydI",
+    authDomain: "moviesaro.firebaseapp.com",
+    databaseURL: "https://moviesaro-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "moviesaro",
+    storageBucket: "moviesaro.appspot.com", // corrected domain
+    messagingSenderId: "988768227464",
+    appId: "1:988768227464:web:2afbfc7f6f000d4f610f3d",
+    measurementId: "G-CDJZBSR54T"
+  };
+
+  // Init Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);
+
+  // Create random user ID for this session
+  const userId = Math.random().toString(36).substring(2);
+  const userRef = ref(db, 'onlineUsers/' + userId);
+
+  // Mark user online
+  set(userRef, true);
+
+  // Auto-remove on disconnect
+  onDisconnect(userRef).remove();
+
+  // Live count display
+  const countRef = ref(db, 'onlineUsers');
+  onValue(countRef, (snapshot) => {
+    const count = snapshot.size || snapshot.numChildren();
+    document.getElementById('userCount').textContent = count;
+  });
+</script>
+
+  <br/>
+  <br/>
+  <h5>👥 Users Online</h5>
+  <div id="userCount"></div>
 </body>
 </html>
