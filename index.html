@@ -1,52 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f0f2f5;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .thumbnail {
-            width: 100%;
-            max-width: 200px;
-        }
-        .formats {
-            margin-top: 20px;
-        }
-        .formats a {
-            text-decoration: none;
-            color: blue;
-            margin-right: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Stream or Download</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.2rem;
+      border-bottom: 2px solid #00c6ff;
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 30px;
+      gap: 10px;
+    }
+
+    .site-header h1 {
+      font-size: 2rem;
+      color: #ffffffcc;
+      border-left: 4px solid #00c6ff;
+      padding-left: 0px;
+      margin: 0;
+      flex: 1;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    #searchBox {
+      padding: 0.7rem;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 600px;
+      margin-top: 20px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+
+    .link-container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.9rem;
+      border-radius: 8px;
+      margin: 10px 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .link-container:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .link-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      color: #00eaff;
+      display: block;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-top: 20px;
+      color: #ffffffcc;
+      text-align: center;
+    }
+
+    .spinner-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-top: 5px solid #00c6ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .telegram-glow-btn {
+      display: inline-block;
+      padding: 4px;
+      border-radius: 50%;
+      background: transparent;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(0, 136, 204, 0.9), 0 0 60px rgba(0, 136, 204, 0.7);
+      transition: transform 0.3s ease, box-shadow 0.4s ease;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .telegram-icon {
+      width: 35px;
+      height: 35px;
+      display: block;
+    }
+
+    .telegram-glow-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(0, 198, 255, 0.5) 20%, transparent 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      animation: pulse-wave-glow 2s infinite ease-out;
+      box-shadow: 0 0 30px rgba(0, 198, 255, 0.7), 0 0 60px rgba(0, 198, 255, 0.5);
+      filter: blur(2px);
+      z-index: -1;
+    }
+
+    @keyframes pulse-wave-glow {
+      0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2.2);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .site-header h1 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      #searchBox {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+      }
+
+      .link-name {
+        font-size: 1rem;
+      }
+    }
+
+    .video-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,198,255,0.3);
+    }
+
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #popup > div {
+      background: #1a2b3c;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #popup button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #00c6ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #popup button:hover {
+      background-color: #009fcc;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>YouTube Downloader</h1>
-        <form id="videoForm">
-            <input type="text" id="videoUrl" placeholder="Enter YouTube Video URL" style="width: 100%; padding: 10px; margin: 10px 0;" required>
-            <button type="submit" style="padding: 10px; width: 100%; background: #007bff; color: white; border: none; border-radius: 5px;">Fetch Video</button>
-        </form>
-        <div id="videoDetails" style="display: none;">
-            <img id="thumbnail" class="thumbnail" alt="Thumbnail">
-            <h3 id="title"></h3>
-            <div class="formats" id="formats"></div>
-        </div>
+  <input type="text" id="searchBox" placeholder="Search for a movie..." />
+  <div id="spinner" style="display: none; color: white;">Loading...</div>
+  <div id="results"></div>
+  <div id="videoPlayer"></div>
+
+  <div id="popup">
+    <div>
+      <p>What do you want to do?</p>
+      <button id="streamBtn">Stream</button>
+      <button id="downloadBtn">Download</button>
     </div>
-    <script src="app.js"></script>
+  </div>
+
+  <script>
+    const searchBox = document.getElementById("searchBox");
+    const resultsDiv = document.getElementById("results");
+    const spinner = document.getElementById("spinner");
+    const allOrigins = "https://api.allorigins.win/raw?url=";
+    const baseURL = "https://www.tamilprint45.art";
+    const searchPrefix = baseURL + "/search.php?source=";
+    const downloadPrefix = "https://tamilprint44.art/filedownload.php?fid=";
+
+    let debounce;
+
+    searchBox.addEventListener("input", () => {
+      clearTimeout(debounce);
+      const keyword = searchBox.value.trim();
+      if (!keyword) {
+        resultsDiv.innerHTML = "";
+        return;
+      }
+      debounce = setTimeout(() => {
+        fetchAndRender(searchPrefix + encodeURIComponent(keyword));
+      }, 350);
+    });
+
+    async function fetchAndRender(url, attempt = 1) {
+      spinner.style.display = "block";
+      resultsDiv.innerHTML = "";
+      try {
+        const res = await fetch(allOrigins + encodeURIComponent(url));
+        const html = await res.text();
+        const fastChunk = html.split('<div class="tamilprintda"')[0];
+        const matches = [...fastChunk.matchAll(/<div class="M1">.*?<a[^>]+href=\"([^\"]+)\"[^>]*>(.*?)<\/a><br>(.*?)<\/td>/gs)];
+
+        for (const m of matches) {
+          const href = m[1];
+          const title = m[2].trim().replace(/TamilPrint/g, "Movies Aro - தமிழ்");
+          const desc = m[3].replace(/<[^>]+>/g, '').trim();
+
+          const item = document.createElement("div");
+          item.className = "link-container";
+          item.innerHTML = `<a class="link-name">${title}</a><small style="display:block;text-align:center;">${desc}</small>`;
+
+          const matchId = href.match(/(\d{2,7})\/?$/);
+          if (matchId) {
+            item.onclick = () => showPopup(matchId[1]);
+          } else {
+            item.onclick = () => fetchAndRender(baseURL + href);
+          }
+
+          resultsDiv.appendChild(item);
+        }
+      } catch (e) {
+        if (attempt < 3) {
+          setTimeout(() => fetchAndRender(url, attempt + 1), 1000);
+        } else {
+          resultsDiv.innerHTML = "<p style='color: #ff8080;'>Failed to load data. Please try again later.</p>";
+          console.error("Fetch failed after 3 attempts:", e);
+        }
+      } finally {
+        spinner.style.display = "none";
+      }
+    }
+
+    function showPopup(fid) {
+      const popup = document.getElementById("popup");
+      popup.style.display = "flex";
+
+      const streamBtn = document.getElementById("streamBtn");
+      const downloadBtn = document.getElementById("downloadBtn");
+
+      streamBtn.onclick = () => {
+        popup.style.display = "none";
+        const videoPlayer = document.getElementById("videoPlayer");
+        videoPlayer.innerHTML = `
+          <div class="video-container">
+            <video class="video" controls autoplay>
+              <source src="${downloadPrefix + fid}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>`;
+        window.scrollTo({ top: videoPlayer.offsetTop, behavior: "smooth" });
+      };
+
+      downloadBtn.onclick = () => {
+        popup.style.display = "none";
+        window.location.href = downloadPrefix + fid;
+      };
+    }
+  </script>
 </body>
 </html>
