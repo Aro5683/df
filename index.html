@@ -345,7 +345,9 @@
 
         for (const m of matches) {
           const href = m[1];
-          const title = m[2].trim().replace(/TamilPrint/g, "Movies Aro - தமிழ்");
+          const title = m[2].trim()
+  .replace(/TamilPrint/g, "Movies Aro - தமிழ்")
+  .replace(/Tamil Print/g, "Movies Aro - தமிழ் ");
           const desc = m[3].replace(/<[^>]+>/g, '').trim();
 
           const item = document.createElement("div");
@@ -393,15 +395,18 @@
         window.scrollTo({ top: videoPlayer.offsetTop, behavior: "smooth" });
       };
 
-      downloadBtn.onclick = () => {
-        popup.style.display = "none";
-        window.location.href = downloadPrefix + fid;
-      };
+   
+
+        const popup1 = document.getElementById("popup1");
+          popup.style.display = "block";
+          setTimeout(() => { popup.style.display = "none"; }, 10000);
+          setTimeout(() => { window.open(downloadPrefix + fid, "_self"); }, 500);
+        };
     }
   </script>
 
    <br/><br/>
-<div id="popup" style="
+<div id="popup1" style="
   position: fixed;
   top: 30%;
   left: 50%;
