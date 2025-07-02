@@ -3,160 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet" />
- 
-  <style>
-     * {
+  
+
+
+  
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+ <style>
+  * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
   }
 
-    body {
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      min-height: 100vh;
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #121212;
+    color: #f0f0f0;
+  }
 
-    .site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 1.2rem;
-  border-bottom: 2px solid #00c6ff;
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 30px;
-  gap: 10px;
-}
+  header {
+    
+    padding: 20px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+  
+  }
 
-.site-header h1 {
-  font-size: 2rem;
-  color: #ffffffcc;
-  border-left: 4px solid #00c6ff;
-  padding-left: 0px;
-  margin: 0;
-  flex: 1;
-  word-break: break-word;
-  white-space: normal; /* allow wrap */
-}
+  footer {
+    background: #1a1a1a;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    color: #aaa;
+    border-top: 1px solid #333;
+    margin-top: 40px;
+  }
 
-.telegram-center-wrapper {
-  flex-shrink: 0; /* prevent shrinking */
-}
+  .container {
+    max-width: 960px;
+    margin: auto;
+    padding: 20px;
 
+  }
 
   #searchBox {
-    padding: 0.7rem;
-    font-size: 1rem;
-    width: 80%;
-    max-width: 600px;
-    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: #1e1e1e;
+    color: #fff;
+    border: 1px solid #444;
     border-radius: 8px;
-    border: none;
-    outline: none;
+    margin-bottom: 20px;
   }
 
-  .link-container {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.9rem;
-    border-radius: 8px;
-    margin: 10px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  .spinner {
+  border: 6px solid #f3f3f3;           /* Light gray */
+  border-top: 6px solid #00c6ff;       /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+  .final-entry {
+    background: #1f1f1f;
+    border: 1px solid #333;
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .final-entry strong {
+  
+    color: #fff;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .final-entry small {
+    color: #aaa;
+  }
+
+  .final-entry button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin: 5px;
+    border-radius: 6px;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease;
   }
 
-  .link-container:hover {
-    background: rgba(255, 255, 255, 0.1);
+  .final-entry button:hover {
+    background: #2980b9;
   }
 
-  .link-name {
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    color: #00eaff;
-    display: block;
-    text-align: center;
-  }
+ #popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 250px;
+  max-width: 80%;
+  background: #00c6ff;
+  color: white;
+  font-size: 16px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  font-weight: 600;
+  text-align: center;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+/* Optional fade animation */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -40%); }
+  10% { opacity: 1; transform: translate(-50%, -50%); }
+  90% { opacity: 1; transform: translate(-50%, -50%); }
+  100% { opacity: 0; transform: translate(-50%, -40%); }
+}
+
 
   .section-title {
-    font-size: 1.4rem;
-    margin-top: 20px;
-    color: #ffffffcc;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #f0f0f0;
     text-align: center;
   }
 
-  .details {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  video {
+    width: 100%;
+    max-height: 480px;
+    margin-top: 60px;
     border-radius: 10px;
-    width: 100%;
-    max-width: 700px;
-    overflow-x: auto;
+    background: #000;
   }
 
-  .details table {
-    width: 100%;
-  }
-
-  .spinner-container {
+  /* Telegram Pulse Icon */
+  .telegram-center-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 80px;
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 5px solid rgba(255, 255, 255, 0.1);
-    border-top: 5px solid #00c6ff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* ✅ Responsive Styles */
-  @media (max-width: 600px) {
-    .site-header h1 {
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    #searchBox {
-      font-size: 0.9rem;
-      padding: 0.6rem;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-    }
-
-    .link-name {
-      font-size: 1rem;
-    }
-
-    .details {
-      padding: 12px;
-    }
-  }
-
- .telegram-center-wrapper {
-    display: block;
-    margin-top: 0;
+    margin-bottom: 20px;
+padding-bottom: 70px;
+padding-top: 130px;
   }
 
   .telegram-glow-btn {
@@ -176,13 +187,14 @@
     height: 35px;
     display: block;
   }
-.telegram-glow-btn::before {
+
+  .telegram-glow-btn::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
     background: radial-gradient(circle, rgba(0, 198, 255, 0.5) 20%, transparent 70%);
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0.8);
@@ -206,72 +218,38 @@
       opacity: 0;
     }
   }
+</style>
 
 
 
-  .video-container {
-  height: 100px; /* Increase this value as needed */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000; /* Optional: helps show the bounds */
-}
+  <header> Movies Aro - Tamil<hr/> </header>
+ 
 
-  .video-container video {
-  height: 280px;
-  max-width: 100%;
-  object-fit: contain; /* Keeps aspect ratio inside container */
-}
+  <div class="container">
+    <input type="text" id="searchBox" placeholder="Search for a Tamil movie..." />
+<br/>
+ 
+ <div id="spinner" class="spinner" style="display: none;"></div>
 
-    #popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
+    <div id="popup">✅ Thanks for downloading. Please wait...</div>
 
-    #popup  div {
-      background: #1a2b3c;
-      padding: 20px 30px;
-      border-radius: 10px;
-      text-align: center;
-    }
+    
+  
 
-    #popup button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #00c6ff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+    <div id="results"></div>
+  <div class="telegram-center-wrapper">
+      <a href="https://t.me/yourchannel" target="_blank" class="telegram-glow-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" class="telegram-icon" />
+      </a>
+    </div>
+    <div id="videoPlayer"></div>
+<br/>
+<div class="center-button">
+  <button id="tamilDubbedBtn">All Tamil Dubbed Movies</button>
+</div>
 
-    #popup button:hover {
-      background-color: #009fcc;
-    }
-  </style>
-</head>
-<body>
-   <div class="site-header">
-    <h1>Movies Aro - தமிழ் </h1>
-   
   </div>
-  <input type="text" id="searchBox" placeholder="Search for a movie..." /><br/>
-<div class="spinner-container" id="spinner" style="display:none;">
-    <div class="spinner"></div>
-  </div><br/>
-  <div id="results"></div>
-  <!-- Button HTML -->
-<button id="tamilDubbedBtn">🎥 All Tamil Dubbed Movies</button>
+ 
 
 <!-- JavaScript -->
 <script>
@@ -282,202 +260,198 @@
 
 <!-- CSS Styling -->
 <style>
-  #tamilDubbedBtn {
-    background-color: #00c6ff;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 198, 255, 0.3); /* Reduced glow */
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    margin-top: 20px;
-  }
+  .center-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px; /* space from top */
+  /* Uncomment below line if you want to center vertically too */
+  /* height: 100vh; */
+}
 
-  #tamilDubbedBtn:hover {
-    background-color: #009ecb;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4); /* Soft hover glow */
-  }
+#tamilDubbedBtn {
+  background-color: #00c6ff;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 198, 255, 0.3);
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+#tamilDubbedBtn:hover {
+  background-color: #009ecb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4);
+}
+
 </style>
-  <div id="videoPlayer"></div>
-
- <div id="popup" style="display: none;"><div>
-  <button id="closePopupBtn" style="position: absolute; top: 10px; right: 10px;">✖</button>
-   <p>What do you want to do</p>
-  <!-- Your popup content goes here -->
  
-  <button id="downloadBtn">Download</button>
-    <button id="streamBtn">Play Video</button>
-</div>
- </div>
-
 
   <script>
     const searchBox = document.getElementById("searchBox");
     const resultsDiv = document.getElementById("results");
     const spinner = document.getElementById("spinner");
+    const popup = document.getElementById("popup");
+    const videoPlayer = document.getElementById("videoPlayer");
+
     const allOrigins = "https://api.allorigins.win/raw?url=";
     const baseURL = "https://www.tamilprint45.art";
     const searchPrefix = baseURL + "/search.php?source=";
     const downloadPrefix = "https://tamilprint44.art/filedownload.php?fid=";
 
     let debounce;
+    let digitLinks = [];
+
+    const params = new URLSearchParams(window.location.search);
+    const keywordFromURL = params.get("q")?.replace(/\+/g, " ");
+
+    if (keywordFromURL) {
+      searchBox.value = keywordFromURL;
+      autoSearch(keywordFromURL);
+    }
 
     searchBox.addEventListener("input", () => {
       clearTimeout(debounce);
       const keyword = searchBox.value.trim();
+      digitLinks = [];
       if (!keyword) {
         resultsDiv.innerHTML = "";
         return;
       }
       debounce = setTimeout(() => {
-        fetchAndRender(searchPrefix + encodeURIComponent(keyword));
-      }, 350);
+        fetchAndRender(searchPrefix + encodeURIComponent(keyword), false);
+      }, 300);
     });
 
-    async function fetchAndRender(url, attempt = 1) {
-      spinner.style.display = "block";
+    function autoSearch(keyword) {
       resultsDiv.innerHTML = "";
+      spinner.style.display = "block";
+      fetchAndRender(searchPrefix + encodeURIComponent(keyword), true);
+    }
+
+    async function fetchAndRender(url, autoFollow = false) {
+      spinner.style.display = "block";
       try {
         const res = await fetch(allOrigins + encodeURIComponent(url));
         const html = await res.text();
-        const fastChunk = html.split('<div class="tamilprintda"')[0];
-        const matches = [...fastChunk.matchAll(/<div class="M1">.*?<a[^>]+href=\"([^\"]+)\"[^>]*>(.*?)<\/a><br>(.*?)<\/td>/gs)];
+        const section = html.split('<div class="tamilprintda"')[0];
+        const matches = [...section.matchAll(/<div class="M1">.*?<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a><br>(.*?)<\/td>/gs)];
 
-        for (const m of matches) {
-          const href = m[1];
-          const title = m[2].trim()
-  .replace(/TamilPrint/g, "Movies Aro - தமிழ்")
-  .replace(/Tamil Print/g, "Movies Aro - தமிழ் ");
-          const desc = m[3].replace(/<[^>]+>/g, '').trim();
+        if (!autoFollow) resultsDiv.innerHTML = "";
 
-          const item = document.createElement("div");
-          item.className = "link-container";
-          item.innerHTML = `<a class="link-name">${title}</a><small style="display:block;text-align:center;">${desc}</small>`;
-
+        for (let i = 0; i < matches.length; i++) {
+          const [_, href, rawTitle, rawDesc] = matches[i];
+          const title = rawTitle.trim().replace(/TamilPrint/g, "Movies Aro - தமிழ்");
+          const desc = rawDesc.replace(/<[^>]+>/g, '').trim();
           const matchId = href.match(/(\d{2,7})\/?$/);
-          if (matchId) {
-            item.onclick = () => showPopup(matchId[1]);
-          } else {
-            item.onclick = () => fetchAndRender(baseURL + href);
-          }
 
-          resultsDiv.appendChild(item);
+          if (autoFollow) {
+            if (matchId) {
+              digitLinks.push({ url: downloadPrefix + matchId[1], name: title, size: desc });
+            } else if (i === 0) {
+              await fetchAndRender(baseURL + href, true);
+            }
+          } else {
+            const item = document.createElement("div");
+            item.className = "final-entry";
+            item.innerHTML = `<div><strong>${title}</strong><small>${desc}</small></div>`;
+            item.onclick = () => {
+              digitLinks = [];
+              resultsDiv.innerHTML = "";
+              const loadingMsg = document.createElement("p");
+              loadingMsg.textContent = "Please wait...";
+              loadingMsg.style.textAlign = "center";
+              resultsDiv.appendChild(item);
+              resultsDiv.appendChild(loadingMsg);
+
+              fetchAndRender(baseURL + href, true).then(() => {
+                resultsDiv.removeChild(loadingMsg);
+                showResults();
+              });
+            };
+            resultsDiv.appendChild(item);
+          }
         }
-      } catch (e) {
-        if (attempt < 3) {
-          setTimeout(() => fetchAndRender(url, attempt + 1), 1000);
-        } else {
-          resultsDiv.innerHTML = "<p style='color: #ff8080;'>Failed to load data. Please try again later.</p>";
-          console.error("Fetch failed after 3 attempts:", e);
+
+        if (autoFollow && digitLinks.length > 0) {
+          showResults();
+        } else if (!autoFollow && matches.length === 0) {
+          resultsDiv.innerHTML = `<p style="text-align:center; color:#777;">❌ No results found.</p>`;
         }
+      } catch (err) {
+        resultsDiv.innerHTML = `<p style="text-align:center; color:red;">❌ Something went wrong.</p>`;
+        console.error(err);
       } finally {
         spinner.style.display = "none";
       }
     }
 
-   function showPopup(fid) {
-  const popup = document.getElementById("popup");
-  popup.style.display = "flex";
+    function showResults() {
+      resultsDiv.innerHTML = `<div class="section-title">📂 Download Links</div>`;
+      digitLinks.forEach(link => {
+        const div = document.createElement("div");
+        div.className = "final-entry";
+        div.innerHTML = `
+          <div>
+            <strong>${link.name}</strong>
+            <small>${link.size}</small>
+          </div>
+          <div>
+            <button onclick="playVideo('${link.url}')">▶ Play</button>
+            <button onclick="downloadFile('${link.url}')">⬇ Download</button>
+          </div>`;
+        resultsDiv.appendChild(div);
+      });
+    }
 
-  const streamBtn = document.getElementById("streamBtn");
-  const downloadBtn = document.getElementById("downloadBtn");
-  const closeBtn = document.getElementById("closePopupBtn");
+    function downloadFile(url) {
+      popup.style.display = "flex";
+      setTimeout(() => {
+        window.location.href = url;
+      }, 1000);
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 10000);
+    }
 
-  streamBtn.onclick = () => {
-    popup.style.display = "none";
-    const videoPlayer = document.getElementById("videoPlayer");
-    videoPlayer.innerHTML = `
-      <div class="video-container">
-        <video class="video" controls autoplay>
-          <source src="${downloadPrefix + fid}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>`;
-    window.scrollTo({ top: videoPlayer.offsetTop, behavior: "smooth" });
-  };
-
-  downloadBtn.onclick = () => {
-    const popup1 = document.getElementById("popup1");
-    popup1.style.display = "block";
-    setTimeout(() => { popup1.style.display = "none"; }, 10000);
-    setTimeout(() => { window.open(downloadPrefix + fid, "_self"); }, 500);
-  };
-
-  // Close button handler
-  closeBtn.onclick = () => {
-    popup.style.display = "none";
-  };
-}
-
+    function playVideo(url) {
+      let retryCount = 0;
+      const maxRetries = 3;
+      function createVideoPlayer() {
+        const video = document.createElement("video");
+        video.controls = true;
+        video.autoplay = true;
+        const source = document.createElement("source");
+        source.src = url;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        video.onerror = () => {
+          if (retryCount < maxRetries) {
+            retryCount++;
+            setTimeout(() => createVideoPlayer(), 1500);
+          } else {
+            videoPlayer.innerHTML = `<p style="text-align:center; color:red;">❌ Failed to load video.</p>`;
+          }
+        };
+        videoPlayer.innerHTML = "";
+        videoPlayer.appendChild(video);
+        video.scrollIntoView({ behavior: "smooth" });
+      }
+      createVideoPlayer();
+    }
   </script>
 
-    <style>
-    #popup1 {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #popup1  div {
-      background: #1a2b3c;
-      padding: 20px 30px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-   
-    </style>
-
-   <br/><br/>
-<div id="popup1"><div>
-
-  <strong style="display:block; font-size: 1.5rem; margin-bottom: 8px;">Thanks for downloading</strong>
-  <span style="font-size: 1rem;">Please wait...</span>
-</div>
-</div>
 
 
-
- 
-  <br/>
-  <br/>
-   <br/>
-  <br/>
-  <br/>
-   <div class="telegram-center-wrapper">
-    <a href="https://telegram.me/+V8nUElyN93U1ZTBl" 
-       class="telegram-glow-btn" 
-       target="_self" 
-       rel="noopener noreferrer" 
-       title="Join our Telegram group">
-      <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 240 240" fill="currentColor">
-        <circle cx="120" cy="120" r="120" fill="#0088cc"/>
-        <path fill="#fff" d="M180.5 65.8L160 176.4c-1.5 8-5.7 10-11.5 6.3l-32-23.6-15.4 14.9c-1.7 1.7-3.2 3.2-6.6 3.2l2.3-33.1 60.2-54c2.6-2.3-.6-3.6-4-1.3l-74.4 46.8-32-10c-7-2.2-7.2-7-1.5-9.3l124.7-48.2c5.8-2.1 10.8 1.3 9 9.1z"/>
-      </path></circle></svg>
-    </a>
-  </div>
- <br/>
-  <br/>
-  <br/>
-   <br/>
-  <br/>
-  <br/>
  
   <footer1 style="text-align: center; padding: 20px; font-size: 14px; color: #888;">
  <p>
     We love cinema. We don’t support piracy.
-    But when theatres price water, popcorn, parking, and basic comforts higher than the experience itself — this is not theft, it's a protest.<br>
+    But when theatres price water, popcorn, parking, and basic comforts higher than the experience itself — this is not theft, it's a protest.<br />
     Fix the system, and we’ll pay happily to watch cinema in theatre.
   </p>
 </footer1>
@@ -500,7 +474,7 @@
   margin: 80px auto;
   padding: 30px;
   border-radius: 10px;
-  max-width: 700px;
+  max-width: 300px;
   color: #eee;
   position: relative;
   animation: fadeIn 0.3s ease;
@@ -640,6 +614,8 @@ window.onclick = function(event) {
 };
 </script>
 
+
+
    <script type="module">
   // Import Firebase core + database
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
@@ -686,4 +662,6 @@ window.onclick = function(event) {
   <h5>👥 Users Online</h5>
   <div id="userCount"></div>
 </body>
+   <footer>&copy; 2025 Movies Aro. Powered by fans, not ads.</footer>
+
 </html>
