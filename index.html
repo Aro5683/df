@@ -217,16 +217,13 @@
       margin: 20px auto;
     }
 
-    .video {
-      width: 100%;
-      height: 300px;
-      border-radius: 10px;
-     
-  background-color: transparent;
-
-
-     
-    }
+    video {
+    width: 100%;
+    max-height: 480px;
+    margin-top: 60px;
+    border-radius: 10px;
+    background: #000;
+  }
 
     #popup {
       position: fixed;
@@ -263,6 +260,48 @@
     #popup button:hover {
       background-color: #009fcc;
     }
+
+
+      .final-entry {
+    background: #1f1f1f;
+    border: 1px solid #333;
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .final-entry strong {
+  
+    color: #fff;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .final-entry small {
+    color: #aaa;
+  }
+
+  .final-entry button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin: 5px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .final-entry button:hover {
+    background: #2980b9;
+  }
+
   </style>
 </head>
 <body>
@@ -311,11 +350,11 @@
 
  <div id="popup" style="display: none;"><div>
   <button id="closePopupBtn" style="position: absolute; top: 10px; right: 10px;">✖</button>
-   <p>What do you want to do?</p>
+   <strong>Thanks for downloading</strong>
+   <p>Please wait...</p>
   <!-- Your popup content goes here -->
  
-  <button id="downloadBtn">Download</button>
-    <button id="streamBtn">Play Video</button>
+ 
 </div>
  </div>
 
