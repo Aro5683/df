@@ -26,7 +26,6 @@
     header {
       padding: 1.5rem;
       text-align: center;
-     
       color: white;
     }
 
@@ -130,6 +129,72 @@
       background: #000;
     }
 
+    #feed {
+      margin: 3rem auto;
+      max-width: 800px;
+      padding: 1rem;
+      background: #fff5f5;
+      border-top: 3px solid #e50914;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    #feed h2 {
+      font-size: 1.5rem;
+      color: #e50914;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    #feedItems {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .feed-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .feed-item .thumbnail {
+      width: 80px;
+      height: 45px;
+      background: #000;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .feed-item .thumbnail::before {
+      content: "▶";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #fff;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      opacity: 0.7;
+    }
+
+    .feed-item .info {
+      flex-grow: 1;
+    }
+
+    .feed-item .info .title {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .feed-item .info .meta {
+      color: #777;
+      font-size: 0.85rem;
+    }
+
     footer {
       background: #111;
       color: #ccc;
@@ -166,6 +231,12 @@
   <div id="spinner" class="spinner"></div>
   <div id="videoPlayer"></div>
   <div id="results"></div>
+
+  <!-- 🔴 Feed Section -->
+  <section id="feed">
+    <h2>📡 Live Feed</h2>
+    <div id="feedItems"></div>
+  </section>
 
   <footer>
     <div class="footer-nav">
@@ -278,7 +349,7 @@
           <small>${link.size}</small>
           <div>
             <button onclick="playVideo('${link.url}')">▶ Play</button>
-            <button onclick="window.open('${link.url}', '_blank')">⬇ Download</button>
+            <button onclick="addToFeed('${link.url}')">⬇ Download</button>
           </div>`;
         resultsDiv.appendChild(div);
       });
@@ -286,32 +357,45 @@
 
     function playVideo(url) {
       videoPlayer.innerHTML = `
-        <video id="moviePlayer" controls playsinline >
+        <video id="moviePlayer" controls playsinline>
           <source src="${url}" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       `;
       const player = new Plyr('#moviePlayer', {
         autoplay: true,
-        controls: [
-          'play-large', 'play', 'progress', 'current-time',
-          'mute', 'volume', 'captions', 'settings', 'fullscreen','nodownload','autoplay'
-        ],
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
         ratio: '16:9'
       });
       videoPlayer.scrollIntoView({ behavior: "smooth" });
     }
 
-    // Auto-load query from URL if present
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const query = params.get("q");
-  if (query) {
-    searchBox.value = query;
-    fetchAndRender(searchPrefix + encodeURIComponent(query), false);
-  }
-});
+    function addToFeed(url) {
+      const match = digitLinks.find(item => item.url === url);
+      if (!match) return;
 
+      const feedItems = document.getElementById("feedItems");
+      const div = document.createElement("div");
+      div.className = "feed-item";
+      div.innerHTML = `
+        <div class="thumbnail"></div>
+        <div class="info">
+          <div class="title">${match.name}</div>
+          <div class="meta">⬇ Downloaded just now • ${match.size}</div>
+        </div>
+      `;
+      feedItems.prepend(div);
+    }
+
+    // Auto-load query from URL if present
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("q");
+      if (query) {
+        searchBox.value = query;
+        fetchAndRender(searchPrefix + encodeURIComponent(query), false);
+      }
+    });
   </script>
 </body>
 </html>
