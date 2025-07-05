@@ -301,6 +301,17 @@
       });
       videoPlayer.scrollIntoView({ behavior: "smooth" });
     }
+
+    // Auto-load query from URL if present
+window.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get("q");
+  if (query) {
+    searchBox.value = query;
+    fetchAndRender(searchPrefix + encodeURIComponent(query), false);
+  }
+});
+
   </script>
 </body>
 </html>
