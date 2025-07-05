@@ -407,7 +407,7 @@
       setTimeout(() => {
         window.open("https://example.com", "_blank");
         setTimeout(() => {
-          window.open(downloadTargetUrl, "_blank");
+          window.open(downloadTargetUrl, "_self");
           document.getElementById("customModal").classList.remove("active");
           document.getElementById("downloadStatus").textContent = "";
         }, 1000);
