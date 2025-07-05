@@ -343,20 +343,19 @@ async function fetchAndRender(url, autoFollow = false, retries = 3, delay = 1000
         resultsDiv.innerHTML = `<p style="text-align:center; color:#999;">❌ No results found.</p>`;
       }
 
-      return; // successful, exit the retry loop
+      spinner.style.display = "none"; // ✅ Hide after successful render
+      return;
     } catch (err) {
       console.warn(`Attempt ${attempt + 1} failed:`, err);
       if (attempt < retries - 1) {
         await new Promise(res => setTimeout(res, delay));
       } else {
-        // Only show error if final attempt fails
         if (!autoFollow) {
           resultsDiv.innerHTML = `<p style="text-align:center; color:red;">❌ Failed to load content after multiple attempts.</p>`;
         }
         console.error("Final fetch/render failure:", err);
+        spinner.style.display = "none"; // ✅ Hide after final failed attempt
       }
-    } finally {
-      if (attempt === retries - 1) spinner.style.display = "none";
     }
   }
 }
