@@ -8,7 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet"/>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -146,25 +148,103 @@
       margin-bottom: 1rem;
     }
 
-    .thumb-img {
+    .play-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 16px;
+      border-radius: 50%;
       cursor: pointer;
+      transition: background 0.3s;
+      z-index: 2;
+    }
+
+    .play-overlay:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .modal h2 {
+      margin: 0 0 1rem;
+      font-size: 1.2rem;
+      color: #e50914;
+    }
+
+    .modal button {
+      background: #e50914;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    .modal button:hover {
+      background: #b0060f;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Movie Aro - Tamil</h1>
   </header>
 
   <input type="text" id="searchBox" placeholder="Search movies..." />
-  <div id="spinner"></div>
+  <div id="spinner" class="spinner"></div>
   <div id="results"></div>
+
+  <!-- Modal -->
+  <div id="customModal" class="modal-overlay">
+    <div class="modal">
+      <h2>This page will redirect you</h2>
+      <p id="downloadStatus" style="color:#555; font-size:0.9rem; margin-top:0.5rem;"></p>
+      <button onclick="handleModalConfirm()">Okay</button>
+    </div>
+  </div>
 
   <footer>
     <div class="footer-nav">
@@ -178,9 +258,12 @@
   </footer>
 
   <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+
     const searchBox = document.getElementById("searchBox");
     const resultsDiv = document.getElementById("results");
     const spinner = document.getElementById("spinner");
+
     const allOrigins = "https://api.allorigins.win/raw?url=";
     const baseURL = "https://www.tamilprint45.art";
     const searchPrefix = baseURL + "/search.php?source=";
@@ -188,6 +271,8 @@
 
     let digitLinks = [];
     let debounce;
+    let currentPlayingVideo = null;
+    let downloadTargetUrl = '';
 
     searchBox.addEventListener("input", () => {
       clearTimeout(debounce);
@@ -249,8 +334,9 @@
           }
         }
 
-        if (autoFollow && digitLinks.length > 0) showResults();
-        else if (!autoFollow && matches.length === 0) {
+        if (autoFollow && digitLinks.length > 0) {
+          showResults();
+        } else if (!autoFollow && matches.length === 0) {
           resultsDiv.innerHTML = `<p style="text-align:center; color:#999;">❌ No results found.</p>`;
         }
       } catch (err) {
@@ -267,44 +353,56 @@
         const div = document.createElement("div");
         div.className = "final-entry";
         div.innerHTML = `
-          <div class="video-thumbnail" id="thumb-${index}"></div>
+          <div class="video-thumbnail" id="thumb-${index}">
+            <div class="play-overlay" onclick="playInline('${link.url}', 'thumb-${index}', this)">▶</div>
+          </div>
           <strong>${link.name}</strong>
           <small>${link.size}</small>
           <div>
-            <button onclick="playInline('${link.url}', 'thumb-${index}', this)">▶ Play</button>
-            <button onclick="handleDownload('${link.url}')">⬇ Download</button>
+            <button onclick="openDownloadModal('${link.url}')">⬇ Download</button>
           </div>
         `;
         resultsDiv.appendChild(div);
       });
     }
 
-    function playInline(url, containerId, buttonEl) {
-      // Pause all other videos
-      document.querySelectorAll("video").forEach(v => v.pause());
+    function playInline(url, containerId, overlayEl) {
+      if (currentPlayingVideo && !currentPlayingVideo.paused) {
+        currentPlayingVideo.pause();
+      }
 
       const container = document.getElementById(containerId);
       container.innerHTML = `
-        <video controls autoplay playsinline disablePictureInPicture controlsList="nodownload noremoteplayback" style="width:100%; height:100%; position:absolute; top:0; left:0; border-radius:10px;">
+        <video controls autoplay playsinline style="width:100%; height:100%; position:absolute; top:0; left:0; border-radius:10px;" oncontextmenu="return false;">
           <source src="${url}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       `;
-      buttonEl.remove();
+      const videoEl = container.querySelector("video");
+      videoEl.addEventListener("play", () => {
+        if (currentPlayingVideo && currentPlayingVideo !== videoEl) {
+          currentPlayingVideo.pause();
+        }
+        currentPlayingVideo = videoEl;
+      });
     }
 
-    function handleDownload(url) {
-      if (confirm("This page will redirect you. Click OK to continue.")) {
+    function openDownloadModal(downloadUrl) {
+      downloadTargetUrl = downloadUrl;
+      document.getElementById("downloadStatus").textContent = "";
+      document.getElementById("customModal").classList.add("active");
+    }
+
+    function handleModalConfirm() {
+      document.getElementById("downloadStatus").textContent = "Preparing your download...";
+      setTimeout(() => {
         window.open("https://example.com", "_blank");
         setTimeout(() => {
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }, 5000);
-      }
+          window.open(downloadTargetUrl, "_blank");
+          document.getElementById("customModal").classList.remove("active");
+          document.getElementById("downloadStatus").textContent = "";
+        }, 1000);
+      }, 1000);
     }
 
     window.addEventListener("DOMContentLoaded", () => {
