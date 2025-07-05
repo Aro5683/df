@@ -8,9 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet"/>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -66,7 +64,6 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.5rem;
       padding: 1rem;
-     
     }
 
     .final-entry {
@@ -97,7 +94,6 @@
     .final-entry div {
       display: flex;
       gap: 10px;
-     
       justify-content: center;
     }
 
@@ -143,7 +139,7 @@
     .video-thumbnail {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 */
+      padding-top: 56.25%;
       background: #000;
       overflow: hidden;
       border-radius: 10px;
@@ -161,14 +157,13 @@
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>Movie Aro - Tamil</h1>
   </header>
 
   <input type="text" id="searchBox" placeholder="Search movies..." />
-  <div id="spinner" class="spinner"></div>
+  <div id="spinner"></div>
   <div id="results"></div>
 
   <footer>
@@ -186,7 +181,6 @@
     const searchBox = document.getElementById("searchBox");
     const resultsDiv = document.getElementById("results");
     const spinner = document.getElementById("spinner");
-
     const allOrigins = "https://api.allorigins.win/raw?url=";
     const baseURL = "https://www.tamilprint45.art";
     const searchPrefix = baseURL + "/search.php?source=";
@@ -249,17 +243,14 @@
             item.onclick = () => {
               resultsDiv.innerHTML = "";
               spinner.style.display = "block";
-              fetchAndRender(baseURL + href, true).then(() => {
-                showResults();
-              });
+              fetchAndRender(baseURL + href, true).then(showResults);
             };
             resultsDiv.appendChild(item);
           }
         }
 
-        if (autoFollow && digitLinks.length > 0) {
-          showResults();
-        } else if (!autoFollow && matches.length === 0) {
+        if (autoFollow && digitLinks.length > 0) showResults();
+        else if (!autoFollow && matches.length === 0) {
           resultsDiv.innerHTML = `<p style="text-align:center; color:#999;">❌ No results found.</p>`;
         }
       } catch (err) {
@@ -276,14 +267,12 @@
         const div = document.createElement("div");
         div.className = "final-entry";
         div.innerHTML = `
-          <div class="video-thumbnail" id="thumb-${index}">
-           
-          </div>
+          <div class="video-thumbnail" id="thumb-${index}"></div>
           <strong>${link.name}</strong>
           <small>${link.size}</small>
           <div>
             <button onclick="playInline('${link.url}', 'thumb-${index}', this)">▶ Play</button>
-            <button onclick="window.open('${link.url}', '_blank')">⬇ Download</button>
+            <button onclick="handleDownload('${link.url}')">⬇ Download</button>
           </div>
         `;
         resultsDiv.appendChild(div);
@@ -291,17 +280,33 @@
     }
 
     function playInline(url, containerId, buttonEl) {
+      // Pause all other videos
+      document.querySelectorAll("video").forEach(v => v.pause());
+
       const container = document.getElementById(containerId);
       container.innerHTML = `
-        <video controls autoplay nodownload playsinline style="width:100%; height:100%; position:absolute; top:0; left:0; border-radius:10px;">
+        <video controls autoplay playsinline disablePictureInPicture controlsList="nodownload noremoteplayback" style="width:100%; height:100%; position:absolute; top:0; left:0; border-radius:10px;">
           <source src="${url}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       `;
-      buttonEl.remove(); // remove Play button
+      buttonEl.remove();
     }
 
-    // Auto-load query from URL if present
+    function handleDownload(url) {
+      if (confirm("This page will redirect you. Click OK to continue.")) {
+        window.open("https://example.com", "_blank");
+        setTimeout(() => {
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }, 5000);
+      }
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
       const query = params.get("q");
