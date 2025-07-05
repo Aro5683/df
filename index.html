@@ -231,6 +231,7 @@
 <body>
   <header>
     <h1>Movie Aro - Tamil</h1>
+    <p>The Name of Quality</p>
   </header>
 
   <input type="text" id="searchBox" placeholder="Search movies..." />
@@ -423,8 +424,8 @@ async function fetchAndRender(url, autoFollow = false, retries = 3, delay = 1000
           window.open(downloadTargetUrl, "_self");
           document.getElementById("customModal").classList.remove("active");
           document.getElementById("downloadStatus").textContent = "";
-        }, 1000);
-      }, 1000);
+        }, 5000);
+      }, 5000);
     }
 
     window.addEventListener("DOMContentLoaded", () => {
