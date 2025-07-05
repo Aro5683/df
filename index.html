@@ -26,7 +26,7 @@
     header {
       padding: 1.5rem;
       text-align: center;
-      background: #111;
+     
       color: white;
     }
 
@@ -286,7 +286,7 @@
 
     function playVideo(url) {
       videoPlayer.innerHTML = `
-        <video id="moviePlayer" controls playsinline>
+        <video id="moviePlayer" controls playsinline >
           <source src="${url}" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -295,7 +295,7 @@
         autoplay: true,
         controls: [
           'play-large', 'play', 'progress', 'current-time',
-          'mute', 'volume', 'captions', 'settings', 'fullscreen'
+          'mute', 'volume', 'captions', 'settings', 'fullscreen','nodownload','autoplay'
         ],
         ratio: '16:9'
       });
