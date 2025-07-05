@@ -418,13 +418,13 @@ async function fetchAndRender(url, autoFollow = false, retries = 3, delay = 1000
 
     function handleModalConfirm() {
       document.getElementById("downloadStatus").textContent = "Preparing your download...";
-      setTimeout(() => {
+     
         window.open("https://example.com", "_blank");
         setTimeout(() => {
           window.open(downloadTargetUrl, "_self");
           document.getElementById("customModal").classList.remove("active");
           document.getElementById("downloadStatus").textContent = "";
-        }, 5000);
+     
       }, 5000);
     }
 
