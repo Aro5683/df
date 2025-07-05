@@ -7,364 +7,300 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet" />
  
+<!-- Plyr CSS -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+
+
+  
+  
+  
   <style>
-     * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-  }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      min-height: 100vh;
-      padding: 40px 20px;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #333;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      min-height: 100vh;
     }
 
-    .site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 1.2rem;
-  border-bottom: 2px solid #00c6ff;
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 30px;
-  gap: 10px;
-}
-
-.site-header h1 {
-  font-size: 2rem;
-  color: #ffffffcc;
-  border-left: 4px solid #00c6ff;
-  padding-left: 0px;
-  margin: 0;
-  flex: 1;
-  word-break: break-word;
-  white-space: normal; /* allow wrap */
-}
-
-.telegram-center-wrapper {
-  flex-shrink: 0; /* prevent shrinking */
-}
-
-
-  #searchBox {
-    padding: 0.7rem;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-  }
-
-  .link-container {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.9rem;
-    border-radius: 8px;
-    margin: 10px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-
-  .link-container:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .link-name {
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-    color: #00eaff;
-    display: block;
-    text-align: center;
-  }
-
-  .section-title {
-    font-size: 1.4rem;
-    margin-top: 20px;
-    color: #ffffffcc;
-    text-align: center;
-  }
-
-  .details {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    width: 100%;
-    max-width: 700px;
-    overflow-x: auto;
-  }
-
-  .details table {
-    width: 100%;
-  }
-
-  .spinner-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80px;
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 5px solid rgba(255, 255, 255, 0.1);
-    border-top: 5px solid #00c6ff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* ✅ Responsive Styles */
-  @media (max-width: 600px) {
-    .site-header h1 {
-      font-size: 1.5rem;
+    header {
+      padding: 2rem;
+   
+      color: white;
       text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin: 0;
+      color: #e50914;
     }
 
     #searchBox {
-      font-size: 0.9rem;
-      padding: 0.6rem;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-    }
-
-    .link-name {
+      width: 90%;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
       font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      display: block;
     }
 
-    .details {
-      padding: 12px;
-    }
-  }
-
- .telegram-center-wrapper {
-    display: block;
-    margin-top: 0;
-  }
-
-  .telegram-glow-btn {
-    display: inline-block;
-    padding: 4px;
-    border-radius: 50%;
-    background: transparent;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(0, 136, 204, 0.9), 0 0 60px rgba(0, 136, 204, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.4s ease;
-    text-decoration: none;
-    position: relative;
-  }
-
-  .telegram-icon {
-    width: 35px;
-    height: 35px;
-    display: block;
-  }
-.telegram-glow-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(0, 198, 255, 0.5) 20%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    animation: pulse-wave-glow 2s infinite ease-out;
-    box-shadow: 0 0 30px rgba(0, 198, 255, 0.7), 0 0 60px rgba(0, 198, 255, 0.5);
-    filter: blur(2px);
-    z-index: -1;
-  }
-
-  @keyframes pulse-wave-glow {
-    0% {
-      transform: translate(-50%, -50%) scale(0.8);
-      opacity: 0.9;
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.6);
-      opacity: 0.5;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(2.2);
-      opacity: 0;
-    }
-  }
-
-
-
-    .video-container {
-      width: 100%;
-      max-width: 800px;
-      margin: 20px auto;
-    }
-
-    video {
-    width: 100%;
-    max-height: 480px;
-    margin-top: 60px;
-    border-radius: 10px;
-    background: #000;
-  }
-
-    #popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #popup  div {
-      background: #1a2b3c;
-      padding: 20px 30px;
-      border-radius: 10px;
+    #spinner {
       text-align: center;
+      padding: 2rem;
+      color: #e50914;
     }
 
-    #popup button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #00c6ff;
-      color: white;
+    #results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+     
+      flex-grow: 1;
+    }
+
+    .final-entry {
+      background: #f8f8f8;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .final-entry:hover {
+      transform: scale(1.03);
+    }
+
+    .final-entry strong {
+      font-size: 1.1rem;
+      padding: 1rem 1rem 0.5rem;
+      color: #111;
+    }
+
+    .final-entry small {
+      font-size: 0.9rem;
+      padding: 0 1rem 1rem;
+      color: #666;
+      flex-grow: 1;
+    }
+
+    .final-entry div {
+     
+      gap: 10px;
+      padding: 1rem;
+      justify-content: center;
+    }
+
+    .final-entry button {
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      background: #e50914;
       border: none;
-      border-radius: 6px;
+      color: white;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.2s ease-in-out;
     }
 
-    #popup button:hover {
-      background-color: #009fcc;
+    .final-entry button:hover {
+      background: #b4060f;
     }
 
+    #videoPlayer {
+      max-width: 800px;
+   
+    }
 
-      .final-entry {
-    background:;
-    border: 1px solid ;
-    margin: 15px 0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+    #videoPlayer video {
+      width: 100%;
+      border-radius: 10px;
+      background: #000;
+    }
 
-  .final-entry strong {
-  
-    color: #fff;
-    display: block;
-    margin-bottom: 6px;
-  }
+    footer {
+      background: #1c1c1c;
+      color: #ccc;
+      text-align: center;
+      padding: 1.5rem;
+    }
 
-  .final-entry small {
-    color: #aaa;
-  }
+    .footer-nav {
+      margin-bottom: 0.5rem;
+    }
 
-  .final-entry button {
-    background: #3498db;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    margin: 5px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
+    .footer-nav a {
+      color: #e50914;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-  .final-entry button:hover {
-    background: #2980b9;
-  }
+    .footer-nav a:hover {
+      text-decoration: underline;
+    }
+
+    #popup, #customRedirectPopup {
+      position: fixed;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      max-width: 500px;
+      text-align: center;
+      border-radius: 10px;
+      color: #333;
+    }
+
+    .popup-content h2 {
+      color: #e50914;
+    }
+
+    .popup-content button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      background: #e50914;
+      color: #fff;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .popup-content button:hover {
+      background: #b4060f;
+    }
+
+.spinner {
+  display: none;
+  margin: 2rem auto;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #e50914; /* Red top */
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+    #videoPlayer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+#videoPlayer video {
+  width: 100%;
+  border-radius: 10px;
+  background: #000;
+}
 
   </style>
-</head>
-<body>
-   <div class="site-header">
-    <h1>Movies Aro - தமிழ் </h1>
-   
-  </div>
-  <input type="text" id="searchBox" placeholder="Search for a movie..." /><br/>
-<div class="spinner-container" id="spinner" style="display:none;">
-    <div class="spinner"></div>
-  </div><br/>
+
+
+
+  <header>
+    <h1>Movie Aro - tamil</h1>
+    
+  </header>
+ <input type="text" id="searchBox" placeholder="Search movies..." />
+  <div id="spinner" class="spinner"></div>
+<br/>
+<br/>
+ <div id="videoPlayer"></div>
+
   <div id="results"></div>
-  <!-- Button HTML -->
-<button id="tamilDubbedBtn">🎥 All Tamil Dubbed Movies</button>
-
-<!-- JavaScript -->
-<script>
-  document.getElementById('tamilDubbedBtn').addEventListener('click', function () {
-    window.location.href = 'https://moviesarodub.netlify.app/';
-  });
-</script>
-
-<!-- CSS Styling -->
-<style>
-  #tamilDubbedBtn {
-    background-color: #00c6ff;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 198, 255, 0.3); /* Reduced glow */
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    margin-top: 20px;
-  }
-
-  #tamilDubbedBtn:hover {
-    background-color: #009ecb;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4); /* Soft hover glow */
-  }
-</style>
-  <div id="videoPlayer"></div>
-
- <div id="popup" style="display: none;"><div>
-  <button id="closePopupBtn" style="position: absolute; top: 10px; right: 10px;">✖</button>
-   <strong>Thanks for downloading</strong>
-   <p>Please wait...</p>
-  <!-- Your popup content goes here -->
- 
- 
-</div>
- </div>
-
-
+<br/>
   
+  <!-- Popup -->
+  <div id="popup">
+    <div class="popup-content">
+      <h2 id="popupTitle">Title</h2>
+      <p id="popupContent">Content here</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <!-- Redirect Popup -->
+  <div id="customRedirectPopup">
+    <div class="popup-content">
+      <h2>Redirecting...</h2>
+      <p>You’ll be redirected shortly.</p>
+      <button id="redirectOkBtn">Continue</button>
+      <button onclick="document.getElementById('customRedirectPopup').style.display='none'">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-nav">
+      <a href="#" onclick="openPopup('home')">Home</a>
+      <a href="#" onclick="openPopup('privacy')">Privacy</a>
+      <a href="#" onclick="openPopup('dmca')">DMCA</a>
+      <a href="#" onclick="openPopup('disclaimer')">Disclaimer</a>
+      <a href="#" onclick="openPopup('contact')">Contact</a>
+    </div>
+    &copy; 2025 MovieDownloader. All rights reserved.
+  </footer>
+
+  <!-- Insert your JavaScript here -->
   <script>
+    // Your entire <script> code goes here (unchanged)
+  </script>
+<script>
+    // Popup content
+    function openPopup(type) {
+      const titles = {
+        home: "Welcome",
+        privacy: "Privacy Policy",
+        dmca: "DMCA Notice",
+        disclaimer: "Disclaimer",
+        contact: "Contact Us"
+      };
+
+      const contents = {
+        home: "Welcome to MovieDownloader, your source for HD movies.",
+        privacy: "We respect your privacy. No personal data is stored.",
+        dmca: "DMCA complaints will be reviewed and responded to.",
+        disclaimer: "We do not host any files, all content is indexed.",
+        contact: "Email us: support@moviedownloader.site"
+      };
+
+      document.getElementById("popupTitle").textContent = titles[type];
+      document.getElementById("popupContent").innerHTML = contents[type];
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
     const searchBox = document.getElementById("searchBox");
     const resultsDiv = document.getElementById("results");
     const spinner = document.getElementById("spinner");
-    const popup = document.getElementById("popup");
+    const popup = document.getElementById("customRedirectPopup");
     const videoPlayer = document.getElementById("videoPlayer");
 
     const allOrigins = "https://api.allorigins.win/raw?url=";
@@ -377,7 +313,6 @@
 
     const params = new URLSearchParams(window.location.search);
     const keywordFromURL = params.get("q")?.replace(/\+/g, " ");
-
     if (keywordFromURL) {
       searchBox.value = keywordFromURL;
       autoSearch(keywordFromURL);
@@ -402,11 +337,25 @@
       fetchAndRender(searchPrefix + encodeURIComponent(keyword), true);
     }
 
+    async function fetchWithRetry(url, maxAttempts = 3, delay = 500) {
+      let attempt = 0;
+      while (attempt < maxAttempts) {
+        try {
+          const res = await fetch(url, { cache: "no-store" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return await res.text();
+        } catch (err) {
+          attempt++;
+          if (attempt >= maxAttempts) throw err;
+          await new Promise(res => setTimeout(res, delay));
+        }
+      }
+    }
+
     async function fetchAndRender(url, autoFollow = false) {
       spinner.style.display = "block";
       try {
-        const res = await fetch(allOrigins + encodeURIComponent(url));
-        const html = await res.text();
+        const html = await fetchWithRetry(allOrigins + encodeURIComponent(url));
         const section = html.split('<div class="tamilprintda"')[0];
         const matches = [...section.matchAll(/<div class="M1">.*?<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a><br>(.*?)<\/td>/gs)];
 
@@ -427,18 +376,19 @@
           } else {
             const item = document.createElement("div");
             item.className = "final-entry";
-            item.innerHTML = `<div><strong>${title}</strong><small>${desc}</small></div>`;
+            item.innerHTML = `<strong>${title}</strong><small>${desc}</small>`;
             item.onclick = () => {
               digitLinks = [];
               resultsDiv.innerHTML = "";
               const loadingMsg = document.createElement("p");
               loadingMsg.textContent = "Please wait...";
               loadingMsg.style.textAlign = "center";
-              resultsDiv.appendChild(item);
+              spinner.style.display = "block";
               resultsDiv.appendChild(loadingMsg);
 
               fetchAndRender(baseURL + href, true).then(() => {
                 resultsDiv.removeChild(loadingMsg);
+                spinner.style.display = "none";
                 showResults();
               });
             };
@@ -452,23 +402,21 @@
           resultsDiv.innerHTML = `<p style="text-align:center; color:#777;">❌ No results found.</p>`;
         }
       } catch (err) {
-        resultsDiv.innerHTML = `<p style="text-align:center; color:red;">❌ Something went wrong.</p>`;
-        console.error(err);
+        resultsDiv.innerHTML = `<p style="text-align:center; color:red;">❌ Failed to load, retrying...</p>`;
+        console.error("Retry failed:", err);
       } finally {
         spinner.style.display = "none";
       }
     }
 
     function showResults() {
-      resultsDiv.innerHTML = `<div class="section-title">📂 Download Links</div>`;
+      resultsDiv.innerHTML = ``;
       digitLinks.forEach(link => {
         const div = document.createElement("div");
         div.className = "final-entry";
         div.innerHTML = `
-          <div>
-            <strong>${link.name}</strong>
-            <small>${link.size}</small>
-          </div>
+          <strong>${link.name}</strong>
+          <small>${link.size}</small>
           <div>
             <button onclick="playVideo('${link.url}')">▶ Play</button>
             <button onclick="downloadFile('${link.url}')">⬇ Download</button>
@@ -478,375 +426,47 @@
     }
 
     function downloadFile(url) {
+      const okBtn = document.getElementById("redirectOkBtn");
       popup.style.display = "flex";
-      setTimeout(() => {
-        window.location.href = url;
-      }, 1000);
-      setTimeout(() => {
+
+      okBtn.onclick = () => {
         popup.style.display = "none";
-      }, 10000);
+        window.open("https://otieu.com/4/9529356", "_blank");
+        setTimeout(() => {
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "";
+          a.target = "_self";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }, 5000);
+      };
     }
 
-    function playVideo(url) {
-      let retryCount = 0;
-      const maxRetries = 3;
-      function createVideoPlayer() {
-        const video = document.createElement("video");
-        video.controls = true;
-        video.autoplay = true;
-        const source = document.createElement("source");
-        source.src = url;
-        source.type = "video/mp4";
-        video.appendChild(source);
-        video.onerror = () => {
-          if (retryCount < maxRetries) {
-            retryCount++;
-            setTimeout(() => createVideoPlayer(), 1500);
-          } else {
-            videoPlayer.innerHTML = `<p style="text-align:center; color:red;">❌ Failed to load video.</p>`;
-          }
-        };
-        videoPlayer.innerHTML = "";
-        videoPlayer.appendChild(video);
-        video.scrollIntoView({ behavior: "smooth" });
-      }
-      createVideoPlayer();
-    }
-  </script>
+  function playVideo(url) {
+  videoPlayer.innerHTML = `
+    <video id="moviePlayer" controls playsinline>
+      <source src="${url}" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  `;
 
-    <style>
-    #popup1 {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #popup1  div {
-      background: #1a2b3c;
-      padding: 20px 30px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-   
-    </style>
-
-   <br/><br/>
-<div id="popup1"><div>
-
-  <strong style="display:block; font-size: 1.5rem; margin-bottom: 8px;">Thanks for downloading</strong>
-  <span style="font-size: 1rem;">Please wait...</span>
-</div>
-</div>
-
-
-<script>
-    // Disable right-click
-document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-});
-
-// Disable keyboard shortcuts for DevTools
-document.addEventListener("keydown", function (e) {
-    if (e.ctrlKey && (e.key === "u" || e.key === "U" || e.key === "s" || e.key === "S" || e.key === "i" || e.key === "I" || e.key === "j" || e.key === "J" || e.key === "c" || e.key === "C")) {
-        e.preventDefault();
-    }
-});
-
-// Disable F12, Ctrl+Shift+I, Ctrl+Shift+J
-document.onkeydown = function (e) {
-    if (e.keyCode == 123) { return false; } // F12
-    if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) { return false; } // Ctrl+Shift+I/J
-};
-  
-  </script>
-<script>
-    const blockScreen = document.getElementById('blockScreen');
-
-    function detectDevTools() {
-      const widthDiff = window.outerWidth - window.innerWidth;
-      const heightDiff = window.outerHeight - window.innerHeight;
-      const threshold = 120;
-
-      // True if dimensions indicate DevTools or if debugger gets trapped
-      let devtoolsOpen = widthDiff > threshold || heightDiff > threshold;
-
-      // Mobile-specific trap
-      const trap = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (trap) {
-        const start = new Date();
-        debugger;
-        const end = new Date();
-        if (end - start > 100) devtoolsOpen = true;
-      }
-
-      if (devtoolsOpen) {
-       window.location.href = "https://c.tenor.com/x4V9PRp9R-0AAAAC/tenor.gif"; // Replace with your redirect URL
-
-      } else {
-        blockScreen.style.display = 'none';
-        document.body.style.pointerEvents = 'auto';
-      }
-    }
-
-    setInterval(detectDevTools, 600);
-
-    // Block right-click
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // Block common dev hotkeys
-    document.addEventListener('keydown', function (event) {
-      if (
-        event.key === 'F12' ||
-        (event.ctrlKey && event.shiftKey && ['I', 'J', 'C'].includes(event.key.toUpperCase())) ||
-        (event.ctrlKey && event.key.toLowerCase() === 'u')
-      ) {
-        event.preventDefault();
-      }
-    });
-  </script>
- 
-  <br/>
-  <br/>
-   <br/>
-  <br/>
-  <br/>
-   <div class="telegram-center-wrapper">
-    <a href="https://telegram.me/+V8nUElyN93U1ZTBl" 
-       class="telegram-glow-btn" 
-       target="_self" 
-       rel="noopener noreferrer" 
-       title="Join our Telegram group">
-      <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 240 240" fill="currentColor">
-        <circle cx="120" cy="120" r="120" fill="#0088cc"/>
-        <path fill="#fff" d="M180.5 65.8L160 176.4c-1.5 8-5.7 10-11.5 6.3l-32-23.6-15.4 14.9c-1.7 1.7-3.2 3.2-6.6 3.2l2.3-33.1 60.2-54c2.6-2.3-.6-3.6-4-1.3l-74.4 46.8-32-10c-7-2.2-7.2-7-1.5-9.3l124.7-48.2c5.8-2.1 10.8 1.3 9 9.1z"/>
-      </path></circle></svg>
-    </a>
-  </div>
- <br/>
-  <br/>
-  <br/>
-   <br/>
-  <br/>
-  <br/>
- 
-  <footer1 style="text-align: center; padding: 20px; font-size: 14px; color: #888;">
- <p>
-    We love cinema. We don’t support piracy.
-    But when theatres price water, popcorn, parking, and basic comforts higher than the experience itself — this is not theft, it's a protest.<br>
-    Fix the system, and we’ll pay happily to watch cinema in theatre.
-  </p>
-</footer1>
-
-<style>
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  overflow: auto;
-}
-
-.modal-content {
-  background-color: #1c1c1c;
-  margin: 80px auto;
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 700px;
-  color: #eee;
-  position: relative;
-  animation: fadeIn 0.3s ease;
-}
-
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  color: #aaa;
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
-.close-btn:hover {
-  color: #fff;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
- .footer-links {
-  display: contents;
-  justify-content: center; /* center horizontally */
-  gap: 10px;               /* space between buttons */
-  padding: 10px;           /* optional padding */
-}
-
-.footer-links button {
-  padding: 8px 16px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-  
-.footer-links button {
-font-weight:600;
-  background: none;
-  border: none;
-  color: #00c6ff;
-  margin: 0 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.footer-links button:hover {
-  color: #ffffff;
-}
-</style>
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div id="modal-body"></div>
-  </div>
-</div>
-<footer>
-  <div class="footer-links">
-    <button onclick="openModal('home')">Home</button>
-    <button onclick="openModal('disclaimer')">Disclaimer</button>
-    <button onclick="openModal('dmca')">DMCA</button>
-    <button onclick="openModal('privacy')">Privacy Policy</button>
-  </div>
- 
-</footer>
-
-<script>
-const modal = document.getElementById('modal');
-const modalBody = document.getElementById('modal-body');
-
-function openModal(type) {
-  let content = '';
-
-  switch (type) {
-    case 'home':
-      content = `
-        <h2>Welcome to Movies Aro</h2>
-        <p>Movies Aro is your go-to destination for discovering and downloading your favorite movies. Our platform indexes publicly available download links from around the web to make it easier for users to find and access content.</p>
-        <p>We do not host or upload any files on our servers. All content is sourced from third-party websites freely available on the internet.</p>
-        <p>Use the search bar above to find the movie you're looking for. If you can't find it, feel free to submit a request.</p>`;
-      break;
-
-    case 'disclaimer':
-      content = `
-        <h2>Disclaimer</h2>
-        <p>All content on Movies Aro is provided for informational purposes only. We do not host any files on our server. The content displayed on this website is indexed from publicly accessible internet sources.</p>
-        <p>Movies Aro does not promote or support piracy. Any content you choose to download must be done at your own discretion and responsibility. We highly encourage users to purchase or stream content legally to support the creators.</p>
-        <p>If you believe any content on this site infringes upon your copyrights, please contact us. We act promptly upon receiving valid requests.</p>`;
-      break;
-
-    case 'dmca':
-      content = `
-        <h2>DMCA Policy</h2>
-        <p>Movies Aro respects the rights of content owners and complies with the provisions of the Digital Millennium Copyright Act (DMCA).</p>
-        <p>If you are a copyright owner or an agent thereof, and you believe that content hosted or linked on our website infringes your copyright, please submit a takedown notice including the following:</p>
-        <ul>
-          <li>Your name, company, and contact information.</li>
-          <li>The URL(s) of the infringing content.</li>
-          <li>Proof of ownership or authorized representation.</li>
-          <li>A statement that the information in your notice is accurate, and that you are the copyright owner or authorized to act on behalf of the owner.</li>
-        </ul>
-        <p>Email your notice to: <strong>dmca@moviehub.com</strong><br>
-        We aim to respond within 48 hours of receiving a valid notice.</p>`;
-      break;
-
-    case 'privacy':
-      content = `
-        <h2>Privacy Policy</h2>
-        <p>At Movies Aro, your privacy is important to us. This policy outlines how we collect, use, and protect your information:</p>
-        <h3>What We Collect</h3>
-        <ul>
-          <li>Anonymous usage data (via analytics tools)</li>
-          <li>Search queries (used to improve search results)</li>
-          <li>Optional data (such as movie requests, if submitted)</li>
-        </ul>
-        <h3>Cookies</h3>
-        <p>We may use cookies to enhance your user experience. These cookies do not collect personal information and can be disabled through your browser settings.</p>
-        <h3>Third-Party Links</h3>
-        <p>This website may contain links to third-party sites. We are not responsible for their privacy practices or content.</p>
-        <h3>Policy Updates</h3>
-        <p>We reserve the right to modify this privacy policy at any time. Updates will be posted on this page.</p>`;
-      break;
-  }
-
-  modalBody.innerHTML = content;
-  modal.style.display = 'block';
-}
-
-function closeModal() {
-  modal.style.display = 'none';
-}
-
-window.onclick = function(event) {
-  if (event.target == modal) closeModal();
-};
-</script>
-
-   <script type="module">
-  // Import Firebase core + database
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js";
-  import { getDatabase, ref, set, onDisconnect, onValue } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
-
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyCnFzRuiePFLp7rHV9ITXFl7XSPb-PAydI",
-    authDomain: "moviesaro.firebaseapp.com",
-    databaseURL: "https://moviesaro-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "moviesaro",
-    storageBucket: "moviesaro.appspot.com", // corrected domain
-    messagingSenderId: "988768227464",
-    appId: "1:988768227464:web:2afbfc7f6f000d4f610f3d",
-    measurementId: "G-CDJZBSR54T"
-  };
-
-  // Init Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getDatabase(app);
-
-  // Create random user ID for this session
-  const userId = Math.random().toString(36).substring(2);
-  const userRef = ref(db, 'onlineUsers/' + userId);
-
-  // Mark user online
-  set(userRef, true);
-
-  // Auto-remove on disconnect
-  onDisconnect(userRef).remove();
-
-  // Live count display
-  const countRef = ref(db, 'onlineUsers');
-  onValue(countRef, (snapshot) => {
-    const count = snapshot.size || snapshot.numChildren();
-    document.getElementById('userCount').textContent = count;
+  const player = new Plyr('#moviePlayer', {
+    autoplay: true,
+    controls: [
+      'play-large', 'play', 'progress', 'current-time',
+      'mute', 'volume', 'captions', 'settings', 'fullscreen'
+    ],
+    ratio: '16:9'
   });
-</script>
 
-  <br/>
-  <br/>
-  <h5>👥 Users Online</h5>
-  <div id="userCount"></div>
-</body>
+  videoPlayer.scrollIntoView({ behavior: "smooth" });
+}
+
+  </script>
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+
 </html>
