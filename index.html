@@ -3,18 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Aro - Tamil</title>
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
-
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet" />
- 
-<!-- Plyr CSS -->
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
-</head>
-
-  
-  
-  
   <style>
     * {
       box-sizing: border-box;
@@ -23,7 +16,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #ffffff;
+      background: #fff;
       color: #333;
       display: flex;
       flex-direction: column;
@@ -31,14 +24,14 @@
     }
 
     header {
-      padding: 2rem;
-   
-      color: white;
+      padding: 1.5rem;
       text-align: center;
+      background: #111;
+      color: white;
     }
 
     header h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin: 0;
       color: #e50914;
     }
@@ -46,8 +39,8 @@
     #searchBox {
       width: 90%;
       max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
+      margin: 1.5rem auto;
+      padding: 0.75rem 1rem;
       font-size: 1rem;
       border: 2px solid #ddd;
       border-radius: 8px;
@@ -55,31 +48,41 @@
     }
 
     #spinner {
-      text-align: center;
-      padding: 2rem;
-      color: #e50914;
+      display: none;
+      margin: 1.5rem auto;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #e50914;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     #results {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
-     
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
       flex-grow: 1;
     }
 
     .final-entry {
-      background: #f8f8f8;
+      background: #f9f9f9;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       overflow: hidden;
-      transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
+      transition: transform 0.2s ease;
     }
 
     .final-entry:hover {
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
     .final-entry strong {
@@ -89,14 +92,12 @@
     }
 
     .final-entry small {
-      font-size: 0.9rem;
       padding: 0 1rem 1rem;
-      color: #666;
-      flex-grow: 1;
+      color: #555;
     }
 
     .final-entry div {
-     
+      display: flex;
       gap: 10px;
       padding: 1rem;
       justify-content: center;
@@ -104,22 +105,23 @@
 
     .final-entry button {
       padding: 0.5rem 1rem;
-      font-weight: bold;
       background: #e50914;
-      border: none;
       color: white;
+      border: none;
       border-radius: 5px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.2s ease-in-out;
     }
 
     .final-entry button:hover {
-      background: #b4060f;
+      background: #b0060f;
     }
 
     #videoPlayer {
+      width: 100%;
       max-width: 800px;
-   
+      margin: 2rem auto;
+      padding: 1rem;
     }
 
     #videoPlayer video {
@@ -129,179 +131,58 @@
     }
 
     footer {
-      background: #1c1c1c;
+      background: #111;
       color: #ccc;
+      padding: 1rem;
       text-align: center;
-      padding: 1.5rem;
     }
 
     .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
       margin-bottom: 0.5rem;
     }
 
     .footer-nav a {
       color: #e50914;
-      margin: 0 15px;
-      text-decoration: none;
       font-weight: bold;
+      text-decoration: none;
     }
 
     .footer-nav a:hover {
       text-decoration: underline;
     }
-
-    #popup, #customRedirectPopup {
-      position: fixed;
-      inset: 0;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 999;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 2rem;
-      max-width: 500px;
-      text-align: center;
-      border-radius: 10px;
-      color: #333;
-    }
-
-    .popup-content h2 {
-      color: #e50914;
-    }
-
-    .popup-content button {
-      margin-top: 1rem;
-      padding: 0.7rem 1.2rem;
-      border: none;
-      background: #e50914;
-      color: #fff;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .popup-content button:hover {
-      background: #b4060f;
-    }
-
-.spinner {
-  display: none;
-  margin: 2rem auto;
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #e50914; /* Red top */
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-    #videoPlayer {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-
-#videoPlayer video {
-  width: 100%;
-  border-radius: 10px;
-  background: #000;
-}
-
   </style>
+</head>
 
-
-
+<body>
   <header>
-    <h1>Movie Aro - tamil</h1>
-    
+    <h1>Movie Aro - Tamil</h1>
   </header>
-  <body>
- <input type="text" id="searchBox" placeholder="Search movies..." />
+
+  <input type="text" id="searchBox" placeholder="Search movies..." />
   <div id="spinner" class="spinner"></div>
-<br/>
-<br/>
- <div id="videoPlayer"></div>
-
+  <div id="videoPlayer"></div>
   <div id="results"></div>
-<br/>
-  
-  <!-- Popup -->
-  <div id="popup">
-    <div class="popup-content">
-      <h2 id="popupTitle">Title</h2>
-      <p id="popupContent">Content here</p>
-      <button onclick="closePopup()">Close</button>
-    </div>
-  </div>
 
-  <!-- Redirect Popup -->
-  <div id="customRedirectPopup">
-    <div class="popup-content">
-      <h2>Redirecting...</h2>
-      <p>You’ll be redirected shortly.</p>
-      <button id="redirectOkBtn">Continue</button>
-      <button onclick="document.getElementById('customRedirectPopup').style.display='none'">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Footer -->
   <footer>
     <div class="footer-nav">
-      <a href="#" onclick="openPopup('home')">Home</a>
-      <a href="#" onclick="openPopup('privacy')">Privacy</a>
-      <a href="#" onclick="openPopup('dmca')">DMCA</a>
-      <a href="#" onclick="openPopup('disclaimer')">Disclaimer</a>
-      <a href="#" onclick="openPopup('contact')">Contact</a>
+      <a href="#">Home</a>
+      <a href="#">Privacy</a>
+      <a href="#">DMCA</a>
+      <a href="#">Disclaimer</a>
+      <a href="#">Contact</a>
     </div>
     &copy; 2025 MovieDownloader. All rights reserved.
   </footer>
 
-  <!-- Insert your JavaScript here -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
-    // Your entire <script> code goes here (unchanged)
-  </script>
-<script>
-    // Popup content
-    function openPopup(type) {
-      const titles = {
-        home: "Welcome",
-        privacy: "Privacy Policy",
-        dmca: "DMCA Notice",
-        disclaimer: "Disclaimer",
-        contact: "Contact Us"
-      };
-
-      const contents = {
-        home: "Welcome to MovieDownloader, your source for HD movies.",
-        privacy: "We respect your privacy. No personal data is stored.",
-        dmca: "DMCA complaints will be reviewed and responded to.",
-        disclaimer: "We do not host any files, all content is indexed.",
-        contact: "Email us: support@moviedownloader.site"
-      };
-
-      document.getElementById("popupTitle").textContent = titles[type];
-      document.getElementById("popupContent").innerHTML = contents[type];
-      document.getElementById("popup").style.display = "flex";
-    }
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-
     const searchBox = document.getElementById("searchBox");
     const resultsDiv = document.getElementById("results");
     const spinner = document.getElementById("spinner");
-    const popup = document.getElementById("customRedirectPopup");
     const videoPlayer = document.getElementById("videoPlayer");
 
     const allOrigins = "https://api.allorigins.win/raw?url=";
@@ -309,15 +190,8 @@
     const searchPrefix = baseURL + "/search.php?source=";
     const downloadPrefix = "https://tamilprint44.art/filedownload.php?fid=";
 
-    let debounce;
     let digitLinks = [];
-
-    const params = new URLSearchParams(window.location.search);
-    const keywordFromURL = params.get("q")?.replace(/\+/g, " ");
-    if (keywordFromURL) {
-      searchBox.value = keywordFromURL;
-      autoSearch(keywordFromURL);
-    }
+    let debounce;
 
     searchBox.addEventListener("input", () => {
       clearTimeout(debounce);
@@ -329,25 +203,17 @@
       }
       debounce = setTimeout(() => {
         fetchAndRender(searchPrefix + encodeURIComponent(keyword), false);
-      }, 300);
+      }, 250);
     });
 
-    function autoSearch(keyword) {
-      resultsDiv.innerHTML = "";
-      spinner.style.display = "block";
-      fetchAndRender(searchPrefix + encodeURIComponent(keyword), true);
-    }
-
-    async function fetchWithRetry(url, maxAttempts = 3, delay = 500) {
-      let attempt = 0;
-      while (attempt < maxAttempts) {
+    async function fetchWithRetry(url, retries = 3, delay = 500) {
+      for (let i = 0; i < retries; i++) {
         try {
           const res = await fetch(url, { cache: "no-store" });
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           return await res.text();
         } catch (err) {
-          attempt++;
-          if (attempt >= maxAttempts) throw err;
+          if (i === retries - 1) throw err;
           await new Promise(res => setTimeout(res, delay));
         }
       }
@@ -379,17 +245,9 @@
             item.className = "final-entry";
             item.innerHTML = `<strong>${title}</strong><small>${desc}</small>`;
             item.onclick = () => {
-              digitLinks = [];
               resultsDiv.innerHTML = "";
-              const loadingMsg = document.createElement("p");
-              loadingMsg.textContent = "Please wait...";
-              loadingMsg.style.textAlign = "center";
               spinner.style.display = "block";
-              resultsDiv.appendChild(loadingMsg);
-
               fetchAndRender(baseURL + href, true).then(() => {
-                resultsDiv.removeChild(loadingMsg);
-                spinner.style.display = "none";
                 showResults();
               });
             };
@@ -400,18 +258,18 @@
         if (autoFollow && digitLinks.length > 0) {
           showResults();
         } else if (!autoFollow && matches.length === 0) {
-          resultsDiv.innerHTML = `<p style="text-align:center; color:#777;">❌ No results found.</p>`;
+          resultsDiv.innerHTML = `<p style="text-align:center; color:#999;">❌ No results found.</p>`;
         }
       } catch (err) {
-        resultsDiv.innerHTML = `<p style="text-align:center; color:red;">❌ Failed to load, retrying...</p>`;
-        console.error("Retry failed:", err);
+        resultsDiv.innerHTML = `<p style="text-align:center; color:red;">❌ Failed to load content.</p>`;
+        console.error("Fetch failed:", err);
       } finally {
         spinner.style.display = "none";
       }
     }
 
     function showResults() {
-      resultsDiv.innerHTML = ``;
+      resultsDiv.innerHTML = "";
       digitLinks.forEach(link => {
         const div = document.createElement("div");
         div.className = "final-entry";
@@ -420,54 +278,29 @@
           <small>${link.size}</small>
           <div>
             <button onclick="playVideo('${link.url}')">▶ Play</button>
-            <button onclick="downloadFile('${link.url}')">⬇ Download</button>
+            <button onclick="window.open('${link.url}', '_blank')">⬇ Download</button>
           </div>`;
         resultsDiv.appendChild(div);
       });
     }
 
-    function downloadFile(url) {
-      const okBtn = document.getElementById("redirectOkBtn");
-      popup.style.display = "flex";
-
-      okBtn.onclick = () => {
-        popup.style.display = "none";
-        window.open("https://otieu.com/4/9529356", "_blank");
-        setTimeout(() => {
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "";
-          a.target = "_self";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }, 5000);
-      };
+    function playVideo(url) {
+      videoPlayer.innerHTML = `
+        <video id="moviePlayer" controls playsinline>
+          <source src="${url}" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      `;
+      const player = new Plyr('#moviePlayer', {
+        autoplay: true,
+        controls: [
+          'play-large', 'play', 'progress', 'current-time',
+          'mute', 'volume', 'captions', 'settings', 'fullscreen'
+        ],
+        ratio: '16:9'
+      });
+      videoPlayer.scrollIntoView({ behavior: "smooth" });
     }
-
-  function playVideo(url) {
-  videoPlayer.innerHTML = `
-    <video id="moviePlayer" controls playsinline>
-      <source src="${url}" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  `;
-
-  const player = new Plyr('#moviePlayer', {
-    autoplay: true,
-    controls: [
-      'play-large', 'play', 'progress', 'current-time',
-      'mute', 'volume', 'captions', 'settings', 'fullscreen'
-    ],
-    ratio: '16:9'
-  });
-
-  videoPlayer.scrollIntoView({ behavior: "smooth" });
-}
-
   </script>
-<!-- Plyr JS -->
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-
-  </body>
+</body>
 </html>
