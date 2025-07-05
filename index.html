@@ -1,12 +1,11 @@
-make it <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Movie Aro - Tamil</title>
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet"/>
 
   <style>
     * {
@@ -26,7 +25,6 @@ make it <!DOCTYPE html>
     header {
       padding: 1.5rem;
       text-align: center;
-     
       color: white;
     }
 
@@ -117,19 +115,6 @@ make it <!DOCTYPE html>
       background: #b0060f;
     }
 
-    #videoPlayer {
-      width: 100%;
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-
-    #videoPlayer video {
-      width: 100%;
-      border-radius: 10px;
-      background: #000;
-    }
-
     footer {
       background: #111;
       color: #ccc;
@@ -155,49 +140,25 @@ make it <!DOCTYPE html>
       text-decoration: underline;
     }
 
-    .fake-thumbnail {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  background: #000 url('https://img.icons8.com/ios-filled/100/ffffff/play.png') center center no-repeat;
-  background-size: cover;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.fake-thumbnail .play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-  pointer-events: none;
-}
-
     .video-thumbnail {
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  overflow: hidden;
-  border-radius: 10px;
-  background: #000;
-  margin-bottom: 1rem;
-}
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      background: #000;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
 
-.video-thumbnail video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
+    .thumb-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -208,7 +169,6 @@ make it <!DOCTYPE html>
 
   <input type="text" id="searchBox" placeholder="Search movies..." />
   <div id="spinner" class="spinner"></div>
-  <div id="videoPlayer"></div>
   <div id="results"></div>
 
   <footer>
@@ -222,12 +182,10 @@ make it <!DOCTYPE html>
     &copy; 2025 MovieDownloader. All rights reserved.
   </footer>
 
-  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
     const searchBox = document.getElementById("searchBox");
     const resultsDiv = document.getElementById("results");
     const spinner = document.getElementById("spinner");
-    const videoPlayer = document.getElementById("videoPlayer");
 
     const allOrigins = "https://api.allorigins.win/raw?url=";
     const baseURL = "https://www.tamilprint45.art";
@@ -311,62 +269,47 @@ make it <!DOCTYPE html>
         spinner.style.display = "none";
       }
     }
-function showResults() {
-  resultsDiv.innerHTML = "";
-  digitLinks.forEach(link => {
-    const div = document.createElement("div");
-    div.className = "final-entry";
-    div.innerHTML = `
-      <div class="video-thumbnail">
-        <video muted preload="metadata" poster="" onclick="playVideo('${link.url}')">
-          <source src="${link.url}#t=0.5" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <strong>${link.name}</strong>
-      <small>${link.size}</small>
-      <div>
-        <button onclick="playVideo('${link.url}')">▶ Play</button>
-        <button onclick="window.open('${link.url}', '_blank')">⬇ Download</button>
-      </div>
-    `;
-    resultsDiv.appendChild(div);
-  });
-}
 
-    function playVideo(url) {
-      videoPlayer.innerHTML = `
-        <video id="moviePlayer" controls playsinline >
-          <source src="${url}" type="video/mp4" />
+    function showResults() {
+      resultsDiv.innerHTML = "";
+      digitLinks.forEach((link, index) => {
+        const div = document.createElement("div");
+        div.className = "final-entry";
+        div.innerHTML = `
+          <div class="video-thumbnail" id="thumb-${index}">
+            <img src="https://via.placeholder.com/400x225.png?text=Preview" alt="Video preview" class="thumb-img">
+          </div>
+          <strong>${link.name}</strong>
+          <small>${link.size}</small>
+          <div>
+            <button onclick="playInline('${link.url}', 'thumb-${index}', this)">▶ Play</button>
+            <button onclick="window.open('${link.url}', '_blank')">⬇ Download</button>
+          </div>
+        `;
+        resultsDiv.appendChild(div);
+      });
+    }
+
+    function playInline(url, containerId, buttonEl) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = `
+        <video controls autoplay muted playsinline style="width:100%; height:100%; position:absolute; top:0; left:0; border-radius:10px;">
+          <source src="${url}" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       `;
-      const player = new Plyr('#moviePlayer', {
-        autoplay: true,
-        controls: [
-          'play-large', 'play', 'progress', 'current-time',
-          'mute', 'volume', 'captions', 'settings', 'fullscreen','nodownload','autoplay'
-        ],
-        ratio: '16:9'
-      });
-      videoPlayer.scrollIntoView({ behavior: "smooth" });
+      buttonEl.remove(); // remove Play button
     }
 
-
-  
-
-
-    
     // Auto-load query from URL if present
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const query = params.get("q");
-  if (query) {
-    searchBox.value = query;
-    fetchAndRender(searchPrefix + encodeURIComponent(query), false);
-  }
-});
-
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("q");
+      if (query) {
+        searchBox.value = query;
+        fetchAndRender(searchPrefix + encodeURIComponent(query), false);
+      }
+    });
   </script>
 </body>
 </html>
