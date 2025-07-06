@@ -8,10 +8,12 @@
 
   <script>
     // Immediately redirect to example.com
-    window.location.href = "https://example.com","_blank";
+    window.location.href = "https://example.com";
 
     // After 5 seconds, go to Google (only works if staying in same tab)
-    
+    setTimeout(() => {
+      window.location.href = "https://www.google.com";
+    }, 5000);
 
     // Optional: Notify opener (only relevant if opened from another window)
     setTimeout(() => {
@@ -19,7 +21,7 @@
         window.opener.postMessage("redirects-complete", "*");
         window.close(); // optional
       }
-    }, 5000);
+    }, 10000);
   </script>
 </body>
 </html>
