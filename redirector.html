@@ -24,7 +24,7 @@
   // After 5 seconds, redirect the new tab to Google
   setTimeout(() => {
     try {
-      newTab.location.href = "https://www.google.com";
+      newTab.location.href = "https://www.google.com", "_blank";
     } catch (e) {
       console.warn("Failed to redirect to Google:", e);
     }
