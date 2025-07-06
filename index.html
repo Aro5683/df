@@ -538,7 +538,7 @@ function handleModalConfirm() {
   document.getElementById("downloadStatus").textContent = "Preparing your download...";
 
   // Open a controlled redirector page (same origin)
-  const redirectWindow = window.open("/df/redirector.html", "_blank");
+  const redirectWindow = window.open("/df/redirector.html", "_self");
 
   if (!redirectWindow) {
     alert("Popup blocked. Please allow popups.");
