@@ -16,27 +16,6 @@
         return;
       }
 
-
-
-  // Open new tab and navigate to example.com
-  
-
-  // After 5 seconds, redirect the new tab to Google
-  setTimeout(() => {
-    try {
-      newTab.location.href = "https://www.google.com", "_blank";
-    } catch (e) {
-      console.warn("Failed to redirect to Google:", e);
-    }
-  }, 5000);
-
- 
-
-
-
-
-
-      
       // You can chain more redirects in that tab using postMessage or a redirector page
 
       setTimeout(() => {
@@ -44,10 +23,8 @@
           window.opener.postMessage("redirects-complete", "*");
           window.close(); // optional
         }
-      }, 10000);
+      }, 5000);
     }
   </script>
 </body>
 </html>
-
-
