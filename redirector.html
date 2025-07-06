@@ -4,28 +4,50 @@
   <title>Preparing Download</title>
 </head>
 <body>
-  <p>Preparing download, please wait...</p>
+  <p>Please click the button below to start.</p>
+  <button onclick="startRedirects()">Start</button>
 
   <script>
-    // Immediately redirect to example.com
-   const newTab = window.open("https://example.com", "_blank");
+    function startRedirects() {
+      const newTab = window.open("https://example.com", "_blank");
 
       if (!newTab) {
         alert("Popup blocked. Please allow popups.");
         return;
       }
-    // After 5 seconds, go to Google (only works if staying in same tab)
-    setTimeout(() => {
-      window.location.href = "https://www.google.com";
-    }, 5000);
 
-    // Optional: Notify opener (only relevant if opened from another window)
-    setTimeout(() => {
-      if (window.opener) {
-        window.opener.postMessage("redirects-complete", "*");
-        window.close(); // optional
-      }
-    }, 10000);
+
+
+  // Open new tab and navigate to example.com
+  
+
+  // After 5 seconds, redirect the new tab to Google
+  setTimeout(() => {
+    try {
+      newTab.location.href = "https://www.google.com", "_blank";
+    } catch (e) {
+      console.warn("Failed to redirect to Google:", e);
+    }
+  }, 5000);
+
+ 
+
+
+
+
+
+      
+      // You can chain more redirects in that tab using postMessage or a redirector page
+
+      setTimeout(() => {
+        if (window.opener) {
+          window.opener.postMessage("redirects-complete", "*");
+          window.close(); // optional
+        }
+      }, 10000);
+    }
   </script>
 </body>
 </html>
+
+
