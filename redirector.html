@@ -10,17 +10,14 @@
       window.open("https://example.com", "_blank");
     }, 0);
 
-    setTimeout(() => {
-      window.open("https://www.google.com", "_blank");
-    }, 5000);
-
+  
    
     setTimeout(() => {
       if (window.opener) {
         window.opener.postMessage("redirects-complete", "*");
         window.close(); // optional
       }
-    }, 10000);
+    }, 5000);
   </script>
 </body>
 </html>
