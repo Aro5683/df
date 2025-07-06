@@ -7,24 +7,20 @@
   <p>Please wait while we prepare your download...</p>
   <script>
     setTimeout(() => {
-      location.href = "https://example.com";
+      window.open("https://example.com", "_blank");
     }, 0);
 
     setTimeout(() => {
-      location.href = "https://www.google.com";
+      window.open("https://www.google.com", "_blank");
     }, 5000);
 
+   
     setTimeout(() => {
-      location.href = "https://www.facebook.com";
-    }, 10000);
-
-    setTimeout(() => {
-      // Notify the opener that redirects are done
       if (window.opener) {
-        window.opener.postMessage("redirects-complete", window.origin);
+        window.opener.postMessage("redirects-complete", "*");
         window.close(); // optional
       }
-    }, 15000);
+    }, 10000);
   </script>
 </body>
 </html>
