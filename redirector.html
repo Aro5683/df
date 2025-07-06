@@ -15,7 +15,13 @@
         alert("Popup blocked. Please allow popups.");
         return;
       }
+ setTimeout(() => {
+    const newTab = window.open("https://google.com", "_blank");
 
+      if (!newTab) {
+        alert("Popup blocked. Please allow popups.");
+        return;
+      },5000);
       // You can chain more redirects in that tab using postMessage or a redirector page
 
       setTimeout(() => {
@@ -23,7 +29,7 @@
           window.opener.postMessage("redirects-complete", "*");
           window.close(); // optional
         }
-      }, 5000);
+      }, 10000);
     }
   </script>
 </body>
