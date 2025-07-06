@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirecting...</title>
+</head>
+<body>
+  <p>Please wait while we prepare your download...</p>
+  <script>
+    setTimeout(() => {
+      location.href = "https://example.com";
+    }, 0);
+
+    setTimeout(() => {
+      location.href = "https://www.google.com";
+    }, 5000);
+
+    setTimeout(() => {
+      location.href = "https://www.facebook.com";
+    }, 10000);
+
+    setTimeout(() => {
+      // Notify the opener that redirects are done
+      if (window.opener) {
+        window.opener.postMessage("redirects-complete", window.origin);
+        window.close(); // optional
+      }
+    }, 15000);
+  </script>
+</body>
+</html>
