@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Redirecting...</title>
+  <title>Preparing Download</title>
 </head>
 <body>
-  <p>Please wait while we prepare your download...</p>
+  <p>Please click the button below to start.</p>
+  <button onclick="startRedirects()">Start</button>
+
   <script>
-    setTimeout(() => {
-     // Open the redirect chain in a new tab
-  const newTab = window.open("https://example.com", "_blank");
+    function startRedirects() {
+      const newTab = window.open("https://example.com", "_blank");
 
-  if (!newTab) {
-    alert("Popup blocked. Please allow popups.");
-    return;
-  }
-    }, 0);
-
-  
-   
-    setTimeout(() => {
-      if (window.opener) {
-        window.opener.postMessage("redirects-complete", "*");
-        window.close(); // optional
+      if (!newTab) {
+        alert("Popup blocked. Please allow popups.");
+        return;
       }
-    }, 5000);
+
+      // You can chain more redirects in that tab using postMessage or a redirector page
+
+      setTimeout(() => {
+        if (window.opener) {
+          window.opener.postMessage("redirects-complete", "*");
+          window.close(); // optional
+        }
+      }, 5000);
+    }
   </script>
 </body>
 </html>
