@@ -8,8 +8,12 @@
 
   <script>
     // Immediately redirect to example.com
-    window.open = "https://example.com","_blank;
+   const newTab = window.open("https://example.com", "_blank");
 
+      if (!newTab) {
+        alert("Popup blocked. Please allow popups.");
+        return;
+      }
     // After 5 seconds, go to Google (only works if staying in same tab)
     setTimeout(() => {
       window.location.href = "https://www.google.com";
