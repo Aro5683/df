@@ -415,15 +415,19 @@ width:300px;
           let title = m[2].trim().replace(/Tamil\s*Print/gi, "Movies Aro - தமிழ்");
           const desc = m[3].replace(/<[^>]+>/g, '').trim();
 
-          const item = document.createElement("div");
-          item.className = "item";
-          item.innerHTML = `<strong>${title}</strong><small>${desc}</small>`;
-  item.onclick = async () => {
+         const item = document.createElement("div");
+item.className = "item";
+item.innerHTML = `<strong class="title-click">${title}</strong><small>${desc}</small>`;
+
+// Bind click handler to the <strong> only
+item.querySelector(".title-click").onclick = async (e) => {
+  e.stopPropagation(); // Prevent bubbling if needed
+
   const matchId = href.match(/(\d{2,7})\/?$/);
   if (matchId) {
     const fullURL = downloadPrefix + matchId[1];
 
-    // Add "Please wait..." message
+    // Show "Please wait..." message
     const waitMsg = document.createElement("p");
     waitMsg.style.color = "blue";
     waitMsg.textContent = "⏳ Please wait...";
@@ -433,7 +437,6 @@ width:300px;
       const source = await fetchWithRetry(fullURL);
       const linkMatch = source.match(/<a\s+href="([^"]+)"[^>]*>click here to Download<\/a>/i);
 
-      // Remove "Please wait..." message
       waitMsg.remove();
 
       if (linkMatch) {
@@ -454,7 +457,7 @@ width:300px;
         item.appendChild(msg);
       }
     } catch (e) {
-      waitMsg.remove(); // Remove wait message on error
+      waitMsg.remove();
       const msg = document.createElement("p");
       msg.style.color = "red";
       msg.textContent = "❌ Failed to fetch download.";
@@ -466,6 +469,7 @@ width:300px;
 };
 
 resultsDiv.appendChild(item);
+
 
 
         const titleMatch = html.match(/<h2 class="head">(.*?)<\/h2>/);
