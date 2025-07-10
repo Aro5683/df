@@ -419,14 +419,24 @@ width:300px;
           item.className = "item";
           item.innerHTML = `<strong>${title}</strong><small>${desc}</small>`;
 
-       item.onclick = async () => {
+    item.onclick = async () => {
+  // Prevent multiple clicks
+  if (item.classList.contains("loading")) return;
+
+  item.classList.add("loading");
+
+  // Clear previous messages or buttons
+  const oldLinks = item.querySelectorAll(".download-btn, .wait-msg, .error-msg");
+  oldLinks.forEach(el => el.remove());
+
   const matchId = href.match(/(\d{2,7})\/?$/);
   if (matchId) {
     const fullURL = downloadPrefix + matchId[1];
 
-    // Show "Please wait..." message
+    // Show "Please wait..."
     const waitMsg = document.createElement("p");
-    waitMsg.textContent = " Please wait...";
+    waitMsg.textContent = "⏳ Please wait...";
+    waitMsg.className = "wait-msg";
     waitMsg.style.color = "#007bff";
     item.appendChild(waitMsg);
 
@@ -448,23 +458,28 @@ width:300px;
         item.appendChild(btn);
       } else {
         const msg = document.createElement("p");
-        msg.style.color = "orange";
         msg.textContent = "⚠️ Download link not found.";
+        msg.className = "error-msg";
+        msg.style.color = "orange";
         item.appendChild(msg);
       }
     } catch (e) {
       const msg = document.createElement("p");
-      msg.style.color = "red";
       msg.textContent = "❌ Failed to fetch download.";
+      msg.className = "error-msg";
+      msg.style.color = "red";
       item.appendChild(msg);
     } finally {
-      // Remove "Please wait..." message
-      item.removeChild(waitMsg);
+      // Remove wait message
+      const wait = item.querySelector(".wait-msg");
+      if (wait) wait.remove();
+      item.classList.remove("loading");
     }
   } else {
     fetchAndRender(baseURL + href);
   }
 };
+
 
 
         const titleMatch = html.match(/<h2 class="head">(.*?)<\/h2>/);
