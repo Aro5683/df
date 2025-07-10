@@ -201,7 +201,12 @@ width:300px;
       color: #666;
     }
 
-    tip{}
+    tip{background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;}
 
     .download-btn {
       display: inline-block;
@@ -462,7 +467,7 @@ const tip = document.createElement("div");
             }
           };
 
-          resultsDiv.appendChild(item);
+          resultsDiv.appendChild(item,tip);
         }
 
         const titleMatch = html.match(/<h2 class="head">(.*?)<\/h2>/);
