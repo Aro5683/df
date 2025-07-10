@@ -425,47 +425,56 @@ width:300px;
          const item = document.createElement("div");
           item.className = "item";
           item.innerHTML = `<strong>${title}</strong><small>${desc}</small>`;
-const tip = document.createElement("div");
-          tip.className = "tip";
-          item.onclick = async () => {
-            const matchId = href.match(/(\d{2,7})\/?$/);
-            if (matchId) {
-              const fullURL = downloadPrefix + matchId[1];
-  const msg = document.createElement("p");
-                  msg.style.color = "orange";
-                  msg.textContent = "Please wait...";
-                  item.appendChild(msg);
-                
-              try {
-                const source = await fetchWithRetry(fullURL);
-                const linkMatch = source.match(/<a\s+href="([^"]+)"[^>]*>click here to Download<\/a>/i);
-                if (linkMatch) {
-                  let downloadLink = linkMatch[1];
-                  if (downloadLink.startsWith("//")) downloadLink = "https:" + downloadLink;
 
-                  const btn = document.createElement("a");
-                  btn.href = downloadLink;
-                  btn.textContent = "Download";
-                  btn.className = "download-btn";
-                  btn.target = "_self";
-                  tip.appendChild(document.createElement("br"));
-                  tip.appendChild(btn);
-                } else {
-                  const msg = document.createElement("p");
-                  msg.style.color = "orange";
-                  msg.textContent = "⚠️ Download link not found.";
-                  item.appendChild(msg);
-                }
-              } catch (e) {
-                const msg = document.createElement("p");
-                msg.style.color = "red";
-                msg.textContent = "❌ Failed to fetch download.";
-                item.appendChild(msg);
-              }
-            } else {
-              fetchAndRender(baseURL + href);
-            }
-          };
+         item.onclick = async () => {
+  const matchId = href.match(/(\d{2,7})\/?$/);
+  
+  if (matchId) {
+    const fullURL = downloadPrefix + matchId[1];
+
+    // Create and show "Please wait..." message
+    const waitMsg = document.createElement("p");
+    waitMsg.style.color = "orange";
+    waitMsg.textContent = "Please wait...";
+    item.appendChild(waitMsg);
+
+    try {
+      const source = await fetchWithRetry(fullURL);
+      const linkMatch = source.match(/<a\s+href="([^"]+)"[^>]*>click here to Download<\/a>/i);
+
+      if (linkMatch) {
+        let downloadLink = linkMatch[1];
+        if (downloadLink.startsWith("//")) {
+          downloadLink = "https:" + downloadLink;
+        }
+
+        // Remove the "Please wait..." message
+        item.removeChild(waitMsg);
+
+        const br = document.createElement("br");
+        const btn = document.createElement("a");
+        btn.href = downloadLink;
+        btn.textContent = "Download";
+        btn.className = "download-btn";
+        btn.target = "_self";
+
+        item.appendChild(br);
+        item.appendChild(btn);
+      } else {
+        // Update "Please wait..." message to show warning
+        waitMsg.style.color = "orange";
+        waitMsg.textContent = "⚠️ Download link not found.";
+      }
+    } catch (e) {
+      // Update "Please wait..." message to show error
+      waitMsg.style.color = "red";
+      waitMsg.textContent = "❌ Failed to fetch download.";
+    }
+  } else {
+    fetchAndRender(baseURL + href);
+  }
+};
+
 
           resultsDiv.appendChild(item,tip);
         }
