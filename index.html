@@ -426,7 +426,7 @@ width:300px;
 
     // Show "Please wait..." message
     const waitMsg = document.createElement("p");
-    waitMsg.textContent = "⏳ Please wait...";
+    waitMsg.textContent = " Please wait...";
     waitMsg.style.color = "#007bff";
     item.appendChild(waitMsg);
 
@@ -473,10 +473,7 @@ width:300px;
           const cleanTable = tableMatch[1]
             .replace(/<img[^>]*>/g, '')
             .replace(/<tr>.*?Story.*?<\/tr>/si, '');
-          const detailDiv = document.createElement("div");
-          detailDiv.className = "details";
-          detailDiv.innerHTML = `<strong>${titleMatch[1]}</strong><br><table>${cleanTable}</table>`;
-          resultsDiv.insertBefore(detailDiv, resultsDiv.firstChild);
+         
         }
 
       } catch (err) {
