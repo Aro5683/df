@@ -107,58 +107,54 @@ width:300px;
   <!-- Main Site Content -->
   <div id="mainContent">
     
-    <!-- Add the rest of your app content here -->
-
+ <!doctype html>
 
 
   
   
 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
- 
-      padding: 5px;
-    
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #ffe2e2, #e0f7fa);
       color: #333;
     }
 
-    .search-bar {
-      display: flex;
-      gap: 10px;
+    header, footer {
+      background: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    input[type="text"] {
-      flex: 1;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    #searchBox {
+      width: 90%;
+      padding: 14px 16px;
       font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    .spinner {
+    #spinner {
       display: none;
-      justify-content: center;
       margin: 30px 0;
+      text-align: center;
     }
 
-    .spinner div {
-      width: 18px;
-      height: 18px;
+    .bounce-loader > div {
+      width: 16px;
+      height: 16px;
       margin: 3px;
       background-color: #007bff;
       border-radius: 100%;
@@ -166,127 +162,103 @@ width:300px;
       animation: bouncedelay 1.4s infinite ease-in-out both;
     }
 
-    .spinner .bounce1 { animation-delay: -0.32s; }
-    .spinner .bounce2 { animation-delay: -0.16s; }
+    .bounce-loader .bounce1 {
+      animation-delay: -0.32s;
+    }
+
+    .bounce-loader .bounce2 {
+      animation-delay: -0.16s;
+    }
 
     @keyframes bouncedelay {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
+      0%, 80%, 100% {
+        transform: scale(0);
+      } 40% {
+        transform: scale(1);
+      }
     }
 
-    .result {
-      margin-top: 30px;
+    .item {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;
     }
 
-    .block {
-    
-      padding: 15px;
-  
-      margin-bottom: 20px;
-      overflow-x: auto;
+    .item:hover {
+      transform: translateY(-4px);
     }
 
-    a {
-      color: #007bff;
-      font-weight: bold;
-      text-decoration: none;
+    .item strong {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 6px;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .item small {
+      color: #666;
     }
 
-    /* Redirect Modal */
-    #redirectModal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #redirectModalContent {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 300px;
-    }
-
-    #redirectModalContent button {
+    .download-btn {
+      display: inline-block;
       margin-top: 15px;
-      padding: 8px 16px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      background-color: #007bff;
+      padding: 10px 18px;
+      background: #28a745;
       color: white;
-      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease, box-shadow 0.3s;
+      box-shadow: 0 0 10px rgba(40,167,69,0.3);
     }
 
-    #redirectModalContent button:hover {
-      background-color: #0056b3;
+    .download-btn:hover {
+      background: #218838;
+      box-shadow: 0 0 14px rgba(40,167,69,0.5);
+    }
+
+    .details {
+      margin-top: 20px;
+      background: #fff3cd;
+      padding: 18px;
+      border-radius: 12px;
+      border-left: 5px solid #ffc107;
+    }
+
+    footer {
+      font-size: 16px;
+      margin-top: 40px;
+      background: #fff;
     }
   </style>
-  <style>
-   
 
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
 
-   
-.movie-button {
-    padding: 15px 85px;
-    font-size: 18px;
-    color: #fff;
-    background-color: #000912a6;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-    .movie-button:hover {
-      background-color: #3700b3;
-    }
-  </style>
+
+  <header>Movies Aro</header>
 
   <div class="container">
-    <h2>Movies Aro - Tamil</h2>
-
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Enter keyword (e.g. Retro)" autocomplete="off" />
+    <input id="searchBox" type="text" placeholder="Search  Movies..." />
+    <div id="spinner">
+      <div class="bounce-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
     </div>
-
-    <div class="spinner" id="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-
-    <div id="results" class="result"></div>
+    <div id="results"></div>
   </div>
-
- 
-
 <style>
   .telegram-center-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 30vh;
-    background: #ffffff;
+  
   }
 
-  .telegram-glow-btn {
+ .telegram-glow-btn {
     display: inline-block;
     padding: 6px;
     border-radius: 50%;
@@ -296,17 +268,17 @@ width:300px;
     transition: transform 0.3s ease, box-shadow 0.4s ease;
     text-decoration: none;
     position: relative;
-  }
+}
 
   .telegram-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     display: block;
   }
 
   
 .telegram-glow-btn::before {
-    content: '';
+  
     position: absolute;
     top: 50%;
     left: 50%;
@@ -350,160 +322,163 @@ width:300px;
   </a>
 </div>
  <br/>
-<br/>
-<br/>
 
-<div class="button-container">
-    <a href="https://moviesarodub.netlify.app">
-  <button class="movie-button">All Tamil Dubbed Movies</button>
-</a>
 
+<div style="text-align:center; margin-top: 30px;">
+  <!-- button goes here -->
+<a href="https://moviesarodub.netlify.app" class="glow-button" target="_self">All Tamil Dubbed Movies</a>
+<style>
+.glow-button {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #3f87a6, #ebf8e1, #f69d3c);
+  background-size: 300% 300%;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
   
-  </div>
+  transition: all 0.4s ease-in-out;
+ 
+}
 
+.glow-button:hover {
+  background-position: right center;
+  
+  transform: scale(1.05);
+}
 
-  <!-- Redirect Modal -->
-  <div id="redirectModal">
-    <div id="redirectModalContent">
-      <p>இப்பொழுது ஒரு பக்கம் உருவாகும், அதில் "Download File Now" ஐ கிளிக் செய்யவும்.</p>
-      <button id="redirectOkayBtn">Okay</button>
-    </div>
-  </div>
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  }
+}
+</style>
+</div>
 
   <script>
-    const baseURL = "https://www.tamilprint46.art";
-    const proxies = [
-      "https://api.allorigins.win/get?url=",
-      "https://api.codetabs.com/v1/proxy?quest=",
-      "https://thingproxy.freeboard.io/fetch/"
-    ];
+    const searchBox = document.getElementById("searchBox");
+    const resultsDiv = document.getElementById("results");
+    const spinner = document.getElementById("spinner");
+    const allOrigins = "https://api.allorigins.win/raw?url=";
+    const baseURL = "https://www.tamilprint45.art";
+    const searchPrefix = baseURL + "/search.php?source=";
+    const downloadPrefix = "https://cdn.tamilprintdl.shop/errorurl.php?fid=";
 
     let debounceTimer;
-    const searchInput = document.getElementById("searchInput");
 
-    searchInput.addEventListener("input", () => {
+    async function fetchWithRetry(url, retries = 3) {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const res = await fetch(allOrigins + encodeURIComponent(url));
+          if (!res.ok) throw new Error("Network error");
+          return await res.text();
+        } catch (err) {
+          if (i === retries - 1) throw err;
+          await new Promise(r => setTimeout(r, 300));
+        }
+      }
+    }
+
+    searchBox.addEventListener("input", () => {
       clearTimeout(debounceTimer);
-      const keyword = searchInput.value.trim();
-      if (keyword.length === 0) return;
-
+      const keyword = searchBox.value.trim();
+      if (keyword.length === 0) {
+        resultsDiv.innerHTML = "";
+        return;
+      }
       debounceTimer = setTimeout(() => {
-        const searchUrl = `${baseURL}/search.php?source=${encodeURIComponent(keyword)}`;
-        fetchAndDisplay(searchUrl);
-      }, 400);
+        fetchAndRender(searchPrefix + encodeURIComponent(keyword));
+      }, 300);
     });
 
-    async function fetchViaProxies(url) {
-      const urls = proxies.map(proxy => proxy + encodeURIComponent(url));
-      const abortController = new AbortController();
-      const timeout = setTimeout(() => abortController.abort(), 6000);
+    async function fetchAndRender(url) {
+      resultsDiv.innerHTML = "";
+      spinner.style.display = "block";
 
       try {
-        const fetches = urls.map(proxyUrl =>
-          fetch(proxyUrl, { signal: abortController.signal }).then(async res => {
-            if (!res.ok) throw new Error("Fetch failed");
-            return proxyUrl.includes("allorigins") ? (await res.json()).contents : await res.text();
-          })
-        );
-        const content = await Promise.any(fetches);
-        return content;
-      } catch (err) {
-        console.error("Fetch failed:", err);
-        return null;
-      } finally {
-        clearTimeout(timeout);
-      }
-    }
+        const html = await fetchWithRetry(url);
+        const fastChunk = html.split('<div class="tamilprintda"')[0];
+        const matches = [...fastChunk.matchAll(/<div class="M1">.*?<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a><br>(.*?)<\/td>/gs)];
 
-    function parseHTML(html) {
-      const parser = new DOMParser();
-      return parser.parseFromString(html, "text/html");
-    }
+        for (const m of matches) {
+          const href = m[1];
+          let title = m[2].trim().replace(/Tamil\s*Print/gi, "Movies Aro - தமிழ்");
+          const desc = m[3].replace(/<[^>]+>/g, '').trim();
 
-    function enableRecursiveLinks(container) {
-      container.querySelectorAll("a[href]").forEach(link => {
-        const href = link.getAttribute("href");
-        if (href && !href.startsWith("http") && !href.startsWith("javascript:")) {
-          link.href = "#";
-          link.addEventListener("click", async e => {
-            e.preventDefault();
-            const fullUrl = baseURL + href;
-            fetchAndDisplay(fullUrl);
-          });
-        }
-      });
-    }
+          const item = document.createElement("div");
+          item.className = "item";
+          item.innerHTML = `<strong>${title}</strong><small>${desc}</small>`;
 
-    function showSpinner(state) {
-      const spinner = document.getElementById("spinner");
-      spinner.style.display = state ? "flex" : "none";
-    }
+          item.onclick = async () => {
+            const matchId = href.match(/(\d{2,7})\/?$/);
+            if (matchId) {
+              const fullURL = downloadPrefix + matchId[1];
+              try {
+                const source = await fetchWithRetry(fullURL);
+                const linkMatch = source.match(/<a\s+href="([^"]+)"[^>]*>click here to Download<\/a>/i);
+                if (linkMatch) {
+                  let downloadLink = linkMatch[1];
+                  if (downloadLink.startsWith("//")) downloadLink = "https:" + downloadLink;
 
-    async function fetchAndDisplay(url) {
-      const results = document.getElementById("results");
-      results.innerHTML = "";
-      let spinnerTimeout = setTimeout(() => showSpinner(true), 300);
-
-      const html = await fetchViaProxies(url);
-      clearTimeout(spinnerTimeout);
-      showSpinner(false);
-
-      if (!html) return;
-
-      const doc = parseHTML(html);
-      let found = false;
-
-      function extract(selector, isId = false) {
-        const items = isId ? [doc.getElementById(selector)] : doc.querySelectorAll(selector);
-        items.forEach(item => {
-          if (item) {
-            const clone = item.cloneNode(true);
-
-            // Remove all <img> tags
-            clone.querySelectorAll("img").forEach(img => img.remove());
-
-            clone.style.display = "block";
-            enableRecursiveLinks(clone);
-            const wrapper = document.createElement("div");
-            wrapper.className = "block";
-            wrapper.appendChild(clone);
-            results.appendChild(wrapper);
-            found = true;
-          }
-        });
-      }
-
-      extract("div.M1");
-      extract("div.menu");
-      ["link-container", "link-containerr", "content"].forEach(id => extract(id, true));
-
-      // Script-based redirection handler
-      doc.querySelectorAll("script").forEach(script => {
-        const match = script.textContent?.match(/fetchAndShowLink\(['"](.+?)['"]\)/);
-        if (match) {
-          const targetUrl = match[1];
-
-          // Show redirect modal
-          const modal = document.getElementById("redirectModal");
-          const okayBtn = document.getElementById("redirectOkayBtn");
-          modal.style.display = "flex";
-
-          okayBtn.onclick = () => {
-            modal.style.display = "none";
-          
-
-            // Redirect after 5 seconds
-        
-              window.location.href = `${baseURL}/load.php?url=${encodeURIComponent(targetUrl)}`;
-          
+                  const btn = document.createElement("a");
+                  btn.href = downloadLink;
+                  btn.textContent = "Download";
+                  btn.className = "download-btn";
+                  btn.target = "_blank";
+                  item.appendChild(document.createElement("br"));
+                  item.appendChild(btn);
+                } else {
+                  const msg = document.createElement("p");
+                  msg.style.color = "orange";
+                  msg.textContent = "⚠️ Download link not found.";
+                  item.appendChild(msg);
+                }
+              } catch (e) {
+                const msg = document.createElement("p");
+                msg.style.color = "red";
+                msg.textContent = "❌ Failed to fetch download.";
+                item.appendChild(msg);
+              }
+            } else {
+              fetchAndRender(baseURL + href);
+            }
           };
 
-          found = true;
+          resultsDiv.appendChild(item);
         }
-      });
+
+        const titleMatch = html.match(/<h2 class="head">(.*?)<\/h2>/);
+        const tableMatch = html.match(/<div class="bf"[^>]*>(.*?)<\/table>/s);
+        if (titleMatch && tableMatch) {
+          const cleanTable = tableMatch[1]
+            .replace(/<img[^>]*>/g, '')
+            .replace(/<tr>.*?Story.*?<\/tr>/si, '');
+          const detailDiv = document.createElement("div");
+          detailDiv.className = "details";
+          detailDiv.innerHTML = `<strong>${titleMatch[1]}</strong><br><table>${cleanTable}</table>`;
+          resultsDiv.insertBefore(detailDiv, resultsDiv.firstChild);
+        }
+
+      } catch (err) {
+        resultsDiv.innerHTML = "<p style='color:red;'>⚠️ Could not load results. Please try again.</p>";
+        console.error("Fetch error:", err);
+      } finally {
+        spinner.style.display = "none";
+      }
     }
   </script>
 
-
+</!doctype>
 </div>
 
   <script>
