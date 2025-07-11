@@ -483,7 +483,7 @@ resultsDiv.appendChild(waitMsg);
 
 // Message 2: Tamil retry message
 const retryMsg = document.createElement("div");
-retryMsg.textContent = "ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅";
+retryMsg.textContent = "ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் Search பண்ணி பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅";
 retryMsg.style.marginTop = "5px";
 retryMsg.style.color = "#555";
 retryMsg.style.fontSize = "14px";
@@ -558,8 +558,7 @@ const fullUrl = rawHref.startsWith("http") ? rawHref : baseURL + rawHref;
                 const container = document.createElement("div");
                 container.style.marginTop = "15px";
                 container.style.padding = "10px";
-                container.style.background = "#eef9ff";
-                container.style.border = "1px solid #ccc";
+              
 
                 let inner = "<strong>🎯 Thanks for Downloading...</strong><br><ul>";
                 foundUrls.forEach(url => {
