@@ -472,7 +472,7 @@ if (unwantedBtn) {
   // ✅ Show "Please wait..." message (only for .menu a clicks)
   const resultsDiv = document.getElementById("results");
   const waitMsg = document.createElement("div");
-  waitMsg.textContent = "Please wait...";
+  waitMsg.textContent = "Please wait...",<br/>"ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅";
   waitMsg.style.marginTop = "10px";
   waitMsg.style.color = "Black";
   waitMsg.style.fontStyle = "italic";
@@ -511,7 +511,7 @@ if (unwantedBtn) {
                   const finalUrl = aMatch[1].startsWith("http")
                     ? aMatch[1]
                     : new URL(aMatch[1], directLink).href;
-                  window.open(finalUrl, "_blank");
+                  window.open(finalUrl, "_blank");location.reload();
                   return;
                 } else {
                   alert("❌ No <a> tag with href found in the direct page.");
@@ -551,9 +551,9 @@ if (unwantedBtn) {
                 container.style.background = "#eef9ff";
                 container.style.border = "1px solid #ccc";
 
-                let inner = "<strong>🎯 ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅</strong><br><ul>";
+                let inner = "<strong>🎯 Thanks for Downloading...</strong><br><ul>";
                 foundUrls.forEach(url => {
-                  inner += `<button onclick="window.open('${url}', '_self')">Download</button>`;
+                 inner += `<button onclick="window.open('${url}', '_blank'); location.reload();">Download</button>`;
                 });
                 inner += "</ul>";
 
