@@ -416,10 +416,7 @@ width:300px;
       const tableMatch = html.match(/<div class="bf"[^>]*>([\s\S]*?)<\/table>/i);
       if (titleMatch && tableMatch) {
         const cleanTable = tableMatch[1].replace(/<img[^>]*>/g, '').replace(/<tr>.*?Story.*?<\/tr>/i, '');
-        const detailDiv = document.createElement("div");
-        detailDiv.className = "details";
-        detailDiv.innerHTML = `<strong>${titleMatch[1]}</strong><br><table>${cleanTable}</table>`;
-        resultsDiv.insertBefore(detailDiv, resultsDiv.firstChild);
+      
       }
 
       logStatus("🔍 Searching for file block...");
@@ -473,7 +470,7 @@ if (unwantedBtn) {
   const resultsDiv = document.getElementById("results");
   const waitMsg = document.createElement("div");
  
-  waitMsg.textContent = "Please wait....            ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅"; 
+  waitMsg.textContent = "Please wait....                                                                                                           ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅"; 
   waitMsg.style.marginTop = "10px";
   waitMsg.style.color = "Black";
   waitMsg.style.fontStyle = "italic";
