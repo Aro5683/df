@@ -467,21 +467,33 @@ if (unwantedBtn) {
   document.getElementById("status-log").innerHTML = "";
 
   // ✅ Show "Please wait..." message (only for .menu a clicks)
-  const resultsDiv = document.getElementById("results");
-  const waitMsg = document.createElement("div");
- 
-  waitMsg.textContent = "Please wait....                                                                                                           ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅"; 
-  waitMsg.style.marginTop = "10px";
-  waitMsg.style.color = "Black";
-  waitMsg.style.fontStyle = "italic";
-  waitMsg.className = "wait-message";
+ const resultsDiv = document.getElementById("results");
 
-  // Remove any existing "please wait" message
-  document.querySelectorAll(".wait-message").forEach(el => el.remove());
-  resultsDiv.appendChild(waitMsg);
+// Remove any existing messages first
+document.querySelectorAll(".wait-message, .retry-message").forEach(el => el.remove());
 
-  const rawHref = aTag.getAttribute("href");
-  const fullUrl = rawHref.startsWith("http") ? rawHref : baseURL + rawHref;
+// Message 1: Please wait...
+const waitMsg = document.createElement("div");
+waitMsg.textContent = "Please wait...";
+waitMsg.style.marginTop = "10px";
+waitMsg.style.color = "black";
+waitMsg.style.fontStyle = "italic";
+waitMsg.className = "wait-message";
+resultsDiv.appendChild(waitMsg);
+
+// Message 2: Tamil retry message
+const retryMsg = document.createElement("div");
+retryMsg.textContent = "ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் தேடிப் பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅";
+retryMsg.style.marginTop = "5px";
+retryMsg.style.color = "#555";
+retryMsg.style.fontSize = "14px";
+retryMsg.className = "retry-message";
+resultsDiv.appendChild(retryMsg);
+
+// Continue with your logic
+const rawHref = aTag.getAttribute("href");
+const fullUrl = rawHref.startsWith("http") ? rawHref : baseURL + rawHref;
+
 
   // (The rest of your logic continues here...)
 
