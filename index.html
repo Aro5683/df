@@ -106,517 +106,303 @@ width:300px;
 
   <!-- Main Site Content -->
   <div id="mainContent">
-    
 <!doctype html>
 
 
   
-  
 
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&amp;display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #0e1015;
+      --card: rgba(255, 255, 255, 0.05);
+      --accent: #4a90e2;
+      --accent2: #8e44ad;
+      --text: #f0f0f0;
+      --muted: #888;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f0f4ff, #eaf6ff);
-      color: #333;
       margin: 0;
-      padding: 0;
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 20px;
     }
 
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
-
-    #searchBox {
-      width: 87%;
-      padding: 14px 18px;
-      font-size: 16px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      margin-bottom: 20px;
-      transition: 0.3s;
-    }
-
-    #searchBox:focus {
+    input, button {
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
       outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      transition: all 0.3s ease;
     }
 
-    #spinner {
-      display: none;
-      margin: 20px auto;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #3498db;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
+    input {
+      width: 70%;
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid #333;
+      margin-right: 10px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    input::placeholder {
+      color: var(--muted);
     }
 
-    #results {
-      margin-top: 30px;
-    }
-
-    .item {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease;
+    button {
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      color: white;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    .item:hover {
+    button:hover {
+      filter: brightness(1.2);
+    }
+
+    .movie {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px rgba(255,255,255,0.05);
+      transition: 0.3s;
+    }
+
+    .movie:hover {
       transform: scale(1.02);
     }
 
-    .details, .file-info {
-      background: #f9fbff;
-      padding: 15px;
-      border-left: 4px solid #007bff;
-      margin-bottom: 20px;
-      border-radius: 8px;
+    .movie strong {
+      color: var(--accent);
     }
 
-    .file-info .menu {
-      margin-top: 10px;
-    }
-
-    .file-info .menu a {
+    .dlink a {
       display: inline-block;
-      background: #007bff;
+      margin-top: 10px;
+      background: var(--accent);
       color: white;
-      padding: 6px 12px;
-      margin: 5px 5px 0 0;
-      border-radius: 6px;
       text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s;
     }
 
-    #status-log {
-     display:none;
+    .dlink a:hover {
+      background: var(--accent2);
     }
 
- 
+    .status {
+      margin-top: 10px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      input {
+        width: 100%;
+        margin: 0 0 10px 0;
+      }
+      button {
+        width: 100%;
+      }
+    }
+
+
+.telegram-icon-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.telegram-icon {
+  background: linear-gradient(to right, #4a90e2, #8e44ad);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(138, 43, 226, 0.5);
+  animation: pulse 2s infinite ease-in-out;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.telegram-icon:hover {
+  transform: scale(1.1);
+}
+
+.telegram-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 30px rgba(138, 43, 226, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 80px rgba(138, 43, 226, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(138, 43, 226, 0);
+  }
+}
+
   </style>
 
 
+  <header>🎬 Movies Aro</header>
+
   <div class="container">
-    <h1>🎬 Movies Aro</h1>
-    <input type="text" id="searchBox" placeholder="Type to search for movies..." />
-    <div id="spinner"></div>
-    <div id="results"></div>
-    <div id="status-log" class="hidden"></div>
+    <input id="searchInput" placeholder="Search for a movie..." />
+    <button onclick="searchFiles()">Search</button>
+    <div class="status" id="status">Loading source...</div>
+    <div id="result"></div>
   </div>
-<style>
-  .telegram-center-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30vh;
-  
-  }
-
- .telegram-glow-btn {
-    display: inline-block;
-    padding: 6px;
-    border-radius: 50%;
-    background: transparent;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(0, 136, 204, 0.9), 0 0 60px rgba(0, 136, 204, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.4s ease;
-    text-decoration: none;
-    position: relative;
-}
-
-  .telegram-icon {
-    width: 35px;
-    height: 35px;
-    display: block;
-  }
-
-  
-.telegram-glow-btn::before {
-  
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 140px;
-    height: 140px;
-    /* background: radial-gradient(circle, rgb(0 190 255 / 100%) 20%, transparent 70%); */
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    animation: pulse-wave-glow 2s infinite ease-out;
-    box-shadow: 0 0 100px rgb(12 63 130), 0 0 100px rgb(1 123 158);
-    filter: blur(3px);
-    z-index: -1;
-}
-
-  @keyframes pulse-wave-glow {
-    0% {
-      transform: translate(-50%, -50%) scale(0.8);
-      opacity: 0.9;
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.6);
-      opacity: 0.5;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(2.2);
-      opacity: 0;
-    }
-  }
-</style>
-
-<div class="telegram-center-wrapper">
-  <a href="https://telegram.me/+V8nUElyN93U1ZTBl" 
-     class="telegram-glow-btn" 
-     target="_self" 
-     rel="noopener noreferrer" 
-     title="Join our Telegram group">
-    <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 240 240" fill="currentColor">
-      <circle cx="120" cy="120" r="120" fill="#0088cc"/>
-      <path fill="#fff" d="M180.5 65.8L160 176.4c-1.5 8-5.7 10-11.5 6.3l-32-23.6-15.4 14.9c-1.7 1.7-3.2 3.2-6.6 3.2l2.3-33.1 60.2-54c2.6-2.3-.6-3.6-4-1.3l-74.4 46.8-32-10c-7-2.2-7.2-7-1.5-9.3l124.7-48.2c5.8-2.1 10.8 1.3 9 9.1z"/>
-    </path></circle></svg>
+<br/>
+<br/>
+<br/>
+<div class="telegram-icon-center">
+  <a href="https://t.me/your_channel" target="_blank" class="telegram-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewbox="0 0 24 24">
+      <path d="M9.743 16.39L9.5 20.5c.572 0 .822-.246 1.12-.54l2.688-2.56 5.576 4.082c1.022.566 1.748.268 2.02-.95L24 4.82c.374-1.53-.545-2.127-1.556-1.76L1.204 10.47C-.24 11.03-.22 11.834.9 12.17l5.74 1.793 13.336-8.418c.63-.407 1.205-.182.734.26"/>
+    </path></svg>
   </a>
 </div>
- <br/>
+<br/>
+<br/>
+<br/>
+  <footer>&copy; 2025 Movies Aro. All rights reserved.</footer>
 
-
-<div style="text-align:center; margin-top: 30px;">
-  <!-- button goes here -->
-<a href="https://moviesarodub.netlify.app" class="glow-button" target="_self">All Tamil Dubbed Movies</a>
-<style>
-.glow-button {
-  display: inline-block;
-  padding: 14px 28px;
-  font-size: 16px;
-  color: #fff;
-  background: linear-gradient(135deg, #3f87a6, #ebf8e1, #f69d3c);
-  background-size: 300% 300%;
-  border: none;
-  border-radius: 50px;
-  text-decoration: none;
-  text-align: center;
-  font-weight: bold;
-  
-  transition: all 0.4s ease-in-out;
- 
-}
-
-.glow-button:hover {
-  background-position: right center;
-  
-  transform: scale(1.05);
-}
-
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-  }
-}
-</style>
-
-  <br/>
-  <br/>
-  <!-- Your Script -->
   <script>
-    const searchBox = document.getElementById("searchBox");
-    const resultsDiv = document.getElementById("results");
-    const spinner = document.getElementById("spinner");
+    let pageContent = '';
 
-    const allOrigins = "https://api.allorigins.win/raw?url=";
-    const baseURL = "https://www.tamilprint45.art";
-    const searchPrefix = baseURL + "/search.php?source=";
-
-    let debounceTimer;
-
-    searchBox.addEventListener("input", () => {
-      clearTimeout(debounceTimer);
-      const keyword = searchBox.value.trim();
-      if (!keyword) {
-        resultsDiv.innerHTML = "";
-        return;
-      }
-      debounceTimer = setTimeout(() => {
-        document.getElementById("status-log").innerHTML = "";
-        fetchAndRenderWithRetry(searchPrefix + encodeURIComponent(keyword));
-      }, 400);
-    });
-
-    async function retryFetch(url, attempts = 3, delay = 1000) {
-      for (let i = 0; i < attempts; i++) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error("Non-200 response");
-          return await res.text();
-        } catch (err) {
-          if (i === attempts - 1) throw err;
-          await new Promise(r => setTimeout(r, delay));
-        }
-      }
-    }
-
-    async function fetchAndRenderWithRetry(url, attempts = 3, delay = 1000) {
-      for (let i = 0; i < attempts; i++) {
-        try {
-          await fetchAndRender(url);
-          return;
-        } catch (e) {
-          console.warn(`Attempt ${i + 1} failed. Retrying...`);
-          if (i === attempts - 1) {
-            resultsDiv.innerHTML = `<p style="color:red;">⚠️Refresh and Type full name </p>`;
-          }
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
-      }
-    }
-
-    async function fetchAndRender(url) {
-      resultsDiv.innerHTML = "";
-      spinner.style.display = "block";
-
-      const html = await retryFetch(allOrigins + encodeURIComponent(url));
-
-      const matches = [...html.matchAll(/<div class="M1">.*?<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a><br>(.*?)<\/td>/gs)];
-      for (const m of matches) {
-        const href = m[1];
-        const title = m[2].trim().replace(/Tamil\s*Print/gi, "Movies Aro - தமிழ்");
-        const desc = m[3].replace(/<[^>]+>/g, '').trim();
-        if (title === "Sample Video.mkv") continue;
-
-        const item = document.createElement("div");
-        item.className = "item";
-        item.innerHTML = `<strong>${title}</strong><br><small>${desc}</small>`;
-        item.onclick = () => fetchAndRenderWithRetry(baseURL + href);
-        resultsDiv.appendChild(item);
-      }
-
-      const titleMatch = html.match(/<h2 class="head">(.*?)<\/h2>/);
-      const tableMatch = html.match(/<div class="bf"[^>]*>([\s\S]*?)<\/table>/i);
-      if (titleMatch && tableMatch) {
-        const cleanTable = tableMatch[1].replace(/<img[^>]*>/g, '').replace(/<tr>.*?Story.*?<\/tr>/i, '');
-      
-      }
-
-      logStatus("🔍 Searching for file block...");
-   const fileInfoMatch = html.match(/<b>File Name:<\/b>[\s\S]*?<div class="menu"[^>]*>[\s\S]*?<\/div>\s*<\/div>/i);
-      if (fileInfoMatch) {
-        logStatus("📦 File block found", "done");
-        const fileBlock = fileInfoMatch[0];
-        const container = document.createElement("div");
-        container.className = "file-info";
-        container.style.marginTop = "15px";
-        container.innerHTML = fileBlock;
-        
-
-  // Remove the word 'TamilPrint' globally (case-insensitive)
- 
- 
-
-       
-const unwantedBtn = container.querySelector('#show-img-btn');
-if (unwantedBtn) {
-  unwantedBtn.remove();
-}
-
-
-        logStatus("🧱 Building container", "done");
-
-        const menu = container.querySelector(".menu");
-        if (menu) {
-          menu.style.display = "block";
-          logStatus("📂 Menu made visible", "done");
-        }
-
-        resultsDiv.appendChild(container);
-        logStatus("📂 Appended to page", "done");
-      } else {
-        logStatus("❌ File block not found", "error");
-      }
-
-      spinner.style.display = "none";
-      logStatus("✅ Done", "done");
-    }
-
- document.addEventListener("click", async (e) => {
-  const aTag = e.target.closest(".menu a");
-  if (!aTag) return; // Ignore all other clicks
-
-  e.preventDefault();
-  document.getElementById("status-log").innerHTML = "";
-
-  // ✅ Show "Please wait..." message (only for .menu a clicks)
- const resultsDiv = document.getElementById("results");
-
-// Remove any existing messages first
-document.querySelectorAll(".wait-message, .retry-message").forEach(el => el.remove());
-
-// Message 1: Please wait...
-const waitMsg = document.createElement("div");
-waitMsg.textContent = "Please wait...";
-waitMsg.style.marginTop = "10px";
-waitMsg.style.color = "black";
-waitMsg.style.fontStyle = "italic";
-waitMsg.className = "wait-message";
-resultsDiv.appendChild(waitMsg);
-
-// Message 2: Tamil retry message
-const retryMsg = document.createElement("div");
-retryMsg.textContent = "ஒரு வேளை வீடியோ டவுன்லோடு ஆகவில்லை என்றால், மீண்டும் Search பண்ணி பாருங்கள்.. கண்டிப்பாக டவுன்லோடு ஆகும் ✅";
-retryMsg.style.marginTop = "5px";
-retryMsg.style.color = "#555";
-retryMsg.style.fontSize = "14px";
-retryMsg.className = "retry-message";
-resultsDiv.appendChild(retryMsg);
-
-// Continue with your logic
-const rawHref = aTag.getAttribute("href");
-const fullUrl = rawHref.startsWith("http") ? rawHref : baseURL + rawHref;
-
-
-  // (The rest of your logic continues here...)
-
-
+    async function loadPageContent() {
+      const proxy = "https://api.allorigins.win/raw?url=";
+      const target = "https://movies-aro.blogspot.com/";
 
       try {
-        logStatus("🌐 Fetching link...");
-        const html = await retryFetch(allOrigins + encodeURIComponent(fullUrl));
-        logStatus("🌐 Fetched successfully", "done");
-
-        logStatus("🧬 Extracting final URL...");
-        const match = html.match(/fetchAndShowLink\(['"]([^'"]+)['"]\)/);
-        if (match && match[1]) {
-          const extractedUrl = match[1].trim();
-          logStatus("🎉 Link extracted: " + extractedUrl, "done");
-
-          if (/filedownload\.php\?fid=(\d+)/.test(extractedUrl)) {
-            const fid = extractedUrl.match(/fid=(\d+)/)?.[1];
-            if (fid) {
-              const directLink = `https://cdn.tamilprintdl.shop/errorurl.php?fid=${fid}`;
-              try {
-                const sourceHtml = await retryFetch(allOrigins + encodeURIComponent(directLink));
-                const aMatch = sourceHtml.match(/<a[^>]+href=["']([^"']+)["']/i);
-                if (aMatch && aMatch[1]) {
-                  const finalUrl = aMatch[1].startsWith("http")
-                    ? aMatch[1]
-                    : new URL(aMatch[1], directLink).href;
-                  window.open(finalUrl, "_blank");location.reload();
-                  return;
-                } else {
-                  alert("❌ No <a> tag with href found in the direct page.");
-                }
-              } catch (err) {
-                logStatus("❌ Error fetching final direct link.", "error");
-                alert("❌ Error fetching or parsing the final download page.");
-              }
-            }
-          }
-
-          if (/wet\/download\//.test(extractedUrl)) {
-            try {
-              const fullContent = await retryFetch(allOrigins + encodeURIComponent("https://" + extractedUrl));
-              const fetchMatches = [...fullContent.matchAll(/fetch\(['"]([^'"]+\.(mkv|mp4)[^'"]*)['"]\)/gi)];
-              const redirectMatches = [
-                ...fullContent.matchAll(/window\.(?:location\.href|open)\(['"]([^'"]+)['"]/gi)
-              ];
-              const foundUrls = new Set();
-              for (const match of [...fetchMatches, ...redirectMatches]) {
-                const url = match[1];
-                if (url && (url.includes(".mkv") || url.includes(".mp4") || url.includes("filedownload.php?fid="))) {
-                  foundUrls.add(
-                    url.startsWith("http")
-                      ? url
-                      : (url.startsWith("/")
-                          ? "https://" + new URL("https://" + extractedUrl).host + url
-                          : "https://" + extractedUrl + "/" + url)
-                  );
-                }
-              }
-
-              if (foundUrls.size > 0) {
-                const container = document.createElement("div");
-                container.style.marginTop = "15px";
-                container.style.padding = "10px";
-              
-
-                let inner = "<strong>🎯 Thanks for Downloading...</strong><br><ul>";
-                foundUrls.forEach(url => {
-               inner += `<button style="display: inline-block;
-  background: #007bff;
-  color: white;
-  padding: 6px 12px;
-  margin: 5px 5px 0 0;
-  border-radius: 6px;
-  text-decoration: none;"
-  onclick="window.open('${url}', '_blank'); location.reload();">Download</button>`;
-
-                });
-                inner += "</ul>";
-
-                container.innerHTML = inner;
-                resultsDiv.appendChild(container);
-                return;
-              } else {
-                alert("❌ No video or fallback links found.");
-              }
-            } catch (err) {
-              logStatus("❌ Failed to parse download page", "error");
-              alert("❌ Failed to parse the download page.");
-            }
-          }
-
-          alert("⚠️ Unrecognized URL format: " + extractedUrl);
-        } else {
-          logStatus("❌ fetchAndShowLink(...) not found.", "error");
-        }
+        const res = await fetch(proxy + encodeURIComponent(target));
+        pageContent = await res.text();
+        document.getElementById("status").innerText = " Ready to search.";
       } catch (err) {
-        logStatus("❌ Failed to load the extracted URL.", "error");
-        alert("❌ Failed to load the extracted URL.");
+        document.getElementById("status").innerText = "❌ Failed... Please Refresh.";
+        console.error("Error loading source:", err);
       }
-    });
-
-    function logStatus(message, status = "pending") {
-      const log = document.getElementById("status-log");
-      const entry = document.createElement("div");
-      entry.textContent = message;
-      if (status === "done") entry.classList.add("done");
-      if (status === "error") entry.classList.add("error");
-      log.appendChild(entry);
     }
+
+    function searchFiles() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      const resDiv = document.getElementById("result");
+      resDiv.innerHTML = "";
+
+      const pattern = /File Name:\s*(.*?)\s*File Size:\s*(.*?)\s*Download Link:\s*(https:\/\/download\.moviespage\.site\/download\/page\/\d+)/g;
+      let match, found = false;
+
+      while ((match = pattern.exec(pageContent)) !== null) {
+        const name = match[1].trim();
+        const size = match[2].trim();
+        const link = match[3].trim();
+        const id = "final_" + link.split("/").pop();
+
+        if (name.toLowerCase().includes(q)) {
+          found = true;
+          resDiv.innerHTML += `
+            <div class="movie">
+              <strong>File Name:</strong> ${name}<br>
+              <strong>File Size:</strong> ${size}<br><br>
+              <button onclick="fetchFinalLinks('${link}', '${id}')">Get Final Download Links</button><br/><br/>
+              <div id="${id}" class="dlinks"></div>
+            </div>
+          `;
+        }
+      }
+
+      if (!found) {
+        resDiv.innerHTML = "<p>❌ No matching results.</p>";
+      }
+    }
+
+    async function fetchFinalLinks(url, containerId, attempt = 1) {
+      const proxy = "https://api.allorigins.win/raw?url=";
+      const container = document.getElementById(containerId);
+      container.innerHTML = `<p>🔄 Please wait... ( ${attempt})</p>`;
+
+      try {
+        const res = await fetch(proxy + encodeURIComponent(url));
+        const html = await res.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        const links = Array.from(doc.querySelectorAll(".dlink a"));
+        const downloadLinks = links.filter(a =>
+          a.textContent.toLowerCase().includes("download")
+        );
+
+        if (downloadLinks.length === 0) {
+          if (attempt < 3) {
+            setTimeout(() => fetchFinalLinks(url, containerId, attempt + 1), 1000);
+          } else {
+            container.innerHTML = "<p>❌ No download links found after multiple attempts.</p>";
+          }
+          return;
+        }
+
+        container.innerHTML = downloadLinks.map(a => `
+          <div class="dlink">
+            <a href="${a.href}" target="_self">${a.textContent}</a>
+          </div>
+        `).join("");
+
+      } catch (err) {
+        if (attempt < 3) {
+          setTimeout(() => fetchFinalLinks(url, containerId, attempt + 1), 1000);
+        } else {
+          container.innerHTML = "<p>❌ Failed to load download page after 3 attempts.</p>";
+          console.error("Final link fetch error:", err);
+        }
+      }
+    }
+
+    window.onload = loadPageContent;
   </script>
 
-
-  <footer1 style="text-align: center; padding: 30px; font-size: 14px; color: #888;">
- <p>
-    We love cinema. We don’t support piracy.
-    But when theatres price water, popcorn, parking, and basic comforts higher than the experience itself — this is not theft, it's a protest.<br />
-    Fix the system, and we’ll pay happily to watch cinema in theatre.
-  </p>
-</footer1>
 </!doctype>
-</div>
-
+  </div>
   <script>
     const startButton = document.getElementById("startButton");
     const welcomeModal = document.getElementById("welcomeModal");
