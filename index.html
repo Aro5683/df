@@ -4,112 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Movies Aro - Tamil</title>
-  <link rel="icon" type="image/svg+xml" href="/logo.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet"/>
-
-
-
-  
-
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-     
-    }
-
-    #starterScreen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #startButton {
-      padding: 15px 30px;
-      font-size: 18px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    #startButton:hover {
-      background-color: #0056b3;
-    }
-
-    #welcomeModal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    }
-
-    #welcomeContent {
-      background: white;
-      padding: 20px;
-width:300px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    #mainContent {
-      display: none;
-      padding: 20px;
-    }
-
-    #okayBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    #okayBtn:hover {
-      background-color: #1e7e34;
-    }
-  </style>
-
-
-
-
-  <!-- Starter Screen -->
-  <div id="starterScreen">
-    <button id="startButton">Start</button>
-  </div>
-
-  <!-- Welcome Modal -->
-  <div id="welcomeModal">
-    <div id="welcomeContent">
-      <p>இப்போது நீங்கள் புதிய தளத்திற்கு செல்லப்படுகிறீர்கள்… அங்கு 5 விநாடிகள் காத்திருக்கவும். பின்னர் இந்த தளத்திற்கு வரவும்.</p>
-      <button id="okayBtn">Okay</button>
-    </div>
-  </div>
-
-  <!-- Main Site Content -->
-  <div id="mainContent">
-<!doctype html>
-
-
-  
 
   
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&amp;display=swap" rel="stylesheet" />
@@ -401,42 +295,9 @@ width:300px;
     window.onload = loadPageContent;
   </script>
 
-</!doctype>
-  </div>
-  <script>
-    const startButton = document.getElementById("startButton");
-    const welcomeModal = document.getElementById("welcomeModal");
-    const okayBtn = document.getElementById("okayBtn");
-    const starterScreen = document.getElementById("starterScreen");
-    const mainContent = document.getElementById("mainContent");
 
-    startButton.addEventListener("click", () => {
-      welcomeModal.style.display = "flex";
-    });
-
-    okayBtn.addEventListener("click", () => {
-      welcomeModal.style.display = "none";
-
-      // Open example.com in a new tab
-      window.open("https://example.com", "_blank");
-
-      // After 5 seconds, hide the starter and show main content
-      setTimeout(() => {
-        starterScreen.style.display = "none";
-        mainContent.style.display = "block";
-      }, 1000);
-    });
-  </script>
-
-
- 
-<br/>
-  
-  
-
-
- 
 
  
 </body>
 </html>
+
