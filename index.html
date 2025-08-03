@@ -6,6 +6,12 @@
   <title>Movies Aro - Tamil</title>
 
   
+
+
+
+  
+
+  
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -175,6 +181,33 @@
   }
 }
 
+
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  font-family: 'Outfit', sans-serif;
+}
+
+#loadingOverlay h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+#loadingOverlay p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
   </style>
 
 
@@ -183,14 +216,24 @@
   <div class="container">
     <input id="searchInput" placeholder="Search for a movie..." />
     <button onclick="searchFiles()">Search</button>
-    <div class="status" id="status">Loading source...</div>
+<div id="loadingOverlay">
+  <h2>⏳ Please Wait</h2>
+  <p id="loadingStatus">Loading source, please wait... (10)</p>
+</div>
+
+    <div class="status" id="status">Please Wait...10 seconds</div>
+<br />
+<button onclick="window.location.href='https://moviesarodub.netlify.app';">
+All Tamil Dubbed Movies
+  </button>
+<br />
     <div id="result"></div>
   </div>
 <br/>
 <br/>
 <br/>
 <div class="telegram-icon-center">
-  <a href="https://t.me/your_channel" target="_blank" class="telegram-icon">
+  <a href="https://telegram.me/+V8nUElyN93U1ZTBl" target="_blank" class="telegram-icon">
     <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewbox="0 0 24 24">
       <path d="M9.743 16.39L9.5 20.5c.572 0 .822-.246 1.12-.54l2.688-2.56 5.576 4.082c1.022.566 1.748.268 2.02-.95L24 4.82c.374-1.53-.545-2.127-1.556-1.76L1.204 10.47C-.24 11.03-.22 11.834.9 12.17l5.74 1.793 13.336-8.418c.63-.407 1.205-.182.734.26"/>
     </path></svg>
@@ -201,103 +244,101 @@
 <br/>
   <footer>&copy; 2025 Movies Aro. All rights reserved.</footer>
 
-  <script>
-    let pageContent = '';
+ <script>
+let pageContent = '';
 
-    async function loadPageContent() {
-      const proxy = "https://api.allorigins.win/raw?url=";
-      const target = "https://movies-aro.blogspot.com/";
+async function loadPageContent() {
+  const proxy = "https://api.allorigins.win/raw?url=";
+  const target = "https://movies-aro.blogspot.com/";
 
-      try {
-        const res = await fetch(proxy + encodeURIComponent(target));
-        pageContent = await res.text();
-        document.getElementById("status").innerText = " Ready to search.";
-      } catch (err) {
-        document.getElementById("status").innerText = "❌ Failed... Please Refresh.";
-        console.error("Error loading source:", err);
-      }
+  const statusEl = document.getElementById("loadingStatus");
+  const overlay = document.getElementById("loadingOverlay");
+
+  statusEl.textContent = `Loading source...`;
+
+  try {
+    const res = await fetch(proxy + encodeURIComponent(target), { cache: "force-cache" });
+    pageContent = await res.text();
+
+    // ✅ Source loaded — hide overlay
+    overlay.style.display = "none";
+    document.getElementById("status").innerText = " Ready to search.";
+  } catch (err) {
+    document.getElementById("status").innerText = "❌ Please Refresh the page.";
+    statusEl.textContent = "❌ Failed to load source. Please refresh the page.";
+    console.error("Error loading source:", err);
+  }
+}
+
+function searchFiles() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const resDiv = document.getElementById("result");
+  resDiv.innerHTML = "";
+
+  const pattern = /File Name:\s*(.*?)\s*File Size:\s*(.*?)\s*Download Link:\s*(https:\/\/download\.moviespage\.site\/download\/page\/\d+)/g;
+  let match, found = false;
+  let output = '';
+
+  while ((match = pattern.exec(pageContent)) !== null) {
+    const [_, name, size, link] = match;
+    const id = "final_" + link.split("/").pop();
+
+    if (name.toLowerCase().includes(q)) {
+      found = true;
+      output += `
+        <div class="movie">
+          <strong>File Name:</strong> ${name.trim()}<br>
+          <strong>File Size:</strong> ${size.trim()}<br><br>
+          <button onclick="fetchFinalLinks('${link}', '${id}')">Get Final Download Links</button><br/><br/>
+          <div id="${id}" class="dlinks"></div>
+        </div>
+      `;
     }
+  }
 
-    function searchFiles() {
-      const q = document.getElementById("searchInput").value.toLowerCase();
-      const resDiv = document.getElementById("result");
-      resDiv.innerHTML = "";
+  resDiv.innerHTML = found ? output : "<p>❌ No matching results.</p>";
+}
 
-      const pattern = /File Name:\s*(.*?)\s*File Size:\s*(.*?)\s*Download Link:\s*(https:\/\/download\.moviespage\.site\/download\/page\/\d+)/g;
-      let match, found = false;
+async function fetchFinalLinks(url, containerId, attempt = 1) {
+  const proxy = "https://api.allorigins.win/raw?url=";
+  const container = document.getElementById(containerId);
+  container.innerHTML = `<p>Please wait.... (Trying...${attempt})</p>`;
 
-      while ((match = pattern.exec(pageContent)) !== null) {
-        const name = match[1].trim();
-        const size = match[2].trim();
-        const link = match[3].trim();
-        const id = "final_" + link.split("/").pop();
+  try {
+    const res = await fetch(proxy + encodeURIComponent(url));
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
 
-        if (name.toLowerCase().includes(q)) {
-          found = true;
-          resDiv.innerHTML += `
-            <div class="movie">
-              <strong>File Name:</strong> ${name}<br>
-              <strong>File Size:</strong> ${size}<br><br>
-              <button onclick="fetchFinalLinks('${link}', '${id}')">Get Final Download Links</button><br/><br/>
-              <div id="${id}" class="dlinks"></div>
-            </div>
-          `;
-        }
-      }
+    const links = [...doc.querySelectorAll(".dlink a")].filter(a =>
+      a.textContent.toLowerCase().includes("download")
+    );
 
-      if (!found) {
-        resDiv.innerHTML = "<p>❌ No matching results.</p>";
-      }
+    if (links.length > 0) {
+      container.innerHTML = links.map(a =>
+        `<div class="dlink"><a href="${a.href}" target="_self">${a.textContent}</a></div>`
+      ).join("");
+    } else if (attempt < 3) {
+      setTimeout(() => fetchFinalLinks(url, containerId, attempt + 1), 500);
+    } else {
+      container.innerHTML = "<p>Retry</p>";
     }
-
-    async function fetchFinalLinks(url, containerId, attempt = 1) {
-      const proxy = "https://api.allorigins.win/raw?url=";
-      const container = document.getElementById(containerId);
-      container.innerHTML = `<p>🔄 Please wait... ( ${attempt})</p>`;
-
-      try {
-        const res = await fetch(proxy + encodeURIComponent(url));
-        const html = await res.text();
-
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-
-        const links = Array.from(doc.querySelectorAll(".dlink a"));
-        const downloadLinks = links.filter(a =>
-          a.textContent.toLowerCase().includes("download")
-        );
-
-        if (downloadLinks.length === 0) {
-          if (attempt < 3) {
-            setTimeout(() => fetchFinalLinks(url, containerId, attempt + 1), 1000);
-          } else {
-            container.innerHTML = "<p>❌ No download links found after multiple attempts.</p>";
-          }
-          return;
-        }
-
-        container.innerHTML = downloadLinks.map(a => `
-          <div class="dlink">
-            <a href="${a.href}" target="_self">${a.textContent}</a>
-          </div>
-        `).join("");
-
-      } catch (err) {
-        if (attempt < 3) {
-          setTimeout(() => fetchFinalLinks(url, containerId, attempt + 1), 1000);
-        } else {
-          container.innerHTML = "<p>❌ Failed to load download page after 3 attempts.</p>";
-          console.error("Final link fetch error:", err);
-        }
-      }
+  } catch (err) {
+    if (attempt < 3) {
+      setTimeout(() => fetchFinalLinks(url, containerId, attempt + 1), 500);
+    } else {
+      container.innerHTML = "<p>❌ Failed to load download page after 3 attempts.</p>";
+      console.error("Final link fetch error:", err);
     }
+  }
+}
 
-    window.onload = loadPageContent;
-  </script>
+window.onload = loadPageContent;
+</script>
 
 
 
  
 </body>
 </html>
+
 
