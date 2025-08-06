@@ -33398,7 +33398,7 @@ Download Link: https://download.moviespage.site/download/page/68482
 
 `;
 
-function parseRawData(raw) {
+ function parseRawData(raw) {
     return raw.trim().split('---').map(block => {
       const lines = block.trim().split('\n');
       const nameLine = lines.find(l => l.startsWith('File Name:')) || '';
@@ -33407,7 +33407,10 @@ function parseRawData(raw) {
       return {
         name: nameLine.replace('File Name:', '').trim(),
         size: sizeLine.replace('File Size:', '').trim(),
-        link: linkLine.replace('Download Link:', '').trim()
+        link: linkLine.replace('Download Link:', '').trim(),
+        extractedLinks: null,
+        fetching: false,
+        fetched: false
       };
     }).filter(item => item.name && item.link);
   }
@@ -33417,8 +33420,11 @@ function parseRawData(raw) {
   const input = document.getElementById('search');
   const button = document.getElementById('search-btn');
 
-  async function extractDownloadLinks(item, attempt = 1) {
+  async function extractDownloadLinks(item, dlinksContainer, statusEl, retryBtn, attempt = 1) {
     const proxy = "https://api.allorigins.win/raw?url=";
+    item.fetching = true;
+    retryBtn.style.display = 'none';
+    statusEl.textContent = `⏳ Extracting... (Attempt ${attempt})`;
 
     try {
       const res = await fetch(proxy + encodeURIComponent(item.link));
@@ -33430,30 +33436,32 @@ function parseRawData(raw) {
       );
 
       if (links.length > 0) {
-        return links.map(a =>
+        item.extractedLinks = links.map(a =>
           `<div class="dlink"><a href="${a.href}" target="_blank">${a.textContent}</a></div>`
         ).join("");
+        dlinksContainer.innerHTML = item.extractedLinks;
+        statusEl.textContent = '✅ Ready';
+        item.fetched = true;
       } else if (attempt < 3) {
-        return await new Promise(resolve =>
-          setTimeout(() => resolve(extractDownloadLinks(item, attempt + 1)), 800)
-        );
+        setTimeout(() => extractDownloadLinks(item, dlinksContainer, statusEl, retryBtn, attempt + 1), 800);
       } else {
-        return null; // No links after 3 tries
+        statusEl.textContent = '❌ No links found.';
+        retryBtn.style.display = 'inline-block';
       }
     } catch (err) {
       if (attempt < 3) {
-        return await new Promise(resolve =>
-          setTimeout(() => resolve(extractDownloadLinks(item, attempt + 1)), 1000)
-        );
+        setTimeout(() => extractDownloadLinks(item, dlinksContainer, statusEl, retryBtn, attempt + 1), 1000);
       } else {
-        return null; // Failed after 3 tries
+        statusEl.textContent = '❌ Failed to load.';
+        retryBtn.style.display = 'inline-block';
       }
+    } finally {
+      item.fetching = false;
     }
   }
 
-  async function displayResults(keyword) {
-    resultsDiv.innerHTML = '<p>🔍 Searching...</p>';
-
+  function displayResults(keyword) {
+    resultsDiv.innerHTML = '';
     const filtered = data.filter(item =>
       item.name.toLowerCase().includes(keyword.toLowerCase())
     );
@@ -33463,35 +33471,46 @@ function parseRawData(raw) {
       return;
     }
 
-    resultsDiv.innerHTML = '';
-
-    for (const item of filtered) {
-      const extractedLinks = await extractDownloadLinks(item);
-
-      if (!extractedLinks) {
-        // Skip rendering if no links found or failed
-        continue;
-      }
-
+    filtered.forEach(item => {
       const div = document.createElement('div');
       div.className = 'movie result';
 
+      const statusSpan = document.createElement('span');
+      statusSpan.textContent = '⏳ Waiting...';
+      statusSpan.style.float = 'right';
+
+      const retryBtn = document.createElement('button');
+      retryBtn.textContent = '🔁 Retry';
+      retryBtn.style.marginTop = '10px';
+      retryBtn.style.padding = '6px 12px';
+      retryBtn.style.border = 'none';
+      retryBtn.style.borderRadius = '6px';
+      retryBtn.style.background = 'var(--accent)';
+      retryBtn.style.color = 'white';
+      retryBtn.style.cursor = 'pointer';
+      retryBtn.style.display = 'none';
+
       const dlinksContainer = document.createElement('div');
       dlinksContainer.className = 'dlinks';
-      dlinksContainer.innerHTML = extractedLinks;
+      dlinksContainer.innerHTML = '<em>⏳ Extracting download links...</em>';
+
+      retryBtn.addEventListener('click', () => {
+        extractDownloadLinks(item, dlinksContainer, statusSpan, retryBtn, 1);
+      });
 
       div.innerHTML = `
         <h3>${item.name}</h3>
         <p><strong>Size:</strong> ${item.size}</p>
       `;
+      div.appendChild(statusSpan);
       div.appendChild(dlinksContainer);
+      div.appendChild(retryBtn);
 
       resultsDiv.appendChild(div);
-    }
 
-    if (resultsDiv.innerHTML.trim() === '') {
-      resultsDiv.innerHTML = '<p>No valid download links found.</p>';
-    }
+      // Start extraction immediately
+      extractDownloadLinks(item, dlinksContainer, statusSpan, retryBtn);
+    });
   }
 
   button.addEventListener('click', () => {
@@ -33504,7 +33523,7 @@ function parseRawData(raw) {
     }
   });
 
-  // Auto-search from URL param
+  // Optional query param trigger
   const urlParams = new URLSearchParams(window.location.search);
   const query = urlParams.get('q');
   if (query) {
@@ -33515,6 +33534,7 @@ function parseRawData(raw) {
 
 </body>
 </html>
+
 
 
 
