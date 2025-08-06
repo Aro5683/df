@@ -33442,14 +33442,14 @@ Download Link: https://download.moviespage.site/download/page/68482
         dlinksContainer.innerHTML = item.extractedLinks;
         statusEl.textContent = '✅ Ready';
         item.fetched = true;
-      } else if (attempt < 3) {
+      } else if (attempt < 6) {
         setTimeout(() => extractDownloadLinks(item, dlinksContainer, statusEl, retryBtn, attempt + 1), 800);
       } else {
         statusEl.textContent = '❌ No links found.';
         retryBtn.style.display = 'inline-block';
       }
     } catch (err) {
-      if (attempt < 3) {
+      if (attempt < 6) {
         setTimeout(() => extractDownloadLinks(item, dlinksContainer, statusEl, retryBtn, attempt + 1), 1000);
       } else {
         statusEl.textContent = '❌ Failed to load.';
@@ -33534,6 +33534,7 @@ Download Link: https://download.moviespage.site/download/page/68482
 
 </body>
 </html>
+
 
 
 
