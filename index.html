@@ -33398,7 +33398,7 @@ Download Link: https://download.moviespage.site/download/page/68482
 
 `;
 
-  function parseRawData(raw) {
+function parseRawData(raw) {
     return raw.trim().split('---').map(block => {
       const lines = block.trim().split('\n');
       const nameLine = lines.find(l => l.startsWith('File Name:')) || '';
@@ -33407,10 +33407,7 @@ Download Link: https://download.moviespage.site/download/page/68482
       return {
         name: nameLine.replace('File Name:', '').trim(),
         size: sizeLine.replace('File Size:', '').trim(),
-        link: linkLine.replace('Download Link:', '').trim(),
-        extractedLinks: null,
-        fetching: false,
-        fetched: false
+        link: linkLine.replace('Download Link:', '').trim()
       };
     }).filter(item => item.name && item.link);
   }
@@ -33420,9 +33417,8 @@ Download Link: https://download.moviespage.site/download/page/68482
   const input = document.getElementById('search');
   const button = document.getElementById('search-btn');
 
-  async function extractDownloadLinks(item, statusEl, attempt = 1) {
+  async function extractDownloadLinks(item, attempt = 1) {
     const proxy = "https://api.allorigins.win/raw?url=";
-    item.fetching = true;
 
     try {
       const res = await fetch(proxy + encodeURIComponent(item.link));
@@ -33434,29 +33430,30 @@ Download Link: https://download.moviespage.site/download/page/68482
       );
 
       if (links.length > 0) {
-        item.extractedLinks = links.map(a =>
+        return links.map(a =>
           `<div class="dlink"><a href="${a.href}" target="_blank">${a.textContent}</a></div>`
         ).join("");
-        item.fetched = true;
-        statusEl.textContent = ' Ready';
       } else if (attempt < 3) {
-        setTimeout(() => extractDownloadLinks(item, statusEl, attempt + 1), 700);
+        return await new Promise(resolve =>
+          setTimeout(() => resolve(extractDownloadLinks(item, attempt + 1)), 800)
+        );
       } else {
-        statusEl.textContent = '⚠️ No links';
+        return null; // No links after 3 tries
       }
     } catch (err) {
       if (attempt < 3) {
-        setTimeout(() => extractDownloadLinks(item, statusEl, attempt + 1), 1000);
+        return await new Promise(resolve =>
+          setTimeout(() => resolve(extractDownloadLinks(item, attempt + 1)), 1000)
+        );
       } else {
-        statusEl.textContent = '⚠️ Failed';
+        return null; // Failed after 3 tries
       }
-    } finally {
-      item.fetching = false;
     }
   }
 
-  function displayResults(keyword) {
-    resultsDiv.innerHTML = '';
+  async function displayResults(keyword) {
+    resultsDiv.innerHTML = '<p>🔍 Searching...</p>';
+
     const filtered = data.filter(item =>
       item.name.toLowerCase().includes(keyword.toLowerCase())
     );
@@ -33466,39 +33463,35 @@ Download Link: https://download.moviespage.site/download/page/68482
       return;
     }
 
-    filtered.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'result';
+    resultsDiv.innerHTML = '';
 
-      const statusSpan = document.createElement('span');
-      statusSpan.textContent = '🔄 Extracting...';
-      statusSpan.style.float = 'right';
+    for (const item of filtered) {
+      const extractedLinks = await extractDownloadLinks(item);
+
+      if (!extractedLinks) {
+        // Skip rendering if no links found or failed
+        continue;
+      }
+
+      const div = document.createElement('div');
+      div.className = 'movie result';
 
       const dlinksContainer = document.createElement('div');
       dlinksContainer.className = 'dlinks';
+      dlinksContainer.innerHTML = extractedLinks;
 
       div.innerHTML = `
-        <strong>File Name:</strong> ${item.name}<br>
-        <strong>File Size:</strong> ${item.size}<br>
-       
+        <h3>${item.name}</h3>
+        <p><strong>Size:</strong> ${item.size}</p>
       `;
-      div.appendChild(statusSpan);
       div.appendChild(dlinksContainer);
 
-      extractDownloadLinks(item, statusSpan);
-
-      div.addEventListener('click', () => {
-        if (item.extractedLinks) {
-          dlinksContainer.innerHTML = item.extractedLinks;
-          dlinksContainer.style.display = 'block';
-        } else {
-          dlinksContainer.innerHTML = '<em>⏳ Still extracting...</em>';
-          dlinksContainer.style.display = 'block';
-        }
-      });
-
       resultsDiv.appendChild(div);
-    });
+    }
+
+    if (resultsDiv.innerHTML.trim() === '') {
+      resultsDiv.innerHTML = '<p>No valid download links found.</p>';
+    }
   }
 
   button.addEventListener('click', () => {
@@ -33511,7 +33504,7 @@ Download Link: https://download.moviespage.site/download/page/68482
     }
   });
 
-  // Optional query param trigger
+  // Auto-search from URL param
   const urlParams = new URLSearchParams(window.location.search);
   const query = urlParams.get('q');
   if (query) {
@@ -33522,4 +33515,5 @@ Download Link: https://download.moviespage.site/download/page/68482
 
 </body>
 </html>
+
 
