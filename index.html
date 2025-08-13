@@ -1,161 +1,319 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Movie Search — Extract Download Links</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0e1015;
-  --card: rgba(255, 255, 255, 0.05);
-  --accent: #4a90e2;
-  --accent2: #8e44ad;
-  --text: #f0f0f0;
-  --muted: #888;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="ppck-ver" content="84de141e5cf0eb5cad1ab632f0dddc2e" />
+  <title>Movies Aro - Tamil</title>
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+ <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&amp;display=swap" rel="stylesheet" />
 
-* { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
 
-header {
-  text-align: center;
-  padding: 40px 20px 20px;
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(to right, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
-footer {
-  text-align: center;
-  padding: 30px 20px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
+  
+  <style>
+    :root {
+      --bg: #0e1015;
+      --card: rgba(255, 255, 255, 0.05);
+      --accent: #4a90e2;
+      --accent2: #8e44ad;
+      --text: #f0f0f0;
+      --muted: #888;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+    }
+    .wrap {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+h1 {
+      text-align: center;
+      padding: 40px 10px;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.controls {
+ footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+      background: var(--card);
+      color: var(--text);
+      font-size: 15px;
+    }
+    input[type="text"]::placeholder {
+      color: var(--muted);
+    }
+    button {
+      padding: 10px 14px;
+      border-radius: 4px;
+      border: none;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    button:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+    .hint {
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .result {
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    .meta {
+      white-space: pre-wrap;
+      color: var(--text);
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .links {
+      margin-top: 8px;
+      padding: 8px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 4px;
+      color: var(--text);
+    }
+    .links a {
+      display: block;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 6px 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .links a:hover {
+      background: rgba(74,144,226,0.15);
+    }
+    .error {
+      color: #ff6b6b;
+    }
+    .loading {
+      color: var(--muted);
+    }
+    code {
+      background: rgba(255,255,255,0.05);
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+      color: var(--text);
+    }
+.telegram-icon-center {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
 }
 
-input, button {
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 1rem;
-  border: none;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-input {
-  flex: 1;
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid #333;
-}
-
-input::placeholder { color: var(--muted); }
-
-button {
-  background: linear-gradient(to right, var(--accent), var(--accent2));
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover { filter: brightness(1.2); }
-
-.result {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 20px;
-  margin-top: 20px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 15px rgba(255,255,255,0.05);
-  transition: 0.3s;
-}
-
-.result:hover { transform: scale(1.02); }
-
-pre.meta {
-  white-space: pre-wrap;
-  font-family: inherit;
-  font-size: 1rem;
-  margin: 0;
-}
-
-.links {
-  margin-top: 12px;
-}
-
-.links a {
-  display: inline-block;
-  margin-top: 10px;
-  background: var(--accent);
-  color: white;
+.telegram-icon {
+  background: linear-gradient(to right, #4a90e2, #8e44ad);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(138, 43, 226, 0.5);
+  animation: pulse 2s infinite ease-in-out;
+  transition: transform 0.3s ease;
   text-decoration: none;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: all 0.3s;
 }
 
-.links a:hover { background: var(--accent2); }
-
-.error { color: #ff7b7b; }
-.loading { color: #f1c40f; }
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .controls { flex-direction: column; }
-  input, button { width: 100%; }
+.telegram-icon:hover {
+  transform: scale(1.1);
 }
-</style>
-</head>
-<body>
 
-<header>Movies Aro</header>
+.telegram-icon svg {
+  width: 28px;
+  height: 28px;
+}
 
-<div class="container">
-  <div class="hint">Type a search term and click <strong>Search</strong>. Results only appear after searching.</div>
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 30px rgba(138, 43, 226, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 80px rgba(138, 43, 226, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(138, 43, 226, 0);
+  }
+}
 
-  <div class="controls">
-    <input id="q" type="text" placeholder="e.g. Narivetta 2025" />
-    <button id="searchBtn">Search</button>
+  </style>
+
+
+  <div class="wrap">
+    <h1>🎬 Movies Aro</h1>
+   
+
+    <div class="controls">
+      <input id="q" type="text" placeholder="Search movies..." />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div id="output" aria-live="polite"></div>
+   
   </div>
-
-  <div id="output" aria-live="polite"></div>
-  <div style="margin-top:10px;color:var(--muted);font-size:13px">
-    Note: fetching uses <code>api.allorigins.win/raw?url=...</code> proxy. If a page blocks proxying, you may see an error.
-  </div>
-</div>
-<footer>
-  © 2025 Movies Aro — All Rights Reserved
-</footer>
+  <div id="links"></div>
+<div id="number-section"></div>
 
 <script>
-document.addEventListener('DOMContentLoaded', ()=> {
-  console.log('Script loaded ✅');
+const excludedTexts = new Set([
+  "Tamil Single Parts Movies","Tamil HD Mobile Movies","Tamil Dubbed Movies (Hollywood)",
+  "Tamil A to Z Movies","Latest Tamil Web Series","Tamil Dubbed Movies",
+  "Tamil Daily Movies","Moviesda Dubbed Movies","isaiDub Dubbed Movies",
+  "isaimini 2025 Movies","Request a Movie","Moviesda Home","Disclaimer",
+  "DMCA","Contact Us","About Us","Download Now","0-9",
+  "Facebook Fan Page","Watch Online Server 1","Watch Online Server 2","Home",
+  "SMS","Facebook","Twitter","Whatsapp","Telegram Channel",
+  "Latest Movies Updates","Tamil Movies Collection"
+]);
 
-  // Plain-text dataset (same format you requested)
-  const data = `
-File Name: Deadly Affair 2021 HD
+const mainContainer = document.getElementById('links');
+const numberSection = document.getElementById('number-section');
+const backBtn = document.getElementById('backBtn');
+const proxyUrl = 'https://api.allorigins.win/get?url=';
+const historyStack = [];
+let lastGoodHTML = '';
+
+async function loadLinksFromUrl(url, isFinalPage = false) {
+  mainContainer.innerHTML = `<div class="spinner-container"><div class="spinner"></div></div>`;
+  numberSection.innerHTML = '';
+
+  if (!isFinalPage) historyStack.push(url);
+
+  try {
+    const res = await fetch(proxyUrl + encodeURIComponent(url));
+    const { contents } = await res.json();
+    const doc = new DOMParser().parseFromString(contents, 'text/html');
+    doc.querySelectorAll('.incoming-search-terms').forEach(el => el.remove());
+
+    const links = [...doc.querySelectorAll('a')];
+    const validUl = [...doc.querySelectorAll('ul')].find(ul => !ul.closest('.incoming-search-terms'));
+
+    const fragLinks = document.createDocumentFragment();
+    const fragPages = document.createDocumentFragment();
+
+    if (validUl) {
+      const cloneLinks = [...validUl.querySelectorAll('a')];
+      cloneLinks.forEach(link => links.push(link));
+    }
+
+    links.forEach(link => {
+      let text = link.textContent.trim();
+      let href = link.getAttribute('href');
+      if (!text || !href || excludedTexts.has(text)) return;
+      if (text.length === 1 && /[a-zA-Z]/.test(text)) return;
+
+      if (/moviesda(\.mobi)?/i.test(text)) {
+        text = 'Movies Aro - ' + text.replace(/moviesda(\.mobi)?/ig, '').trim();
+      }
+
+      if (href.startsWith('/')) href = 'https://moviesda12.com' + href;
+      else if (!href.startsWith('http')) href = 'https://moviesda12.com/' + href;
+
+      const match5 = href.match(/(\d{5})/);
+      if (!isFinalPage && match5) {
+        loadLinksFromUrl(`https://download.moviespage.site/download/page/${match5[1]}`, true);
+        return;
+      }
+
+      const isDigit = /^\d{1,2}$/.test(text);
+      const a = document.createElement('a');
+      a.className = 'link';
+      a.textContent = isDigit ? text + ' Page' : text;
+
+      if (isFinalPage) {
+        a.href = href;
+        a.target = '_self';
+      } else {
+        a.href = '#';
+        a.onclick = e => { e.preventDefault(); loadLinksFromUrl(href); };
+      }
+
+      if (isDigit) fragPages.appendChild(a);
+      else fragLinks.appendChild(a);
+    });
+
+    mainContainer.innerHTML = '';
+    mainContainer.appendChild(fragLinks);
+
+    if (fragPages.childNodes.length) {
+      const pagesDiv = document.createElement('div');
+      pagesDiv.className = 'pages';
+      pagesDiv.appendChild(fragPages);
+      numberSection.appendChild(pagesDiv);
+    }
+
+    backBtn.style.display = historyStack.length > 1 ? 'inline-block' : 'none';
+    lastGoodHTML = document.body.innerHTML;
+  } catch (err) {
+    if (lastGoodHTML) document.body.innerHTML = lastGoodHTML;
+    console.error(err);
+  }
+}
+
+backBtn.onclick = () => {
+  historyStack.pop();
+  const prev = historyStack.pop();
+  if (prev) loadLinksFromUrl(prev);
+};
+
+loadLinksFromUrl('https://moviesda12.com/');
+</script>
+
+<br/>
+<br/>
+<br/>
+<div class="telegram-icon-center">
+  <a href="https://telegram.me/+V8nUElyN93U1ZTBl" target="_blank" class="telegram-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewbox="0 0 24 24">
+      <path d="M9.743 16.39L9.5 20.5c.572 0 .822-.246 1.12-.54l2.688-2.56 5.576 4.082c1.022.566 1.748.268 2.02-.95L24 4.82c.374-1.53-.545-2.127-1.556-1.76L1.204 10.47C-.24 11.03-.22 11.834.9 12.17l5.74 1.793 13.336-8.418c.63-.407 1.205-.182.734.26"/>
+    </path></svg>
+  </a>
+</div>
+<br/>
+<br/>
+<br/>
+  <footer>&copy; 2025 Movies Aro. All rights reserved.</footer>
+  
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const data = `File Name: Deadly Affair 2021 HD
 File Size: 410.53 MB
 Download Link: https://download.moviespage.site/download/page/68477
 ---
@@ -25509,9 +25667,10 @@ Download Link: https://download.moviespage.site/download/page/36451
 File Name: Naan (2012) Part-4
 File Size: 80.01 MB
 Download Link: https://download.moviespage.site/download/page/36452
----`.trim();
+---
 
-  // Robust parser for each block — uses regex to avoid undefined .replace errors
+`;
+
   function parseBlock(block) {
     const nameM = block.match(/File Name:\s*(.*)/i);
     const sizeM = block.match(/File Size:\s*(.*)/i);
@@ -25525,13 +25684,11 @@ Download Link: https://download.moviespage.site/download/page/36452
 
   const rawBlocks = data.split('---').map(b => b.trim()).filter(Boolean);
   const files = rawBlocks.map(parseBlock).filter(f => f.name && f.size && f.link);
-  console.log('Parsed files:', files);
 
   const qEl = document.getElementById('q');
   const outEl = document.getElementById('output');
   const searchBtn = document.getElementById('searchBtn');
 
-  // Render only after a search is performed
   function renderResults(list) {
     outEl.innerHTML = '';
     if (!list.length) {
@@ -25543,11 +25700,8 @@ Download Link: https://download.moviespage.site/download/page/36452
       const container = document.createElement('div');
       container.className = 'result';
       container.innerHTML = `
-        <pre class="meta">File Name: ${escapeHtml(f.name)}
-File Size: ${escapeHtml(f.size)}</pre>
-        <div style="margin-top:8px">
-          <button data-link="${escapeHtml(f.link)}" class="get-links">Get Download Links</button>
-        </div>
+        <div class="meta">File Name: ${escapeHtml(f.name)}<br>File Size: ${escapeHtml(f.size)}</div>
+        <button data-link="${escapeHtml(f.link)}" class="get-links">Get Download Links</button>
         <div class="links" id="links-${idx}" aria-live="polite"></div>
       `;
       outEl.appendChild(container);
@@ -25556,10 +25710,9 @@ File Size: ${escapeHtml(f.size)}</pre>
       const linksContainer = container.querySelector(`#links-${idx}`);
 
       btn.addEventListener('click', async () => {
-        // disable while fetching
         btn.disabled = true;
         const originalText = btn.textContent;
-        btn.textContent = 'Fetching...';
+        btn.textContent = 'Creating Links...';
         linksContainer.innerHTML = '';
         try {
           await fetchAndShowDownloadDiv(btn.dataset.link, linksContainer);
@@ -25573,15 +25726,13 @@ File Size: ${escapeHtml(f.size)}</pre>
     });
   }
 
-  // Escape helper for safety when rendering text
-  function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
 
-  // Use AllOrigins raw endpoint (returns page HTML as text). Fallback: regex extraction
   async function fetchAndShowDownloadDiv(targetUrl, containerEl) {
-    console.log('Attempting to fetch via AllOrigins raw:', targetUrl);
-    containerEl.innerHTML = `<div class="loading">Fetching ${escapeHtml(targetUrl)} …</div>`;
+    containerEl.innerHTML = `<div class="loading">Please Wait....</div>`;
 
-    // prefer raw endpoint (returns HTML directly). If it fails, show error message.
     const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
     let text;
     try {
@@ -25589,60 +25740,45 @@ File Size: ${escapeHtml(f.size)}</pre>
       if (!resp.ok) throw new Error(`Proxy fetch failed: ${resp.status} ${resp.statusText}`);
       text = await resp.text();
     } catch (err) {
-      console.error('Primary proxy failed:', err);
-      // try alternate proxy (Codetabs) as a fallback
       const fallback = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
       try {
-        console.log('Trying fallback proxy (codetabs)...');
         const r2 = await fetch(fallback);
         if (!r2.ok) throw new Error(`Fallback fetch failed: ${r2.status} ${r2.statusText}`);
         text = await r2.text();
       } catch (err2) {
-        console.error('Fallback proxy failed too:', err2);
-        throw new Error('Both proxy fetches failed. See console for details.');
+        throw new Error('Both proxy fetches failed.');
       }
     }
 
-    // Now 'text' contains HTML (either JSON parse avoided, or direct HTML)
-    // Parse with DOMParser. If .download not found, try regex that extracts the first <div class="download">...</div>
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, 'text/html');
 
     let downloadDiv = doc.querySelector('.download');
     if (!downloadDiv) {
-      // fallback regex extraction (some pages might have minified or strange markup)
       const m = text.match(/<div[^>]*class=["']?download["']?[^>]*>[\s\S]*?<\/div>/i);
       if (m && m[0]) {
-        // parse the matched HTML fragment
         const fragDoc = parser.parseFromString(m[0], 'text/html');
         downloadDiv = fragDoc.body.firstElementChild;
       }
     }
 
     if (!downloadDiv) {
-      containerEl.innerHTML = `<div class="error">No <code>.download</code> section found on the fetched page.</div>`;
-      console.warn('No .download element found in fetched HTML. Full HTML saved to console for debugging.');
-      console.log(text.slice(0, 2000)); // print first chunk to console for debugging
+      containerEl.innerHTML = `<div class="error">No <code>.download</code> section found.</div>`;
       return;
     }
 
-    // Insert the extracted downloadDiv markup into the container
     containerEl.innerHTML = downloadDiv.outerHTML;
 
-    // Ensure links open in new tab and add rel attributes for safety
     containerEl.querySelectorAll('a').forEach(a => {
-      try {
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener noreferrer nofollow');
-      } catch(e){ /* ignore */ }
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer nofollow');
     });
   }
 
-  // Search behavior: only perform and show results when non-empty query is submitted
   function doSearch() {
     const q = qEl.value.trim();
     if (!q) {
-      outEl.innerHTML = `<div class="hint">Type a search term and press Search (or Enter).</div>`;
+      outEl.innerHTML = '<div class="hint">Type a search term and press Search (or Enter).</div>';
       return;
     }
     const lowered = q.toLowerCase();
@@ -25650,14 +25786,11 @@ File Size: ${escapeHtml(f.size)}</pre>
     renderResults(filtered);
   }
 
-  // Enter triggers search
   qEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
   searchBtn.addEventListener('click', doSearch);
 
-  // initial message (no results shown)
-  outEl.innerHTML = `<div class="hint">No results yet — type a search and click <strong>Search</strong>.</div>`;
+  outEl.innerHTML = '<div class="hint">No results yet — type a search and click <strong>Search</strong>.</div>';
 });
 </script>
-</body>
-</html>
 
+</html>
