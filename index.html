@@ -214,11 +214,11 @@ h1 {
   display: inline-block; /* Keep link width only as wide as content */
   padding: 6px 12px;
   margin: 4px 0;
-  background: var(--card);
+ 
   color: var(--accent);
   text-decoration: none;
   border-radius: 4px;
-  font-weight: bold;
+ 
   transition: background 0.2s, color 0.2s;
   text-align: center; /* Center text inside */
 }
@@ -266,9 +266,6 @@ h1 {
 
 </br>
 </br>
-  <div id="links"></div>
-<div id="number-section"></div>
-  <button id="backBtn">⬅ Back</button>
 
 <script>
 const excludedTexts = new Set([
@@ -25868,11 +25865,15 @@ Download Link: https://download.moviespage.site/download/page/36452
   qEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
   searchBtn.addEventListener('click', doSearch);
 
-  outEl.innerHTML = '<div class="hint">No results yet — type a search and click <strong>Search</strong>.</div>';
+  outEl.innerHTML = '<div class="hint">Search <strong>Full Movie Name</strong> Correctly.</div>';
 });
 </script>
+  <div id="links"></div>
+<div id="number-section"></div>
+  <button id="backBtn">⬅ Back</button>
 
 </html>
+
 
 
 
