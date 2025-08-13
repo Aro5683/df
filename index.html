@@ -298,7 +298,6 @@ const numberSection = document.getElementById('number-section');
 const backBtn = document.getElementById('backBtn');
 const proxyUrl = 'https://api.allorigins.win/get?url=';
 const historyStack = [];
-let lastGoodHTML = '';
 
 async function loadLinksFromUrl(url, isFinalPage = false) {
   mainContainer.innerHTML = `<div class="spinner-container"><div class="spinner"></div></div>`;
@@ -315,13 +314,13 @@ async function loadLinksFromUrl(url, isFinalPage = false) {
     const links = [...doc.querySelectorAll('a')];
     const validUl = [...doc.querySelectorAll('ul')].find(ul => !ul.closest('.incoming-search-terms'));
 
-    const fragLinks = document.createDocumentFragment();
-    const fragPages = document.createDocumentFragment();
-
     if (validUl) {
       const cloneLinks = [...validUl.querySelectorAll('a')];
       cloneLinks.forEach(link => links.push(link));
     }
+
+    const fragLinks = document.createDocumentFragment();
+    const fragPages = document.createDocumentFragment();
 
     links.forEach(link => {
       let text = link.textContent.trim();
@@ -370,10 +369,8 @@ async function loadLinksFromUrl(url, isFinalPage = false) {
     }
 
     backBtn.style.display = historyStack.length > 1 ? 'inline-block' : 'none';
-    lastGoodHTML = document.body.innerHTML;
   } catch (err) {
-    if (lastGoodHTML) document.body.innerHTML = lastGoodHTML;
-    console.error(err);
+    console.error("Fetch failed, keeping old content", err);
   }
 }
 
@@ -385,6 +382,7 @@ backBtn.onclick = () => {
 
 loadLinksFromUrl('https://moviesda12.com/');
 </script>
+
 
   <br/>
   <footer>&copy; 2025 Movies Aro. All rights reserved.</footer>
@@ -25872,6 +25870,7 @@ Download Link: https://download.moviespage.site/download/page/36452
 </script>
  
 </html>
+
 
 
 
