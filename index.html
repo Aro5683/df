@@ -189,72 +189,7 @@ h1 {
    
   </div>
 
-  <style>
  
-   #backBtn {
-    background: var(--accent2);
-    color: var(--text);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: none;
-    font-weight: bold;
-  }
-  #links, #number-section {
-    padding: 15px;
-  }
-  .link {
-    display: block;
-    padding: 6px 8px;
-    margin-bottom: 4px;
-    background: var(--card);
-    color: var(--accent);
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background 0.2s, color 0.2s;
-  }
-  .link:hover {
-    background: var(--accent);
-    color: var(--text);
-  }
-  .pages {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .pages a {
-    background: var(--card);
-    color: var(--text);
-    padding: 4px 8px;
-    border-radius: 3px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: background 0.2s, color 0.2s;
-  }
-  .pages a:hover {
-    background: var(--accent2);
-    color: var(--text);
-  }
-  .spinner-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-  }
-  .spinner {
-    width: 30px;
-    height: 30px;
-    border: 4px solid rgba(255,255,255,0.1);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
   <br/>
 <br/>
 <br/>
@@ -270,115 +205,6 @@ h1 {
 
 </br>
 </br>
-<div id="links"></div>
-<div id="number-section"></div>
-
-<script>
-const excludedTexts = new Set([
-  "Tamil Single Parts Movies","Tamil HD Mobile Movies","Tamil Dubbed Movies (Hollywood)",
-  "Tamil A to Z Movies","Latest Tamil Web Series","Tamil Dubbed Movies",
-  "Tamil Daily Movies","Moviesda Dubbed Movies","isaiDub Dubbed Movies",
-  "isaimini 2025 Movies","Request a Movie","Moviesda Home","Disclaimer",
-  "DMCA","Contact Us","About Us","Download Now","0-9",
-  "Facebook Fan Page","Watch Online Server 1","Watch Online Server 2","Home",
-  "SMS","Facebook","Twitter","Whatsapp","Telegram Channel",
-  "Latest Movies Updates","Tamil Movies Collection"
-]);
-
-const mainContainer = document.getElementById('links');
-const numberSection = document.getElementById('number-section');
-const backBtn = document.getElementById('backBtn');
-const proxyUrl = 'https://api.allorigins.win/get?url=';
-const historyStack = [];
-let lastGoodHTML = '';
-
-async function loadLinksFromUrl(url, isFinalPage = false) {
-  mainContainer.innerHTML = `<div class="spinner-container"><div class="spinner"></div></div>`;
-  numberSection.innerHTML = '';
-
-  if (!isFinalPage) historyStack.push(url);
-
-  try {
-    const res = await fetch(proxyUrl + encodeURIComponent(url));
-    const { contents } = await res.json();
-    const doc = new DOMParser().parseFromString(contents, 'text/html');
-    doc.querySelectorAll('.incoming-search-terms').forEach(el => el.remove());
-
-    const links = [...doc.querySelectorAll('a')];
-    const validUl = [...doc.querySelectorAll('ul')].find(ul => !ul.closest('.incoming-search-terms'));
-
-    const fragLinks = document.createDocumentFragment();
-    const fragPages = document.createDocumentFragment();
-
-    if (validUl) {
-      const cloneLinks = [...validUl.querySelectorAll('a')];
-      cloneLinks.forEach(link => links.push(link));
-    }
-
-    links.forEach(link => {
-      let text = link.textContent.trim();
-      let href = link.getAttribute('href');
-      if (!text || !href || excludedTexts.has(text)) return;
-      if (text.length === 1 && /[a-zA-Z]/.test(text)) return;
-
-      if (/moviesda(\.mobi)?/i.test(text)) {
-        text = 'Movies Aro - ' + text.replace(/moviesda(\.mobi)?/ig, '').trim();
-      }
-
-      if (href.startsWith('/')) href = 'https://moviesda12.com' + href;
-      else if (!href.startsWith('http')) href = 'https://moviesda12.com/' + href;
-
-      const match5 = href.match(/(\d{5})/);
-      if (!isFinalPage && match5) {
-        loadLinksFromUrl(`https://download.moviespage.site/download/page/${match5[1]}`, true);
-        return;
-      }
-
-      const isDigit = /^\d{1,2}$/.test(text);
-      const a = document.createElement('a');
-      a.className = 'link';
-      a.textContent = isDigit ? text + ' Page' : text;
-
-      if (isFinalPage) {
-        a.href = href;
-        a.target = '_self';
-      } else {
-        a.href = '#';
-        a.onclick = e => { e.preventDefault(); loadLinksFromUrl(href); };
-      }
-
-      if (isDigit) fragPages.appendChild(a);
-      else fragLinks.appendChild(a);
-    });
-
-    mainContainer.innerHTML = '';
-    mainContainer.appendChild(fragLinks);
-
-    if (fragPages.childNodes.length) {
-      const pagesDiv = document.createElement('div');
-      pagesDiv.className = 'pages';
-      pagesDiv.appendChild(fragPages);
-      numberSection.appendChild(pagesDiv);
-    }
-
-    backBtn.style.display = historyStack.length > 1 ? 'inline-block' : 'none';
-    lastGoodHTML = document.body.innerHTML;
-  } catch (err) {
-    if (lastGoodHTML) document.body.innerHTML = lastGoodHTML;
-    console.error(err);
-  }
-}
-
-backBtn.onclick = () => {
-  historyStack.pop();
-  const prev = historyStack.pop();
-  if (prev) loadLinksFromUrl(prev);
-};
-
-loadLinksFromUrl('https://moviesda12.com/');
-</script>
-
-
 
   
 <br/>
@@ -25868,6 +25694,7 @@ Download Link: https://download.moviespage.site/download/page/36452
 </script>
  
 </html>
+
 
 
 
