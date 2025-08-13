@@ -174,80 +174,126 @@ h1 {
 }
 
   </style>
-<style>
- 
-  #backBtn {
-    background: var(--accent2);
-    color: var(--text);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: none;
-    font-weight: bold;
+ <style>
+.link-container {
+    padding: 0.rem 1rem;
+    transition: background-color 0.3s ease;
+   
+   
+    border-radius: 8px;
+    margin-bottom: 12px;
   }
-  #links, #number-section {
-    padding: 15px;
-  }
-  #links {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers all .link elements */
-}
 
-.link {
-  display: inline-block; /* Keep link width only as wide as content */
-  
-  margin: 4px 0;
  
-  color: var(--accent);
-  text-decoration: none;
-  border-radius: 4px;
- 
-  transition: background 0.2s, color 0.2s;
-  text-align: center; /* Center text inside */
-}
 
-  .link:hover {
-    background: var(--accent);
-    color: var(--text);
-  }
-  .pages {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .pages a {
-    background: var(--card);
-    color: var(--text);
-    padding: 4px 8px;
-    border-radius: 3px;
+  .link-name {
+    font-weight: 600;
+    font-size: 1.1rem;
     text-decoration: none;
-    font-size: 0.85rem;
-    transition: background 0.2s, color 0.2s;
+    color: #00eaff;
+    display: block;
+    margin-top: 0.3rem;
+text-align:center;
   }
-  .pages a:hover {
-    background: var(--accent2);
-    color: var(--text);
+
+  .link-name:hover {
+    text-decoration: underline;
   }
+
+  .section-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+    color: #ffffffcc;
+    text-align: center;
+  }
+
+  .number-links {
+    display: flex;
+    overflow-x: auto;
+    padding: 0.5rem 1rem 1rem;
+    gap: 0.6rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .number-links .link-container {
+    min-width: 64px;
+    flex-shrink: 0;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    scroll-snap-align: start;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+
+  img {
+    width: 0%;
+    border-radius: 6px;
+    margin-top: 0.6rem;
+  }
+
+
   .spinner-container {
     display: flex;
     justify-content: center;
-    padding: 20px 0;
+    align-items: center;
+    min-height: 120px;
   }
+
   .spinner {
-    width: 30px;
-    height: 30px;
-    border: 4px solid rgba(255,255,255,0.1);
-    border-top-color: var(--accent);
+    width: 40px;
+    height: 40px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top: 5px solid #00c6ff;
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
+
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
+
+  li a.coral {
+    color: white;
+  
+    text-decoration: none;
+    display: none;
+  }
+li a.coral strong {
+  font-weight: normal;
+}
+
+
+  li a.coral:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  li {
+    list-style-type: none;
+    margin-bottom: 10px;
+  }
+
+ 
+
+    #backBtn, #homeBtn {
+      width: 45%;
+      font-size: 0.85rem;
+    }
+
+    .link-name {
+      font-size: 0.95rem;
+    }
+
+    .number-links .link-container {
+      min-width: 56px;
+      font-size: 0.85rem;
+    }
+  }
 </style>
+
 
   <div class="wrap">
     <h1>🎬 Movies Aro</h1>
@@ -277,21 +323,26 @@ h1 {
 <br/>
 
 <div>
-<div id="links"></div>
-<div id="number-section"></div>
-<button id="backBtn">⬅ Back</button>
+  <div>
+<div id="links">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+  </div>
 </div>
-<script>
-const excludedTexts = new Set([
-  "Tamil Single Parts Movies","Tamil HD Mobile Movies","Tamil Dubbed Movies (Hollywood)",
-  "Tamil A to Z Movies","Latest Tamil Web Series","Tamil Dubbed Movies",
-  "Tamil Daily Movies","Moviesda Dubbed Movies","isaiDub Dubbed Movies",
-  "isaimini 2025 Movies","Request a Movie","Moviesda Home","Disclaimer",
-  "DMCA","Contact Us","About Us","Download Now","0-9",
-  "Facebook Fan Page","Watch Online Server 1","Watch Online Server 2","Home",
-  "SMS","Facebook","Twitter","Whatsapp","Telegram Channel",
-  "Latest Movies Updates","Tamil Movies Collection"
-]);
+
+<div id="number-section"></div>
+<button id="backBtn" style="display:none; margin-bottom: 20px;"> Back</button></div>
+ <script>
+
+const excludedTexts = [
+  "Tamil Single Parts Movies", "Tamil HD Mobile Movies", "Tamil Dubbed Movies (Hollywood)",
+  "Tamil A to Z Movies", "Latest Tamil Web Series", "Tamil Dubbed Movies",
+  "Tamil Daily Movies", "Moviesda Dubbed Movies", "isaiDub Dubbed Movies",
+  "isaimini 2025 Movies", "Request a Movie", "Moviesda Home", "Disclaimer",
+  "DMCA", "Contact Us", "About Us", "Download Now",
+  "0-9", "Facebook Fan Page", "Watch Online Server 1", "Watch Online Server 2", "Home",
+  "SMS", "Facebook", "Twitter", "Whatsapp", "Telegram Channel","Latest Movies Updates","Tamil Movies Collection"
+];
 
 const mainContainer = document.getElementById('links');
 const numberSection = document.getElementById('number-section');
@@ -299,88 +350,172 @@ const backBtn = document.getElementById('backBtn');
 const proxyUrl = 'https://api.allorigins.win/get?url=';
 const historyStack = [];
 
-async function loadLinksFromUrl(url, isFinalPage = false) {
-  mainContainer.innerHTML = `<div class="spinner-container"><div class="spinner"></div></div>`;
+async function loadLinksFromUrl(url, isFinalPage = false, retries = 5) {
+  mainContainer.innerHTML = `
+  <div class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+`;
+
   numberSection.innerHTML = '';
 
   if (!isFinalPage) historyStack.push(url);
 
   try {
-    const res = await fetch(proxyUrl + encodeURIComponent(url));
-    const { contents } = await res.json();
-    const doc = new DOMParser().parseFromString(contents, 'text/html');
-    doc.querySelectorAll('.incoming-search-terms').forEach(el => el.remove());
+    const response = await fetch(proxyUrl + encodeURIComponent(url));
+    const data = await response.json();
+    const html = data.contents;
 
-    const links = [...doc.querySelectorAll('a')];
-    const validUl = [...doc.querySelectorAll('ul')].find(ul => !ul.closest('.incoming-search-terms'));
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
 
-    if (validUl) {
-      const cloneLinks = [...validUl.querySelectorAll('a')];
-      cloneLinks.forEach(link => links.push(link));
+    // ❌ Remove unwanted containers
+       doc.querySelectorAll('.incoming-search-terms').forEach(el => el.remove());
+    const links = doc.querySelectorAll('a');
+    const imgs = doc.querySelectorAll('img');
+
+    // ✅ Find first valid <ul> outside excluded containers
+    let validUl = null;
+    const allUls = doc.querySelectorAll('ul');
+    for (const ul of allUls) {
+      if (!ul.closest('.incoming-search-terms')) {
+        validUl = ul;
+        break;
+      }
     }
 
-    const fragLinks = document.createDocumentFragment();
-    const fragPages = document.createDocumentFragment();
-
-    links.forEach(link => {
-      let text = link.textContent.trim();
-      let href = link.getAttribute('href');
-      if (!text || !href || excludedTexts.has(text)) return;
-      if (text.length === 1 && /[a-zA-Z]/.test(text)) return;
-
-      if (/moviesda(\.mobi)?/i.test(text)) {
-        text = 'Movies Aro - ' + text.replace(/moviesda(\.mobi)?/ig, '').trim();
-      }
-
-      if (href.startsWith('/')) href = 'https://moviesda12.com' + href;
-      else if (!href.startsWith('http')) href = 'https://moviesda12.com/' + href;
-
-      const match5 = href.match(/(\d{5})/);
-      if (!isFinalPage && match5) {
-        loadLinksFromUrl(`https://download.moviespage.site/download/page/${match5[1]}`, true);
-        return;
-      }
-
-      const isDigit = /^\d{1,2}$/.test(text);
-      const a = document.createElement('a');
-      a.className = 'link';
-      a.textContent = isDigit ? text + ' Page' : text;
-
-      if (isFinalPage) {
-        a.href = href;
-        a.target = '_self';
-      } else {
-        a.href = '#';
-        a.onclick = e => { e.preventDefault(); loadLinksFromUrl(href); };
-      }
-
-      if (isDigit) fragPages.appendChild(a);
-      else fragLinks.appendChild(a);
-    });
-
     mainContainer.innerHTML = '';
-    mainContainer.appendChild(fragLinks);
+    const numberContainer = document.createElement('div');
+    numberContainer.className = 'number-links';
 
-    if (fragPages.childNodes.length) {
-      const pagesDiv = document.createElement('div');
-      pagesDiv.className = 'pages';
-      pagesDiv.appendChild(fragPages);
-      numberSection.appendChild(pagesDiv);
+    // 🖼️ Render images (skip .gif)
+   // 1️⃣ Render Images First (excluding those under <div class="bf">)
+imgs.forEach(img => {
+  // Skip images inside <div class="bf">
+  if (img.closest('.bf')) return;
+
+  let src = img.getAttribute('src');
+  if (!src || src.toLowerCase().endsWith('.gif')) return;
+
+  if (src.startsWith('/')) {
+    src = 'https://moviesda12.com' + src;
+  } else if (!src.startsWith('http')) {
+    src = 'https://moviesda12.com/' + src;
+  }
+
+  const div = document.createElement('div');
+  div.className = 'link-container';
+  const imageElement = document.createElement('img');
+  imageElement.src = src;
+  imageElement.style.maxWidth = '100%';
+  imageElement.style.height = 'auto';
+  div.appendChild(imageElement);
+  mainContainer.appendChild(div);
+});
+
+
+    // 📄 Render first valid <ul>
+    if (validUl) {
+      const ulClone = validUl.cloneNode(true);
+      const div = document.createElement('div');
+      div.className = 'link-container';
+      div.appendChild(ulClone);
+      mainContainer.appendChild(div);
+    }
+
+    // 🔗 Render links
+links.forEach(link => {
+  let text = link.textContent.trim();
+  let href = link.getAttribute('href');
+  if (!text || !href || excludedTexts.includes(text)) return;
+  if (text.length === 1 && /[a-zA-Z]/.test(text)) return;
+
+  // ✅ Rename if contains 'Moviesda' or 'Moviesda.mobi'
+  if (/moviesda(\.mobi)?/i.test(text)) {
+    text = 'Movies Aro - ' + text.replace(/moviesda(\.mobi)?/ig, '').trim();
+  }
+
+  if (href.startsWith('/')) href = 'https://moviesda12.com' + href;
+  else if (!href.startsWith('http')) href = 'https://moviesda12.com/' + href;
+
+  const match5Digit = href.match(/(\d{5})/);
+  let finalHref = href;
+  let finalPage = isFinalPage;
+
+  if (!isFinalPage && match5Digit) {
+    finalHref = 'https://download.moviespage.site/download/page/' + match5Digit[1];
+    loadLinksFromUrl(finalHref, true);
+    return;
+  }
+
+  const isDigit = /^\d{1,2}$/.test(text);
+  if (isDigit) text += ' Page';
+
+  const div = document.createElement('div');
+  div.className = 'link-container';
+
+  const nameLink = document.createElement('a');
+  nameLink.textContent = text;
+  nameLink.className = 'link-name';
+
+  if (finalPage) {
+    nameLink.href = finalHref;
+    nameLink.target = '_self';
+    nameLink.rel = 'noopener noreferrer';
+  } else {
+    nameLink.href = '#';
+    nameLink.addEventListener('click', e => {
+      e.preventDefault();
+      loadLinksFromUrl(finalHref);
+    });
+  }
+
+  div.appendChild(nameLink);
+
+  if (isDigit) numberContainer.appendChild(div);
+  else mainContainer.appendChild(div);
+});
+
+
+    if (numberContainer.children.length > 0) {
+      const title = document.createElement('div');
+      title.className = 'section-title';
+      title.textContent = ' Pages:';
+      numberSection.appendChild(title);
+      numberSection.appendChild(numberContainer);
     }
 
     backBtn.style.display = historyStack.length > 1 ? 'inline-block' : 'none';
+    if (mainContainer.innerHTML === '' && numberSection.innerHTML === '') {
+      mainContainer.textContent = 'No valid content';
+    }
+
   } catch (err) {
-    console.error("Fetch failed, keeping old content", err);
+    if (retries > 0) {
+      console.warn(`Retrying ${url}...`);
+      setTimeout(() => loadLinksFromUrl(url, isFinalPage, retries - 1), 1000);
+    } else {
+      mainContainer.textContent = 'Check your Internet or Refresh ';
+      console.error(err);
+    }
   }
 }
 
-backBtn.onclick = () => {
+// 🔙 Back button
+backBtn.addEventListener('click', () => {
   historyStack.pop();
   const prev = historyStack.pop();
   if (prev) loadLinksFromUrl(prev);
-};
+});
+    
+   
 
+
+// 🚀 Start
 loadLinksFromUrl('https://moviesda12.com/');
+
+
+
 </script>
 
 
@@ -25870,6 +26005,7 @@ Download Link: https://download.moviespage.site/download/page/36452
 </script>
  
 </html>
+
 
 
 
