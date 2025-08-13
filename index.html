@@ -288,7 +288,6 @@ h1 {
   </div>
 
   <div id="number-section"></div>
-  <br/>
   <button id="backBtn" style="display:none; margin-bottom: 20px;">Back</button>
 </div>
 
@@ -306,7 +305,7 @@ const excludedTexts = [
 const mainContainer = document.getElementById('links');
 const numberSection = document.getElementById('number-section');
 const backBtn = document.getElementById('backBtn');
-const proxyUrl = 'https://api.allorigins.win/get?url=';
+const proxyUrl = 'https://api.codetabs.com/v1/proxy/?quest='; // ✅ More stable than allorigins
 const historyStack = [];
 
 async function loadLinksFromUrl(url, isFinalPage = false) {
@@ -316,13 +315,13 @@ async function loadLinksFromUrl(url, isFinalPage = false) {
 
   try {
     const response = await fetch(proxyUrl + encodeURIComponent(url));
-    const data = await response.json();
-    const doc = new DOMParser().parseFromString(data.contents, 'text/html');
+    if (!response.ok) throw new Error("Network Error");
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
 
     doc.querySelectorAll('.incoming-search-terms').forEach(el => el.remove());
 
     const links = doc.querySelectorAll('a');
-    const imgs = doc.querySelectorAll('img');
 
     // Find first valid <ul>
     let validUl = null;
@@ -333,23 +332,6 @@ async function loadLinksFromUrl(url, isFinalPage = false) {
     mainContainer.innerHTML = '';
     const numberContainer = document.createElement('div');
     numberContainer.className = 'number-links';
-
-    // Render images
-    imgs.forEach(img => {
-      if (img.closest('.bf')) return;
-      let src = img.getAttribute('src');
-      if (!src || src.toLowerCase().endsWith('.gif')) return;
-      if (src.startsWith('/')) src = 'https://moviesda12.com' + src;
-      else if (!src.startsWith('http')) src = 'https://moviesda12.com/' + src;
-      const div = document.createElement('div');
-      div.className = 'link-container';
-      const imageElement = document.createElement('img');
-      imageElement.src = src;
-      imageElement.style.maxWidth = '100%';
-      imageElement.style.height = 'auto';
-      div.appendChild(imageElement);
-      mainContainer.appendChild(div);
-    });
 
     // Render first valid <ul>
     if (validUl) {
@@ -415,8 +397,8 @@ async function loadLinksFromUrl(url, isFinalPage = false) {
       mainContainer.textContent = 'No valid content';
     }
   } catch (err) {
-    mainContainer.textContent = 'Check your Internet or Refresh';
     console.error(err);
+    mainContainer.textContent = 'No valid content';
   }
 }
 
@@ -430,6 +412,7 @@ backBtn.addEventListener('click', () => {
 // Start
 loadLinksFromUrl('https://moviesda12.com/');
 </script>
+
 
   <br/>
   <footer>&copy; 2025 Movies Aro. All rights reserved.</footer>
@@ -25917,6 +25900,7 @@ Download Link: https://download.moviespage.site/download/page/36452
 </script>
  
 </html>
+
 
 
 
